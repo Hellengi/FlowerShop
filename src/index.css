@@ -1,3 +1,64 @@
-h1 {
-    color: blue;
+@font-face {
+    font-family: Balsamiq_Sans_Regular;
+    src: url("balsamiq_sans/BalsamiqSans-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: Balsamiq_Sans_Bold;
+    src: url("balsamiq_sans/BalsamiqSans-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: Balsamiq_Sans_Italic;
+    src: url("balsamiq_sans/BalsamiqSans-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: Balsamiq_Sans_Bold_Italic;
+    src: url("balsamiq_sans/BalsamiqSans-BoldItalic.ttf") format("truetype");
+}
+body {
+    margin: 0;
+    font-family: Balsamiq_Sans_Regular, serif;
+}
+.header {
+    height: 64px;
+    background-color: #AFA;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 64px auto auto;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+    height: 64px;
+}
+.search {
+    width: 400px;
+    height: 32px;
+    font-family: Balsamiq_Sans_Regular, serif;
+}
+.user {
+    display: flex;
+    gap: 12px;
+}
+.button {
+    height: 36px;
+    font-family: Balsamiq_Sans_Regular, serif;
+}
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+.block {
+    width: 320px;
+    height: 480px;
+    margin: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.block:after {
+    content: "FLOWER";
+    line-height: 480px;
+    font-size: 2em;
 }
