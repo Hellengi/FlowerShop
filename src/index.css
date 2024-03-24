@@ -17,6 +17,7 @@
 body {
     margin: 0;
     font-family: Balsamiq_Sans_Regular, serif;
+    overflow-x: hidden;
 }
 button {
     font-family: Balsamiq_Sans_Regular, serif;
@@ -24,56 +25,4 @@ button {
 }
 input{
     font-family: Balsamiq_Sans_Regular, serif;
-}
-.header {
-    height: 64px;
-    background-color: #AFA;
-    padding: 12px;
-    display: grid;
-    grid-template-columns: 64px auto auto;
-    gap: 12px;
-    align-items: center;
-    justify-content: space-between;
-}
-.logo {
-    height: 64px;
-}
-.search {
-    width: 400px;
-    height: 32px;
-}
-.user {
-    display: flex;
-    gap: 12px;
-}
-.button {
-    height: 36px;
-}
-.catalog {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-}
-.block {
-    width: 320px;
-    height: 480px;
-    margin: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-.block:after {
-    content: "FLOWER";
-    line-height: 480px;
-    font-size: 2em;
-}
-.sub-header {
-    margin: 24px 96px;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: right;
-}
-.to-the-manual {
-    font-size: 1.2em;
-    width: 7em;
 }

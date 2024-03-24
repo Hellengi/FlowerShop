@@ -35,7 +35,7 @@ class BackImage extends React.Component {
     }
     handleResize = ()=>{
         this.setState(()=>{
-            const mobile = window.innerHeight / window.innerWidth > 8160 / 6120
+            const mobile = window.innerHeight / window.innerWidth > 4080 / 3060
             return {
                 imageLength: mobile ? this.backImage.current.offsetWidth : this.backImage.current.offsetHeight,
                 innerLength: mobile ? window.innerWidth : window.innerHeight,

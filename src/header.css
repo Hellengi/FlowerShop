@@ -1,0 +1,25 @@
+.header {
+    height: 64px;
+    background-color: #AFA;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 64px auto auto;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px
+}
+.logo {
+    height: 64px;
+}
+.search {
+    width: 400px;
+    height: 32px;
+}
+.user {
+    display: flex;
+    gap: 12px;
+}
+.button {
+    height: 36px;
+}
