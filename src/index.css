@@ -18,6 +18,13 @@ body {
     margin: 0;
     font-family: Balsamiq_Sans_Regular, serif;
 }
+button {
+    font-family: Balsamiq_Sans_Regular, serif;
+    cursor: pointer;
+}
+input{
+    font-family: Balsamiq_Sans_Regular, serif;
+}
 .header {
     height: 64px;
     background-color: #AFA;
@@ -34,7 +41,6 @@ body {
 .search {
     width: 400px;
     height: 32px;
-    font-family: Balsamiq_Sans_Regular, serif;
 }
 .user {
     display: flex;
@@ -42,9 +48,8 @@ body {
 }
 .button {
     height: 36px;
-    font-family: Balsamiq_Sans_Regular, serif;
 }
-.main {
+.catalog {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -61,4 +66,14 @@ body {
     content: "FLOWER";
     line-height: 480px;
     font-size: 2em;
+}
+.sub-header {
+    margin: 24px 96px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: right;
+}
+.to-the-manual {
+    font-size: 1.2em;
+    width: 7em;
 }

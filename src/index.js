@@ -1,13 +1,25 @@
 import React from "react";
 import ReactDOM from 'react-dom/client'
+import BackImage from "./back";
 import './index.css'
 const Root = ReactDOM.createRoot(document.getElementById("root"))
 class Body extends React.Component {
     render() {
         return (
             <div>
+                <BackImage/>
                 <Header/>
                 <Main/>
+            </div>
+        )
+    }
+}
+class Main extends React.Component {
+    render() {
+        return (
+            <div>
+                <SubHeader></SubHeader>
+                <Catalog/>
             </div>
         )
     }
@@ -24,7 +36,7 @@ class Header extends React.Component {
     }
 }
 function Logo() {
-    return <img src={"flowers-icon.png"} alt={""} className={"logo"}/>
+    return <img src={"flower-icon.png"} alt={""} className={"logo"}/>
 }
 function Search() {
     return <input type={"text"} placeholder={"Поиск..."} className={"search"}></input>
@@ -71,18 +83,28 @@ function LogOut({logStatusChange}) {
 function Profile() {
     return <button className={"button"}>Профиль</button>
 }
-class Main extends React.Component {
+class Catalog extends React.Component {
     render() {
         const blocks = []
         for (let i = 0; i < 24; i++) {
-            blocks.push(<Block/>)
+            blocks.push(<Block key={i}/>)
         }
         return (
-            <main className={"main"}>
+            <main className={"catalog"}>
                 {blocks}
             </main>
         )
     }
+}
+function SubHeader() {
+    return (
+        <div className={"sub-header"}>
+            <ToTheManual></ToTheManual>
+        </div>
+    )
+}
+function ToTheManual() {
+    return <button className={"to-the-manual"}>Составить свой букет →</button>
 }
 function Block() {
     function RandomColor() {
