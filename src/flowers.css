@@ -1,3 +1,40 @@
 .flowers {
     grid-column-start: 2;
+    margin: 20px 10vw;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-color: #030A;
+    backdrop-filter: blur(4px);
+    border: solid black 1px;
+    border-radius: 6px;
+    padding: 20px;
+}
+.list-of-flowers-container {
+    display: grid;
+    grid-auto-flow: column;
+}
+.list-of-flowers {
+
+}
+.block_ {
+    width: 320px;
+    height: 120px;
+    margin: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.block_:after {
+    content: "FLOWER";
+    line-height: 120px;
+    font-size: 2em;
+}
+.selected-flowers {
+    margin: 20px;
+    position: sticky;
+    top: 20px;
+    background-color: #030A;
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    max-height: 80vh;
+
 }

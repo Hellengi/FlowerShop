@@ -73,7 +73,7 @@ class SubHeader extends React.Component {
                             mainSwitch(true)
                             this.buttonSwitch(true)
                         }}
-                        className={"to-bouquets"}
+                        className={"to-bouquets standard-button"}
                     >← Выбрать из готовых букетов</button>}
                 </div>
                 <div className={"to-flowers-container"} style={{transform: `translateX(${mainStatus ? "0" : "50vw"})`}}>
@@ -82,7 +82,7 @@ class SubHeader extends React.Component {
                             mainSwitch(false)
                             this.buttonSwitch(false)
                         }}
-                        className={"to-flowers"}
+                        className={"to-flowers standard-button"}
                     >Составить свой букет →</button>}
                 </div>
             </div>

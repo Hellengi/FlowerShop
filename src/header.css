@@ -1,6 +1,12 @@
+@font-face {
+    font-family: Dancing_Script_Bold;
+    src: url("dancing_script/DancingScript-Bold.ttf") format("truetype");
+}
 .header {
     height: 64px;
-    background-color: #AFA;
+    background-color: #AFAA;
+    backdrop-filter: blur(4px);
+    border: white solid 1px;
     padding: 12px;
     display: grid;
     grid-template-columns: 64px auto auto;
@@ -9,12 +15,33 @@
     justify-content: space-between;
     margin-bottom: 20px
 }
+.logo-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 12px;
+    align-items: center;
+    user-select: none;
+}
 .logo {
-    height: 64px;
+    height: 48px;
+}
+.logo-name {
+    margin: 0;
+    font-size: 1.4em;
+    color: #030;
+    font-family: Dancing_Script_Bold, serif;
 }
 .search {
     width: 400px;
     height: 32px;
+    padding: 5px;
+    border: #030 solid 1px;
+    border-radius: 4px;
+    outline: none;
+}
+.search:focus {
+    border: none;
+    outline: #030 solid 2px;
 }
 .user {
     display: flex;

@@ -13,7 +13,12 @@ class Header extends React.Component {
     }
 }
 function Logo() {
-    return <img src={"flower-icon.png"} alt={""} className={"logo"}/>
+    return (
+        <div className={"logo-container"}>
+            <img src={"flower-icon.png"} alt={""} className={"logo"}/>
+            <p className={"logo-name"}>Flower Shop</p>
+        </div>
+    )
 }
 function Search() {
     return <input type={"text"} placeholder={"Поиск..."} className={"search"}></input>
@@ -47,7 +52,6 @@ class User extends React.Component {
         return (
             <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
                 <Cart/>
-                {logged && <Favorites/>}
                 {logged && <Profile/>}
                 {logged ? <LogOut logStatusChange={this.logStatusChange}/> : <LogIn logStatusChange={this.logStatusChange}/>}
             </div>
@@ -56,9 +60,6 @@ class User extends React.Component {
 }
 function Cart() {
     return <button className={"button"}>Корзина</button>
-}
-function Favorites() {
-    return <button className={"button"}>Избранное</button>
 }
 function LogIn({logStatusChange}) {
     return <button onClick={logStatusChange} className={"button"}>Войти</button>
