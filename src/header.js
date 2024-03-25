@@ -7,7 +7,11 @@ class Header extends React.Component {
             <header className={"header"}>
                 <Logo/>
                 <Search/>
-                <User/>
+                <User
+                    enterLoginPage={this.props.enterLoginPage}
+                    cancelLogin={this.props.cancelLogin}
+                    logged={this.props.logged}
+                />
             </header>
         )
     }
@@ -26,34 +30,20 @@ function Search() {
 class User extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            logged: true
-        }
-        this.logStatusChange = this.logStatusChange.bind(this)
+        this.exit = this.exit.bind(this)
     }
-    logStatusChange() {
-        let confirmed = true
-        if (this.state.logged) {
-            confirmed = window.confirm("Вы действительно хотите выйти из аккаунта?")
+    exit() {
+        if (this.props.logged && window.confirm("Вы действительно хотите выйти из аккаунта?")) {
+            this.props.cancelLogin()
         }
-        this.setState(prevState => {
-            if (prevState.logged) {
-                if (confirmed) return {
-                    logged: false
-                }
-            }
-            else return {
-                logged: true
-            }
-        })
     }
     render() {
-        const {logged} = this.state
+        const {logged} = this.props
         return (
             <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
                 <Cart/>
                 {logged && <Profile/>}
-                {logged ? <LogOut logStatusChange={this.logStatusChange}/> : <LogIn logStatusChange={this.logStatusChange}/>}
+                {logged ? <LogOut exit={this.exit}/> : <LogIn enterLoginPage={this.props.enterLoginPage}/>}
             </div>
         )
     }
@@ -61,11 +51,13 @@ class User extends React.Component {
 function Cart() {
     return <button className={"button"}>Корзина</button>
 }
-function LogIn({logStatusChange}) {
-    return <button onClick={logStatusChange} className={"button"}>Войти</button>
+function LogIn({enterLoginPage}) {
+    return <button onClick={() => {
+        enterLoginPage()
+    }} className={"button"}>Войти</button>
 }
-function LogOut({logStatusChange}) {
-    return <button onClick={logStatusChange} className={"button"}>Выйти</button>
+function LogOut({exit}) {
+    return <button onClick={exit} className={"button"}>Выйти</button>
 }
 function Profile() {
     return <button className={"button"}>Профиль</button>
