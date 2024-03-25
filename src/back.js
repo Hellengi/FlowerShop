@@ -27,7 +27,7 @@ class BackImage extends React.Component {
     }
     handleScroll = ()=>{
         window.requestAnimationFrame((/*callback*/)=>{
-            const { imageLength, innerLength, scrollHeight, mobile } = this.state
+            const { imageLength, innerLength, scrollHeight } = this.state
             let translate = 0
             translate = -Math.min(window.scrollY / 2, (imageLength - innerLength) * window.scrollY / (scrollHeight - innerLength))
             this.setState({ translate })
@@ -35,7 +35,7 @@ class BackImage extends React.Component {
     }
     handleResize = ()=>{
         this.setState(()=>{
-            const mobile = window.innerHeight / window.innerWidth > 4080 / 3060
+            const mobile = window.innerHeight / window.innerWidth > 3 / 2
             return {
                 imageLength: mobile ? this.backImage.current.offsetWidth : this.backImage.current.offsetHeight,
                 innerLength: mobile ? window.innerWidth : window.innerHeight,
@@ -48,7 +48,7 @@ class BackImage extends React.Component {
         const { translate } = this.state
         return (
             <img
-                src={"flower-field.jpg"}
+                src={"back.jpg"}
                 alt={""}
                 id={"back-image"}
                 style={{transform: `translate${this.state.mobile ? 'X' : 'Y'}(${translate}px)`}}

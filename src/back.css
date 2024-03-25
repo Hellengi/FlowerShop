@@ -3,7 +3,7 @@
     position: fixed;
     z-index: -1;
 }
-@media screen and (max-aspect-ratio: 3060 / 4080) {
+@media screen and (max-aspect-ratio: 2 / 3) {
     #back-image {
         width: initial;
         height: 100vh;

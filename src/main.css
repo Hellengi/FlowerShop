@@ -3,34 +3,13 @@
     grid-template-columns: 100vw 100vw;
     transition: transform 1s;
 }
-.main-catalog-container {
+.bouquets-container {
     transform-origin: top;
     transition: transform 1s;
 }
-.manual-catalog-container {
+.flowers-container {
     transform-origin: top;
     transition: transform 1s;
-}
-.main-catalog {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-}
-.manual-catalog {
-    grid-column-start: 2;
-}
-.block {
-    width: 320px;
-    height: 480px;
-    margin: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-.block:after {
-    content: "FLOWER";
-    line-height: 480px;
-    font-size: 2em;
 }
 .sub-header {
     margin: 0 96px;
@@ -38,15 +17,20 @@
     grid-template-columns: auto auto;
     justify-content: space-between;
 }
-.to-the-manual {
+.to-flowers {
     font-size: 1.2em;
     width: 7em;
+}
+.to-flowers-container {
     transform: translateX(0);
     transition: transform 1s ease-in-out;
+    grid-column-start: 2;
 }
-.from-the-manual {
+.to-bouquets {
     font-size: 1.2em;
     width: 9em;
+}
+.to-bouquets-container {
     transform: translateX(-50vw);
     transition: transform 1s ease-in-out;
 }
