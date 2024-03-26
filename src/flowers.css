@@ -13,6 +13,19 @@
     display: grid;
     grid-auto-flow: column;
 }
+.list-of-flowers-search {
+    margin: 10px 20px;
+    padding: 5px;
+    font-size: 1em;
+    background-color: #030A;
+    color: #BDB;
+    border: #030F solid 1px;
+    outline: none;
+}
+.list-of-flowers-search:focus {
+    background-color: #030F;
+    outline: #020F solid 2px;
+}
 .list-of-flowers {
 
 }
@@ -28,13 +41,29 @@
     line-height: 120px;
     font-size: 2em;
 }
-.selected-flowers {
+.selected-flowers-container {
+    color: #BDB;
     margin: 20px;
+    padding: 20px;
+    text-align: center;
     position: sticky;
     top: 20px;
-    background-color: #030A;
     backdrop-filter: blur(4px);
     border-radius: 10px;
-    max-height: 80vh;
-
+    max-height: calc(100vh - 40px);
+}
+.selected-flowers {
+    font-size: 1.4em;
+}
+.bouquet-created {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.4em;
+}
+.selected-flowers-container > button {
+    font-size: 0.8em;
+    width: 160px;
 }

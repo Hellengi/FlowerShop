@@ -38,6 +38,7 @@
     border: #030 solid 1px;
     border-radius: 4px;
     outline: none;
+    font-size: 1em;
 }
 .search:focus {
     border: none;

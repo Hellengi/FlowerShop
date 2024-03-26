@@ -7,7 +7,7 @@ class Bouquets extends React.Component {
         super(props);
         this.blocks = []
         for (let i = 0; i < 24; i++) {
-            this.blocks.push(<Card key={i}/>)
+            this.blocks.push(<Card key={i} openImage={this.props.openImage} minimized={false}/>)
         }
         this.state = {
             blocks: this.blocks

@@ -16,6 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: zoom-in;
 }
 .card-name {
     margin: 10px;
@@ -37,5 +38,64 @@
     background-color: #030C;
 }
 .card-in-cart {
+    background-color: #860C;
+}
+.card-minimized {
+    margin: 20px;
+    height: 80px;
+    border-radius: 10px;
+    text-align: center;
+    color: #BDB;
+    background-color: #030A;
+    backdrop-filter: blur(4px);
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    align-items: center;
+    justify-content: space-between;
+}
+.card-picture-container-minimized {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-in;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column: 1;
+}
+.card-name-minimized {
+    margin: 5px;
+    font-family: Balsamiq_Sans_Bold, serif;
+    font-size: 1.4em;
+    grid-row: 1;
+    grid-column: 2;
+}
+.card-price-minimized {
+    margin: 5px;
+    font-family: Balsamiq_Sans_Italic, serif;
+    grid-row: 2;
+    grid-column: 2;
+}
+.card-minimized > button {
+    margin: 10px;
+    padding: 0;
+    font-size: 2em;
+    color: white;
+    border: none;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column: 3;
+    height: 40px;
+    width: 40px;
+}
+.card-to-cart-minimized {
+    background-color: #030C;
+}
+.card-in-cart-minimized {
     background-color: #860C;
 }

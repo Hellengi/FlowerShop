@@ -33,10 +33,10 @@ class Main extends React.Component {
                 <SubHeader mainSwitch={this.mainSwitch} mainStatus={this.state.mainStatus}></SubHeader>
                 <div className={"main-body"} style={{transform: `translateX(${this.state.mainStatus ? "0" : "-100vw"})`}}>
                     <div className={"bouquets-container"} style={{transform: `rotate(${this.state.mainStatus ? "0" : "35deg"})`}}>
-                        {this.state.bouquetsDisplayed && <Bouquets/>}
+                        {this.state.bouquetsDisplayed && <Bouquets openImage={this.props.openImage}/>}
                     </div>
                     <div className={"flowers-container"} style={{transform: `rotate(${this.state.mainStatus ? "-35deg" : "0"})`}}>
-                        {this.state.flowersDisplayed && <Flowers/>}
+                        {this.state.flowersDisplayed && <Flowers openImage={this.props.openImage}/>}
                     </div>
                 </div>
             </>
