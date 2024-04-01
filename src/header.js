@@ -1,24 +1,23 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 import "./header.css"
 
-class Header extends React.Component {
-    render() {
-        return (
-            <header className={"header"}>
-                <Logo/>
-                <Search/>
-                <User
-                    enterLoginPage={this.props.enterLoginPage}
-                    cancelLogin={this.props.cancelLogin}
-                    logged={this.props.logged}
-                />
-            </header>
-        )
-    }
+function Header(props) {
+    return (
+        <header className={"header"}>
+            <Logo/>
+            <Search/>
+            <User
+                cancelLogin={props.cancelLogin}
+                logged={props.logged}
+            />
+        </header>
+    )
 }
 function Logo() {
+    const navigate = useNavigate()
     return (
-        <div className={"logo-container"}>
+        <div className={"logo-container"} onClick={()=>{navigate("/")}}>
             <img src={"flower-icon.png"} alt={""} className={"logo"}/>
             <p className={"logo-name"}>Flower Shop</p>
         </div>
@@ -43,24 +42,25 @@ class User extends React.Component {
             <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
                 <Cart/>
                 {logged && <Profile/>}
-                {logged ? <LogOut exit={this.exit}/> : <LogIn enterLoginPage={this.props.enterLoginPage}/>}
+                {logged ? <LogOut exit={this.exit}/> : <LogIn/>}
             </div>
         )
     }
 }
 function Cart() {
-    return <button className={"button"}>Корзина</button>
+    const navigate = useNavigate()
+    return <button className={"button"} onClick={()=>{navigate("cart")}}>Корзина</button>
 }
-function LogIn({enterLoginPage}) {
-    return <button onClick={() => {
-        enterLoginPage()
-    }} className={"button"}>Войти</button>
+function LogIn() {
+    const navigate = useNavigate()
+    return <button className={"button"} onClick={()=>{navigate("login")}}>Войти</button>
 }
 function LogOut({exit}) {
     return <button onClick={exit} className={"button"}>Выйти</button>
 }
 function Profile() {
-    return <button className={"button"}>Профиль</button>
+    const navigate = useNavigate()
+    return <button className={"button"} onClick={()=>{navigate("profile")}}>Профиль</button>
 }
 
 export default Header

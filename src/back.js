@@ -1,7 +1,19 @@
 import React from "react";
 import "./back.css"
 
-class BackImage extends React.Component {
+function BackImage(props) {
+    if (props.page === "login") return (
+        <LoginBackImage/>
+    )
+    else if (props.page === "notfound") return (
+        <NotFoundBackImage/>
+    )
+    else return (
+        <MainBackImage/>
+    )
+}
+
+class MainBackImage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -60,6 +72,22 @@ class BackImage extends React.Component {
                 style={{transform: `translate${mobile ? 'X' : 'Y'}(${translate}px)`}}
                 ref={this.backImage}
             />
+        )
+    }
+}
+
+class LoginBackImage extends React.Component {
+    render() {
+        return (
+            <img className={"static-back-image"} src={"login.jpg"} alt={""}/>
+        )
+    }
+}
+
+class NotFoundBackImage extends React.Component {
+    render() {
+        return (
+            <img className={"static-back-image"} src={"notfound.jpg"} alt={""}/>
         )
     }
 }

@@ -1,11 +1,15 @@
 import React from "react"
+import {Navigate} from "react-router-dom";
 import "./login.css"
+import BackImage from "./back";
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginPanel: true
+            loginPanel: true,
+            switching: false,
+            exit: false
         }
         this.toSignup = this.toSignup.bind(this)
         this.toLogin = this.toLogin.bind(this)
@@ -13,13 +17,25 @@ class Login extends React.Component {
     }
     toSignup() {
         this.setState({
-            loginPanel: false
+            loginPanel: false,
+            switching: true
         })
+        setTimeout(()=>{
+            this.setState({
+                switching: false
+            })
+        }, 500)
     }
     toLogin() {
         this.setState({
-            loginPanel: true
+            loginPanel: true,
+            switching: true
         })
+        setTimeout(()=>{
+            this.setState({
+                switching: false
+            })
+        }, 500)
     }
     componentDidMount() {
         document.addEventListener("keydown", this.escPressed)
@@ -29,13 +45,16 @@ class Login extends React.Component {
     }
     escPressed(event) {
         if (event.key === "Escape") {
-            this.props.exitLoginPage()
+            this.setState({
+                exit: true
+            })
         }
     }
     render() {
         return (
             <>
-                <img className={"login-image"} src={"login.jpg"} alt={""}/>
+                {this.state.exit && <Navigate to={"/"}/>}
+                <BackImage page={"login"}/>
                 <div className={"login-container"}>
                     <div
                         className={"panel"}
@@ -43,6 +62,13 @@ class Login extends React.Component {
                             transform: `translateX(${this.state.loginPanel ? "0" : "360px"})`,
                             borderRadius: this.state.loginPanel ? "10px 0 0 10px" : "0 10px 10px 0"
                     }}>
+                        <img
+                            src={"arrow.png"}
+                            className={`back-button`}
+                            style={{opacity: this.state.switching ? "0" : "1"}}
+                            onClick={()=>{this.setState({exit: true})}}
+                            alt={""}
+                        />
                         <div
                             className={"panel-text-container"}
                             style={{transform: `translateX(${this.state.loginPanel ? "0" : "-360px"})`}}
@@ -66,7 +92,9 @@ class Login extends React.Component {
                             className={"log-sig-button"}
                             onClick={() => {
                                 this.props.setLogin()
-                                this.props.exitLoginPage()
+                                this.setState({
+                                    exit: true
+                                })
                             }}
                         >Регистрация</button>
                     </div>
@@ -85,7 +113,9 @@ class Login extends React.Component {
                             className={"log-sig-button"}
                             onClick={() => {
                                 this.props.setLogin()
-                                this.props.exitLoginPage()
+                                this.setState({
+                                    exit: true
+                                })
                             }}
                         >Вход</button>
                     </div>
