@@ -11,8 +11,7 @@
 - Use `mvn package` to create an executable jar
 
 ### Database (PostgreSQL)
-- You need to create `flower-shop` database
-- Default username is `postgres`
+- Create a `flower-shop` database for application deployment
 - Default password is `password`
 
 ### Server (Nginx)
