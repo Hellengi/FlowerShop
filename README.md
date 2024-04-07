@@ -10,8 +10,10 @@
 - Use `mvn spring-boot:run` to launch
 - Use `mvn package` to create an executable jar
 
-### Tools to be used: 
-- React
-- Spring (Spring Security)
-- Nginx
-- PostgreSQL
+### Database (PostgreSQL)
+- You need to create `flower-shop` database
+- Default username is `postgres`
+- Default password is `password`
+
+### Server (Nginx)
+- ???
