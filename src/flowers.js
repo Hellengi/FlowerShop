@@ -52,13 +52,30 @@ class Flowers extends React.Component {
 class ListOfFlowers extends React.Component {
     constructor(props) {
         super(props);
-        this.blocks = []
-        for (let i = 0; i < 24; i++) {
-            this.blocks.push(<Card key={i} openImage={this.props.openImage} minimized={true}/>)
-        }
         this.state = {
-            blocks: this.blocks
+            blocks: []
         }
+    }
+    componentDidMount() {
+        void this.init()
+    }
+    async init() {
+        const blocks = []
+        const response = await fetch('http://localhost:8080/flowers')
+        const data = await response.json()
+        let i = 0
+        for (const info of data) {
+            i += 1
+            blocks.push(<Card
+                key={i}
+                info={info}
+                openImage={this.props.openImage}
+                minimized={true}
+            />)
+        }
+        this.setState({
+            blocks
+        })
     }
     render() {
         return (

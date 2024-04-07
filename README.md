@@ -10,10 +10,8 @@
 - Use `mvn spring-boot:run` to launch
 - Use `mvn package` to create an executable jar
 
-
-
 ### Tools to be used: 
-- React [Node.js]
-- Spring (Spring Security) [Maven]
+- React
+- Spring (Spring Security)
 - Nginx
 - PostgreSQL

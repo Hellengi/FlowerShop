@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import "./card.css"
 
-function Card({openImage, minimized}) {
+function Card({info, openImage, minimized}) {
     const image = useRef(null)
     useEffect(() => {
         image.current.addEventListener("load", () => {
@@ -24,8 +24,18 @@ function Card({openImage, minimized}) {
                     alt={""}
                 />
             </div>
-            <p className={minimized ? "card-name-minimized" : "card-name"}>Цветы</p>
-            <p className={minimized ? "card-price-minimized" : "card-price"}>2000 руб</p>
+            <p className={minimized ? "card-name-minimized" : "card-name"}>{
+                /**
+                 * @param info
+                 */
+                info.title
+            }</p>
+            <p className={minimized ? "card-price-minimized" : "card-price"}>{
+                /**
+                 * @param info
+                 */
+                info.price
+            } руб</p>
             <ToCart minimized={minimized}/>
         </div>
     )
