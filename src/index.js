@@ -33,7 +33,7 @@ class Body extends React.Component {
                         <Main cancelLogin={this.cancelLogin} logged={this.state.logged}/>
                     }/>
                     <Route path={"/login"} element={
-                        <Login setLogin={this.setLogin}/>
+                        <Login setLogin={this.setLogin} logged={this.state.logged}/>
                     }/>
                     <Route path={"*"} element={
                         <NotFound/>

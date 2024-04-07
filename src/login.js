@@ -53,7 +53,7 @@ class Login extends React.Component {
     render() {
         return (
             <>
-                {this.state.exit && <Navigate to={"/"}/>}
+                {(this.state.exit || this.props.logged) && <Navigate to={"/"}/>}
                 <BackImage page={"login"}/>
                 <div className={"login-container"}>
                     <div

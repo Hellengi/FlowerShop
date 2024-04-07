@@ -9,7 +9,7 @@
 .notfound-sign {
     position: absolute;
     font-size: 3em;
-    background: linear-gradient(120deg, #222B, #000B);
+    background: linear-gradient(120deg, #222B, #000);
     backdrop-filter: blur(4px);
     color: #EEF;
     padding: 24px;

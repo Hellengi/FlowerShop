@@ -1,8 +1,19 @@
 # Flower Shop
 
-### Use `npm install` to install dependencies
+### Frontend (React)
+- Use `npm install` to install dependencies
+- Use `npm start` to launch
+- Use `npm run build` to  create a production build
 
-### Use `npm start` to launch
+### Backend (Spring)
+- Use `mvn clean install` to install dependencies
+- Use `mvn spring-boot:run` to launch
+- Use `mvn package` to create an executable jar
 
-Flower Shop - интернет-магазин по продаже цветов.
-Проект разработан с применением библиотеки React и фреймворка Spring
+
+
+### Tools to be used: 
+- React [Node.js]
+- Spring (Spring Security) [Maven]
+- Nginx
+- PostgreSQL
