@@ -1,10 +1,10 @@
-#back-image {
+.dynamic-back-image {
     width: 100vw;
     position: fixed;
     z-index: -1;
 }
 @media screen and (max-aspect-ratio: 2 / 3) {
-    #back-image {
+    .dynamic-back-image {
         width: initial;
         height: 100vh;
     }
@@ -21,4 +21,86 @@
         height: 100vh;
         transform: translateX(calc(50vw - 50%))
     }
+}
+.generated-back-image {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #DDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.line-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+.line {
+    width: 1px;
+    height: 200vmax;
+    background-color: #2355;
+    position: fixed;
+    transform: rotate(45deg);
+}
+@keyframes translateX0 {}
+@keyframes translateX1 {
+    0% {transform: translateX(-1vmax)}
+    50% {transform: translateX(1vmax)}
+    100% {transform: translateX(-1vmax)}
+}
+@keyframes translateX2 {
+    0% {transform: translateX(-3vmax)}
+    50% {transform: translateX(3vmax)}
+    100% {transform: translateX(-3vmax)}
+}
+@keyframes translateX3 {
+    0% {transform: translateX(-5vmax)}
+    50% {transform: translateX(5vmax)}
+    100% {transform: translateX(-5vmax)}
+}
+@keyframes translateX4 {
+    0% {transform: translateX(-10vmax)}
+    50% {transform: translateX(10vmax)}
+    100% {transform: translateX(-10vmax)}
+}
+@keyframes translateX5 {
+    0% {transform: translateX(-15vmax)}
+    50% {transform: translateX(15vmax)}
+    100% {transform: translateX(-15vmax)}
+}
+@keyframes translateY0 {}
+@keyframes translateY1 {
+    0% {transform: translateY(-1vmax)}
+    50% {transform: translateY(1vmax)}
+    100% {transform: translateY(-1vmax)}
+}
+@keyframes translateY2 {
+    0% {transform: translateY(-3vmax)}
+    50% {transform: translateY(3vmax)}
+    100% {transform: translateY(-3vmax)}
+}
+@keyframes translateY3 {
+    0% {transform: translateY(-5vmax)}
+    50% {transform: translateY(5vmax)}
+    100% {transform: translateY(-5vmax)}
+}
+@keyframes translateY4 {
+    0% {transform: translateY(-10vmax)}
+    50% {transform: translateY(10vmax)}
+    100% {transform: translateY(-10vmax)}
+}
+@keyframes translateY5 {
+    0% {transform: translateY(-15vmax)}
+    50% {transform: translateY(15vmax)}
+    100% {transform: translateY(-15vmax)}
+}
+@keyframes rotate0 {
+    0% {transform: rotate(0deg)}
+    100% {transform: rotate(360deg)}
+}
+@keyframes rotate1 {
+    0% {transform: rotate(360deg)}
+    100% {transform: rotate(0deg)}
 }

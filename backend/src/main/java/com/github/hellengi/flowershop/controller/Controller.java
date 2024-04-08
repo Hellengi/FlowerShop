@@ -19,16 +19,16 @@ public class Controller {
     @GetMapping("/bouquets")
     public ResponseEntity<ArrayList<BouquetEntity>> getBouquets() {
         ArrayList<BouquetEntity> bouquetsList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            bouquetsList.add(new BouquetEntity("Bouquet", 2000, 60));
+        for (int i = 1; i <= 20; i++) {
+            bouquetsList.add(new BouquetEntity("Bouquet-" + i, 2000, 60));
         }
         return new ResponseEntity<>(bouquetsList, HttpStatus.OK);
     }
     @GetMapping("/flowers")
     public ResponseEntity<ArrayList<FlowerEntity>> getFlowers() {
         ArrayList<FlowerEntity> flowerList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            flowerList.add(new FlowerEntity("Flower", 500, 60));
+        for (int i = 1; i <= 20; i++) {
+            flowerList.add(new FlowerEntity("Flower-" + i, 500, 60));
         }
         return new ResponseEntity<>(flowerList, HttpStatus.OK);
     }

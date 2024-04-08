@@ -3,13 +3,15 @@ import {useNavigate} from "react-router-dom";
 import "./header.css"
 
 function Header(props) {
+    const style = "header-" + props.color
     return (
-        <header className={"header"}>
+        <header className={`header ${style}`}>
             <Logo/>
             <Search/>
             <User
                 cancelLogin={props.cancelLogin}
                 logged={props.logged}
+                page={props.page}
             />
         </header>
     )
@@ -40,7 +42,7 @@ class User extends React.Component {
         const {logged} = this.props
         return (
             <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
-                <Cart/>
+                {this.props.page !== "cart" && <Cart/>}
                 {logged && <Profile/>}
                 {logged ? <LogOut exit={this.exit}/> : <LogIn/>}
             </div>
@@ -49,18 +51,18 @@ class User extends React.Component {
 }
 function Cart() {
     const navigate = useNavigate()
-    return <button className={"button"} onClick={()=>{navigate("cart")}}>Корзина</button>
+    return <button className={"button"} onClick={()=>{navigate("/cart")}}>Корзина</button>
 }
 function LogIn() {
     const navigate = useNavigate()
-    return <button className={"button"} onClick={()=>{navigate("login")}}>Войти</button>
+    return <button className={"button"} onClick={()=>{navigate("/login")}}>Войти</button>
 }
 function LogOut({exit}) {
     return <button onClick={exit} className={"button"}>Выйти</button>
 }
 function Profile() {
     const navigate = useNavigate()
-    return <button className={"button"} onClick={()=>{navigate("profile")}}>Профиль</button>
+    return <button className={"button"} onClick={()=>{navigate("/profile")}}>Профиль</button>
 }
 
 export default Header

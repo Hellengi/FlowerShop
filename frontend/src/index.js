@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Main from "./main";
 import Login from "./login";
+import Cart from "./cart";
+import Profile from "./profile";
 import NotFound from "./notfound";
 import './index.css'
 const Root = ReactDOM.createRoot(document.getElementById("root"))
@@ -34,6 +36,12 @@ class Body extends React.Component {
                     }/>
                     <Route path={"/login"} element={
                         <Login setLogin={this.setLogin} logged={this.state.logged}/>
+                    }/>
+                    <Route path={"/cart"} element={
+                        <Cart cancelLogin={this.cancelLogin} logged={this.state.logged}/>
+                    }/>
+                    <Route path={"/profile"} element={
+                        <Profile cancelLogin={this.cancelLogin} logged={this.state.logged}/>
                     }/>
                     <Route path={"*"} element={
                         <NotFound/>

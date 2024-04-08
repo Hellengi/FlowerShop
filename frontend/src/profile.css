@@ -1,0 +1,8 @@
+.profile-container {
+    width: 80vw;
+    height: 120vh;
+    background-color: #FFF6;
+    backdrop-filter: blur(4px);
+    border: solid black;
+    margin: auto;
+}

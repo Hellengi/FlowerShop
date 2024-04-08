@@ -18,7 +18,7 @@ function Card({info, openImage, minimized}) {
         <div className={minimized ? "card-minimized" : "card"}>
             <div className={minimized ? "card-picture-container-minimized" : "card-picture-container"}>
                 <img
-                    src={`sample_${R}.jpg`}
+                    src={`/sample_${R}.jpg`}
                     onClick={() => {openImage(image)}}
                     ref={image}
                     alt={""}

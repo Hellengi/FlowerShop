@@ -1,0 +1,8 @@
+.cart-container {
+    width: 80vw;
+    height: 120vh;
+    background-color: #FA5D;
+    backdrop-filter: blur(4px);
+    border: solid #F63;
+    margin: auto;
+}
