@@ -1,8 +1,81 @@
 .profile-container {
-    width: 80vw;
-    height: 120vh;
     background-color: #FFF6;
     backdrop-filter: blur(4px);
     border: solid black;
     margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    width: fit-content;
+}
+.profile-info {
+    margin: 60px;
+    display: flex;
+    flex-direction: column;
+}
+.profile-avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 150px;
+    margin: 60px;
+}
+.profile-avatar-container:hover .profile-avatar-change-container {
+    transform: translateY(60px);
+}
+.profile-avatar-container:active .profile-avatar-change {
+    background-color: #999D;
+    box-shadow: 0 0 20px black;
+}
+.profile-avatar {
+
+}
+.profile-avatar-change-container {
+    position: relative;
+    transform: translateY(160px);
+    transition: transform 0.5s ease-in;
+}
+.profile-avatar-change {
+    position: absolute;
+    background-color: #AAAD;
+    width: 300px;
+    padding: 30px 0;
+    font-size: 1.6em;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px black;
+}
+.profile-name {
+    font-size: 2.4em;
+    font-family: Balsamiq_Sans_Bold, serif;
+}
+.profile-status-container {
+    transform: translateX(40px);
+    margin-bottom: 10px;
+}
+.profile-status-title {
+    display: inline;
+}
+.profile-status {
+    display: inline;
+    color: blue;
+}
+.profile-line-container {
+    margin: 10px 20px;
+}
+.profile-line {
+    font-size: 1.2em;
+}
+.profile-delete {
+    user-select: none;
+    margin-top: 30px;
+    color: red;
+    cursor: pointer;
+    width: fit-content;
+}
+.profile-delete:active {
+    color:#D00;
 }
