@@ -1,9 +1,22 @@
-import React from "react";
-import {useNavigate} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 import "./header.css"
 
 function Header(props) {
-    const style = "header-" + props.color
+    const location = useLocation()
+    const [style, setStyle] = useState("")
+    useEffect(() => {
+        switch (location.pathname) {
+            case "/cart":
+                setStyle("header-orange")
+                break
+            case "/profile":
+                setStyle("header-grey")
+                break
+            default:
+                setStyle("header-green")
+        }
+    }, [location])
     return (
         <header className={`header ${style}`}>
             <Logo/>
@@ -11,7 +24,6 @@ function Header(props) {
             <User
                 cancelLogin={props.cancelLogin}
                 logged={props.logged}
-                page={props.page}
             />
         </header>
     )
@@ -28,26 +40,20 @@ function Logo() {
 function Search() {
     return <input type={"text"} placeholder={"Поиск..."} className={"search"}></input>
 }
-class User extends React.Component {
-    constructor(props) {
-        super(props)
-        this.exit = this.exit.bind(this)
-    }
-    exit() {
-        if (this.props.logged && window.confirm("Вы действительно хотите выйти из аккаунта?")) {
-            this.props.cancelLogin()
+function User({logged, cancelLogin}) {
+    function exit() {
+        if (logged && window.confirm("Вы действительно хотите выйти из аккаунта?")) {
+            cancelLogin()
         }
     }
-    render() {
-        const {logged} = this.props
-        return (
-            <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
-                {this.props.page !== "cart" && <Cart/>}
-                {logged && <Profile/>}
-                {logged ? <LogOut exit={this.exit}/> : <LogIn/>}
-            </div>
-        )
-    }
+    const location = useLocation()
+    return (
+        <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
+            {location.pathname !== "/cart" && <Cart/>}
+            {logged && <Profile/>}
+            {logged ? <LogOut exit={exit}/> : <LogIn/>}
+        </div>
+    )
 }
 function Cart() {
     const navigate = useNavigate()

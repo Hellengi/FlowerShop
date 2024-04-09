@@ -11,8 +11,6 @@ class Cart extends React.Component {
                 <Header
                     cancelLogin={this.props.cancelLogin}
                     logged={this.props.logged}
-                    color={"orange"}
-                    page={"cart"}
                 />
                 <div className={"cart-container"}>
 

@@ -59,7 +59,6 @@ class Main extends React.Component {
                 <Header
                     cancelLogin={this.props.cancelLogin}
                     logged={this.props.logged}
-                    color={"green"}
                 />
                 <SubHeader mainSwitch={this.mainSwitch} mainStatus={this.state.mainStatus}></SubHeader>
                 <div className={"main-body"} style={{transform: `translateX(${this.state.mainStatus ? "0" : "-100vw"})`}}>
