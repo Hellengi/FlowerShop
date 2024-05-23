@@ -14,5 +14,7 @@
 - Create a `flower-shop` database for application deployment
 - Default password is `password`
 
+Visit website at https://hellengi.github.io/FlowerShop/
+
 ### Server (Nginx)
 - ???
