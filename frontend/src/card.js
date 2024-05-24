@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import "./card.css"
 
-function Card({info, openImage, minimized}) {
+function Card({info, openImage, minimized, selectFlowers=null}) {
     const image = useRef(null)
     useEffect(() => {
         image.current.addEventListener("load", () => {
@@ -13,12 +13,13 @@ function Card({info, openImage, minimized}) {
             }
         })
     }, [minimized])
-    let R = Math.floor(Math.random() * 3) + 1
+    let R = Math.floor(Math.random() * 8) + 1
+    console.log(selectFlowers)
     return (
         <div className={minimized ? "card-minimized" : "card"}>
             <div className={minimized ? "card-picture-container-minimized" : "card-picture-container"}>
                 <img
-                    src={`/sample_${R}.jpg`}
+                    src={minimized ? `/flower_${R}.jpg` : `/sample_${R}.jpg`}
                     onClick={() => {openImage(image)}}
                     ref={image}
                     alt={""}
@@ -36,7 +37,7 @@ function Card({info, openImage, minimized}) {
                  */
                 info.price
             } руб</p>
-            <ToCart minimized={minimized}/>
+            <ToCart minimized={minimized} selectFlowers={selectFlowers}/>
         </div>
     )
 }
@@ -54,6 +55,7 @@ class ToCart extends React.Component {
         })
     }
     render() {
+        console.log(this.selectFlowers)
         return (
             <>
                 {

@@ -32,8 +32,8 @@ function Logo() {
     const navigate = useNavigate()
     return (
         <div className={"logo-container"} onClick={()=>{navigate("/")}}>
-            <img src={"flower-icon.png"} alt={""} className={"logo"}/>
-            <p className={"logo-name"}>Flower Shop</p>
+            <img src={true ? "logo.png" : "flower-icon.png"} alt={""} className={"logo"}/>
+            <p className={"logo-name"}>{true ? "" : "Flower Shop"}</p>
         </div>
     )
 }

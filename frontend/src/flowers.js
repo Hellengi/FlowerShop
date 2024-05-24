@@ -40,7 +40,7 @@ class Flowers extends React.Component {
             <>
                 <div className={"flowers"}>
                     <div className={"list-of-flowers-container"}>
-                        <ListOfFlowers openImage={this.props.openImage}/>
+                        <ListOfFlowers openImage={this.props.openImage} selectFlowers={this.selectFlowers}/>
                     </div>
                     {!this.state.statusReady && <SelectedFlowers changeStatusReady={this.changeStatusReady} listOfSelectedFlowers={this.state.listOfSelectedFlowers}/>}
                     {this.state.statusReady && <BouquetCreated changeStatusReady={this.changeStatusReady}/>}
@@ -52,6 +52,7 @@ class Flowers extends React.Component {
 class ListOfFlowers extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props.selectFlowers)
         this.state = {
             blocks: []
         }
@@ -71,6 +72,7 @@ class ListOfFlowers extends React.Component {
                 info={info}
                 openImage={this.props.openImage}
                 minimized={true}
+                selectFlowers={this.selectFlowers}
             />)
         }
         this.setState({

@@ -3,6 +3,7 @@
     border-radius: 10px;
     text-align: center;
     background-color: #CFCC;
+    background: linear-gradient(#f492f0aa, #a18dceaa);
     backdrop-filter: blur(4px);
     display: grid;
     justify-items: center;
@@ -33,9 +34,12 @@
     font-size: 1em;
     color: white;
     border: none;
+    border-radius: 5px;
+    border-radius: 5px;
 }
 .card-to-cart {
     background-color: #030C;
+    background: linear-gradient(#f492f0, #a18dce);
 }
 .card-in-cart {
     background-color: #860C;
@@ -46,7 +50,9 @@
     border-radius: 10px;
     text-align: center;
     color: #BDB;
+    color: black;
     background-color: #030A;
+    background: linear-gradient(90deg, #f492f0aa, #a18dceaa);
     backdrop-filter: blur(4px);
     display: grid;
     grid-template-columns: repeat(3, auto);
@@ -95,6 +101,7 @@
 }
 .card-to-cart-minimized {
     background-color: #030C;
+    background: linear-gradient(#f492f0, #a18dce);
 }
 .card-in-cart-minimized {
     background-color: #860C;
