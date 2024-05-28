@@ -18,43 +18,11 @@
     justify-content: space-between;
 }
 .to-flowers {
-    font-size: 1.2em;
-    width: 8em;
-}
-.to-flowers-container {
     transform: translateX(0);
     transition: transform 1s ease-in-out;
     grid-column-start: 2;
 }
 .to-bouquets {
-    font-size: 1.2em;
-    width: 9em;
-}
-.to-bouquets-container {
     transform: translateX(-50vw);
     transition: transform 1s ease-in-out;
-}
-.standard-button {
-    padding: 10px;
-    background-color: #030A;
-    background: linear-gradient(45deg, #696eff99, #f8acff99);
-    border-left: solid #141F 3px;
-    border-top: solid #141F 3px;
-    border-right: solid #030F 3px;
-    border-bottom: solid #030F 3px;
-    border: solid #669 3px;
-    border-radius: 5px;
-    backdrop-filter: blur(4px);
-    color: #BDB;
-    color: black;
-}
-.standard-button:hover {
-    color: #DFD
-}
-.standard-button:active {
-    background-color: #020A;
-    border-left: solid #030F 3px;
-    border-top: solid #030F 3px;
-    border-right: solid #141F 3px;
-    border-bottom: solid #141F 3px;
 }

@@ -52,21 +52,15 @@ class DynamicBackImage extends React.Component {
     }
     handleScroll() {
         const { imageLength, innerLength, scrollHeight } = this.state
-        if (this.props.page === "main") {
-            const translate = -Math.min(window.scrollY / 2, (imageLength - innerLength) * window.scrollY / (scrollHeight - innerLength))
-            this.setState({ translate })
-        }
-        else if (this.props.page === "cart") {
-            const scale = 1 + Math.min(window.scrollY / 1000, window.scrollY / (scrollHeight - innerLength))
-            this.setState({ scale })
-        }
+        const translate = -Math.min(window.scrollY / 2, (imageLength - innerLength) * window.scrollY / (scrollHeight - innerLength))
+        this.setState({ translate })
     }
     handleResize() {
         this.updateState()
     }
     updateState() {
         this.setState(()=>{
-            const mobile = window.innerHeight / window.innerWidth > 3 / 2
+            const mobile = window.innerHeight / window.innerWidth > 2 / 3
             return {
                 imageLength: mobile ? this.backImage.current.offsetWidth : this.backImage.current.offsetHeight,
                 innerLength: mobile ? window.innerWidth : window.innerHeight,
@@ -76,20 +70,12 @@ class DynamicBackImage extends React.Component {
         })
     }
     render() {
-        const { translate, scale, mobile } = this.state
-        let src = ""
-        let transform = ""
-        if (this.props.page === "main") {
-            src = "/back.jpg"
-            transform = `translate${mobile ? 'X' : 'Y'}(${translate}px)`
-        }
-        else if (this.props.page === "cart") {
-            src = "/cart.jpg"
-            transform = `scale(${scale})`
-        }
+        const { translate, mobile } = this.state
+        const src = "/back.jpg"
+        const transform = `translate${mobile ? 'X' : 'Y'}(${translate}px)`
         return (
             <img
-                className={this.props.page === "cart" ? "static-back-image" : "dynamic-back-image"}
+                className="dynamic-back-image"
                 src={src}
                 alt={""}
                 style={{transform: `${transform}`}}

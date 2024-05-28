@@ -40,7 +40,7 @@ class Flowers extends React.Component {
             <>
                 <div className={"flowers"}>
                     <div className={"list-of-flowers-container"}>
-                        <ListOfFlowers openImage={this.props.openImage} selectFlowers={this.selectFlowers}/>
+                        <ListOfFlowers openImage={this.props.openImage}/>
                     </div>
                     {!this.state.statusReady && <SelectedFlowers changeStatusReady={this.changeStatusReady} listOfSelectedFlowers={this.state.listOfSelectedFlowers}/>}
                     {this.state.statusReady && <BouquetCreated changeStatusReady={this.changeStatusReady}/>}
@@ -52,7 +52,6 @@ class Flowers extends React.Component {
 class ListOfFlowers extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.selectFlowers)
         this.state = {
             blocks: []
         }
@@ -66,14 +65,13 @@ class ListOfFlowers extends React.Component {
         const data = await response.json()
         let i = 0
         for (const info of data) {
-            i += 1
             blocks.push(<Card
                 key={i}
                 info={info}
                 openImage={this.props.openImage}
                 minimized={true}
-                selectFlowers={this.selectFlowers}
             />)
+            i += 1
         }
         this.setState({
             blocks
@@ -96,7 +94,7 @@ function SelectedFlowers({changeStatusReady, listOfSelectedFlowers}) {
             <h1>Выбранные цветы</h1>
             {listOfSelectedFlowers}
             <button
-                className={"standard-button"}
+                className={"default-button"}
                 onClick={() => {
                     changeStatusReady(true)
                 }}
@@ -109,7 +107,7 @@ function BouquetCreated({changeStatusReady}) {
         <div className={"selected-flowers-container bouquet-created"}>
             <h1>Готово!</h1>
             <button
-                className={"standard-button"}
+                className={"default-button"}
                 onClick={() => {
                     changeStatusReady(false)
                 }}

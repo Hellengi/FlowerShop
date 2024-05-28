@@ -62,6 +62,8 @@ class Login extends React.Component {
                             transform: `translateX(${this.state.loginPanel ? "0" : "360px"})`,
                             borderRadius: this.state.loginPanel ? "10px 0 0 10px" : "0 10px 10px 0"
                     }}>
+                        <div className={`panel-background panel-background-1 ${this.state.loginPanel ? "" : "panel-background-hidden"}`}/>
+                        <div className={`panel-background panel-background-2 ${this.state.loginPanel ? "panel-background-hidden" : ""}`}/>
                         <img
                             src={"arrow.png"}
                             className={`back-button`}
@@ -89,7 +91,7 @@ class Login extends React.Component {
                         <input type={"text"} placeholder={"E-mail"}/>
                         <input type={"text"} placeholder={"Пароль"}/>
                         <button
-                            className={"log-sig-button"}
+                            className={"default-button large-button"}
                             onClick={() => {
                                 this.props.setLogin()
                                 this.setState({
@@ -110,7 +112,7 @@ class Login extends React.Component {
                         <input type={"text"} placeholder={"Пароль"}/>
                         <button className={"password-forget"}>Забыли пароль?</button>
                         <button
-                            className={"log-sig-button"}
+                            className={"default-button large-button"}
                             onClick={() => {
                                 this.props.setLogin()
                                 this.setState({

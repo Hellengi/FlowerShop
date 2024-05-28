@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import "./card.css"
 
-function Card({info, openImage, minimized, selectFlowers=null}) {
+function Card({info, openImage, minimized}) {
     const image = useRef(null)
     useEffect(() => {
         image.current.addEventListener("load", () => {
@@ -13,13 +13,11 @@ function Card({info, openImage, minimized, selectFlowers=null}) {
             }
         })
     }, [minimized])
-    let R = Math.floor(Math.random() * 8) + 1
-    console.log(selectFlowers)
     return (
         <div className={minimized ? "card-minimized" : "card"}>
             <div className={minimized ? "card-picture-container-minimized" : "card-picture-container"}>
                 <img
-                    src={minimized ? `/flower_${R}.jpg` : `/sample_${R}.jpg`}
+                    src={minimized ? `/Flowers/${info.title}.jpg` : `/Bouquets/${info.title}.jpg`}
                     onClick={() => {openImage(image)}}
                     ref={image}
                     alt={""}
@@ -37,7 +35,7 @@ function Card({info, openImage, minimized, selectFlowers=null}) {
                  */
                 info.price
             } руб</p>
-            <ToCart minimized={minimized} selectFlowers={selectFlowers}/>
+            <ToCart minimized={minimized}/>
         </div>
     )
 }
@@ -55,20 +53,19 @@ class ToCart extends React.Component {
         })
     }
     render() {
-        console.log(this.selectFlowers)
         return (
             <>
                 {
                     this.state.numberInCart === 0 &&
                     <button
-                        className={this.props.minimized ? "card-to-cart-minimized" : "card-to-cart"}
+                        className={this.props.minimized ? "pink-button-1" : "blue-button-1"}
                         onClick={() => {this.setNumberInCart(1)}}
                     >{this.props.minimized ? "+" : "Заказать"}</button>
                 }
                 {
                     this.state.numberInCart > 0 &&
                     <button
-                        className={this.props.minimized ? "card-in-cart-minimized" : "card-in-cart"}
+                        className={this.props.minimized ? "pink-button-2" : "blue-button-2"}
                     >{this.props.minimized ? "✓" : "Перейти в корзину"}</button>
                 }
             </>

@@ -18,13 +18,13 @@ class Bouquets extends React.Component {
         const data = await response.json()
         let i = 0
         for (const info of data) {
-            i += 1
             blocks.push(<Card
                 key={i}
                 info={info}
                 openImage={this.props.openImage}
                 minimized={false}
             />)
+            i += 1
         }
         this.setState({
             blocks

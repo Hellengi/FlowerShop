@@ -2,8 +2,7 @@
     margin: 20px;
     border-radius: 10px;
     text-align: center;
-    background-color: #CFCC;
-    background: linear-gradient(#f492f0aa, #a18dceaa);
+    background: linear-gradient(#F9FA, #A8EA);
     backdrop-filter: blur(4px);
     display: grid;
     justify-items: center;
@@ -23,6 +22,7 @@
     margin: 10px;
     font-family: Balsamiq_Sans_Bold, serif;
     font-size: 1.4em;
+    max-width: 220px;
 }
 .card-price {
     margin: 10px;
@@ -30,35 +30,21 @@
 }
 .card > button {
     margin: 10px;
-    padding: 10px;
     font-size: 1em;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    border-radius: 5px;
-}
-.card-to-cart {
-    background-color: #030C;
-    background: linear-gradient(#f492f0, #a18dce);
-}
-.card-in-cart {
-    background-color: #860C;
 }
 .card-minimized {
     margin: 20px;
     height: 80px;
     border-radius: 10px;
     text-align: center;
-    color: #BDB;
-    color: black;
-    background-color: #030A;
-    background: linear-gradient(90deg, #f492f0aa, #a18dceaa);
+    background: linear-gradient(270deg, #f492f0aa, #a18dceaa);
     backdrop-filter: blur(4px);
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(3, auto);
     align-items: center;
     justify-content: space-between;
+    width: 280px;
 }
 .card-picture-container-minimized {
     width: 80px;
@@ -77,9 +63,10 @@
 .card-name-minimized {
     margin: 5px;
     font-family: Balsamiq_Sans_Bold, serif;
-    font-size: 1.4em;
+    font-size: 1em;
     grid-row: 1;
     grid-column: 2;
+    max-width: 190px;
 }
 .card-price-minimized {
     margin: 5px;
@@ -99,10 +86,41 @@
     height: 40px;
     width: 40px;
 }
-.card-to-cart-minimized {
-    background-color: #030C;
-    background: linear-gradient(#f492f0, #a18dce);
+.blue-button-1 {
+    background: radial-gradient(#C9F, #85F);
+    border: black solid 1px;
 }
-.card-in-cart-minimized {
-    background-color: #860C;
+.blue-button-1:hover {
+    background: radial-gradient(#C9F, #A6F, #63F);
+}
+.blue-button-1:active {
+    background: radial-gradient(#A6F, #63F);
+}
+.blue-button-2 {
+    background: radial-gradient(#EDD, #A9D);
+    border: black solid 1px;
+}
+.blue-button-2:hover {
+    background: radial-gradient(#EDD, #A6F);
+}
+.blue-button-2:active {
+    background: radial-gradient(#EDD, #95C);
+}
+.pink-button-1 {
+    background: radial-gradient(#F9F, #F9C);
+}
+.pink-button-1:hover {
+    background: radial-gradient(#F9F, #F9C, #FBE);
+}
+.pink-button-1:active {
+    background: radial-gradient(#F9C, #FBE);
+}
+.pink-button-2 {
+    background: radial-gradient(#F9C, #FCC);
+}
+.pink-button-2:hover {
+    background: radial-gradient(#F9C, #FCC, #FEE);
+}
+.pink-button-2:active {
+    background: radial-gradient(#FCC, #FEE);
 }

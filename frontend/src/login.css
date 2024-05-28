@@ -10,7 +10,6 @@
     overflow: hidden;
 }
 .panel {
-    background: linear-gradient(-45deg, #00FD, #004D);
     backdrop-filter: blur(4px);
     position: fixed;
     width: 360px;
@@ -18,6 +17,24 @@
     border-radius: 10px 0 0 10px;
     transition: transform 1s, border-radius 1s;
     overflow: hidden;
+}
+.panel-background {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: -1;
+    transition: opacity 1s linear;
+}
+.panel-background-1 {
+    background: linear-gradient(135deg, #36F, #84A);
+}
+.panel-background-2 {
+    background: linear-gradient(135deg, #84A, #E38);
+}
+.panel-background-hidden {
+    opacity: 0.4;
 }
 .panel-text-container {
     display: grid;
@@ -75,20 +92,6 @@
 }
 .log-sig > input:focus {
     outline: solid #007D 2px;
-}
-.log-sig-button {
-    background-color: #007D;
-    color: white;
-    border: solid white 1px;
-    border-radius: 6px;
-    font-size: 1.2em;
-    padding: 8px 20px;
-}
-.log-sig-button:hover {
-    background-color: #003D;
-}
-.log-sig-button:active {
-    background-color: #003;
 }
 .password-forget {
     color: black;

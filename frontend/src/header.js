@@ -8,19 +8,19 @@ function Header(props) {
     useEffect(() => {
         switch (location.pathname) {
             case "/cart":
-                setStyle("header-orange")
+                setStyle("header-blue")
                 break
             case "/profile":
-                setStyle("header-grey")
+                setStyle("system")
                 break
             default:
-                setStyle("header-green")
+                setStyle("header-purple")
         }
     }, [location])
     return (
         <header className={`header ${style}`}>
             <Logo/>
-            <Search/>
+            <Search style={style}/>
             <User
                 cancelLogin={props.cancelLogin}
                 logged={props.logged}
@@ -32,13 +32,14 @@ function Logo() {
     const navigate = useNavigate()
     return (
         <div className={"logo-container"} onClick={()=>{navigate("/")}}>
-            <img src={true ? "logo.png" : "flower-icon.png"} alt={""} className={"logo"}/>
-            <p className={"logo-name"}>{true ? "" : "Flower Shop"}</p>
+            <img src={"flower-icon.png"} alt={""} className={"logo-image"}/>
+            <p className={"logo-name"}>Flower Shop</p>
         </div>
     )
 }
-function Search() {
-    return <input type={"text"} placeholder={"Поиск..."} className={"search"}></input>
+function Search({style}) {
+    return <input type={"text"} placeholder={"Поиск..."}
+                  className={`search ${style==="system" ? "search-light" : ""}`}></input>
 }
 function User({logged, cancelLogin}) {
     function exit() {
@@ -57,18 +58,18 @@ function User({logged, cancelLogin}) {
 }
 function Cart() {
     const navigate = useNavigate()
-    return <button className={"button"} onClick={()=>{navigate("/cart")}}>Корзина</button>
+    return <button className={"default-button"} onClick={()=>{navigate("/cart")}}>Корзина</button>
 }
 function LogIn() {
     const navigate = useNavigate()
-    return <button className={"button"} onClick={()=>{navigate("/login")}}>Войти</button>
+    return <button className={"default-button"} onClick={()=>{navigate("/login")}}>Войти</button>
 }
 function LogOut({exit}) {
-    return <button onClick={exit} className={"button"}>Выйти</button>
+    return <button className={"default-button"} onClick={exit}>Выйти</button>
 }
 function Profile() {
     const navigate = useNavigate()
-    return <button className={"button"} onClick={()=>{navigate("/profile")}}>Профиль</button>
+    return <button className={"default-button"} onClick={()=>{navigate("/profile")}}>Профиль</button>
 }
 
 export default Header

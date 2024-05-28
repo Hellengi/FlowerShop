@@ -22,6 +22,32 @@ body {
 button {
     font-family: Balsamiq_Sans_Regular, serif;
     cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+.default-button {
+    background: linear-gradient(135deg, #77F9, #FAF9);
+    border-left: solid #369 2px;
+    border-top: solid #369 2px;
+    border-right: solid #54A 2px;
+    border-bottom: solid #54A 2px;
+    backdrop-filter: blur(4px);
+}
+.default-button:hover {
+    color: #404;
+    background: linear-gradient(135deg, #88F9, #FCF9);
+}
+.default-button:active {
+    background: linear-gradient(90deg, #77F9, #FAF9);
+    border-left: solid #54A 2px;
+    border-top: solid #54A 2px;
+    border-right: solid #369 2px;
+    border-bottom: solid #369 2px;
+}
+.large-button {
+    font-size: 1.2em;
+    padding: 8px 20px;
+    max-width: 10em;
 }
 input{
     font-family: Balsamiq_Sans_Regular, serif;

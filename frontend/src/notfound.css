@@ -24,7 +24,7 @@
 .notfound-button {
     font-size: 0.35em;
     padding: 10px;
-    background-color: #203A;
+    background: #203A;
     border-left: solid #314F 3px;
     border-top: solid #314F 3px;
     border-right: solid #203F 3px;
@@ -35,99 +35,12 @@
 }
 .notfound-button:hover {
     color: #FDF;
+    background: #203A;
 }
 .notfound-button:active {
-    background-color: #202A;
+    background: #202A;
     border-left: solid #203F 3px;
     border-top: solid #203F 3px;
     border-right: solid #314F 3px;
     border-bottom: solid #314F 3px;
-}
-.circle {
-    position: fixed;
-    border-radius: 100px;
-}
-.c1 {
-    animation: c1 17s infinite ease-in-out;
-    width: 8vmax;
-    height: 8vmax;
-    background-color: #63A6;
-    filter: blur(7px);
-}
-.c2 {
-    animation: c2 18s infinite ease-in-out;
-    width: 6vmax;
-    height: 6vmax;
-    background-color: #83A5;
-    filter: blur(3px);
-}
-.c3 {
-    animation: c3 19s infinite ease-in-out;
-    width: 7vmax;
-    height: 7vmax;
-    background-color: #66A6;
-    filter: blur(9px);
-}
-.c4 {
-    animation: c4 20s infinite ease-in-out;
-    width: 4vmax;
-    height: 4vmax;
-    background-color: #83E3;
-    filter: blur(3px);
-}
-.c5 {
-    animation: c5 21s infinite ease-in-out;
-    width: 7vmax;
-    height: 7vmax;
-    background-color: #65A5;
-    filter: blur(6px);
-}
-.c6 {
-    animation: c6 22s infinite ease-in-out;
-    width: 5vmax;
-    height: 5vmax;
-    background-color: #85A4;
-    filter: blur(4px);
-}
-.c7 {
-    animation: c7 23s infinite ease-in-out;
-    width: 8vmax;
-    height: 8vmax;
-    background-color: #63F3;
-    filter: blur(8px);
-}
-@keyframes c1 {
-    0% {transform: translate(15vw, 20vh)}
-    50% {transform: translate(35vw, 35vh)}
-    100% {transform: translate(15vw, 20vh)}
-}
-@keyframes c2 {
-    0% {transform: translate(-35vw, -25vh)}
-    50% {transform: translate(-20vw, -30vh)}
-    100% {transform: translate(-35vw, -25vh)}
-}
-@keyframes c3 {
-    0% {transform: translate(35vw, -25vh)}
-    50% {transform: translate(30vw, 20vh)}
-    100% {transform: translate(35vw, -25vh)}
-}
-@keyframes c4 {
-    0% {transform: translate(-35vw, 40vh)}
-    50% {transform: translate(-20vw, 30vh)}
-    100% {transform: translate(-35vw, 40vh)}
-}
-@keyframes c5 {
-    0% {transform: translate(-15vw, 15vh)}
-    50% {transform: translate(0vw, -25vh)}
-    100% {transform: translate(-15vw, 15vh)}
-}
-@keyframes c6 {
-    0% {transform: translate(10vw, -10vh)}
-    50% {transform: translate(30vw, -15vh)}
-    100% {transform: translate(10vw, -10vh)}
-}
-@keyframes c7 {
-    0% {transform: translate(-30vw, 30vh)}
-    50% {transform: translate(-15vw, -30vh)}
-    100% {transform: translate(-30vw, 30vh)}
 }

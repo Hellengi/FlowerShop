@@ -97,22 +97,22 @@ class SubHeader extends React.Component {
         const { mainSwitch, mainStatus } = this.props
         return (
             <div className={"sub-header"}>
-                <div className={"to-bouquets-container"} style={{transform: `translateX(${mainStatus ? "-50vw" : "0"})`}}>
+                <div className={"to-bouquets"} style={{transform: `translateX(${mainStatus ? "-50vw" : "0"})`}}>
                     {this.state.toBouquetsButtonDisplayed && <button
                         onClick={() => {
                             mainSwitch(true)
                             this.buttonSwitch(true)
                         }}
-                        className={"to-bouquets standard-button"}
+                        className={"default-button large-button"}
                     >← Выбрать из готовых букетов</button>}
                 </div>
-                <div className={"to-flowers-container"} style={{transform: `translateX(${mainStatus ? "0" : "50vw"})`}}>
+                <div className={"to-flowers"} style={{transform: `translateX(${mainStatus ? "0" : "50vw"})`}}>
                     {this.state.toFlowersButtonDisplayed && <button
                         onClick={() => {
                             mainSwitch(false)
                             this.buttonSwitch(false)
                         }}
-                        className={"to-flowers standard-button"}
+                        className={"default-button large-button"}
                     >Составить свой букет →</button>}
                 </div>
             </div>
