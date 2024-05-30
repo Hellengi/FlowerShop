@@ -1,4 +1,4 @@
-.card {
+.card-bouquet {
     margin: 20px;
     border-radius: 10px;
     text-align: center;
@@ -7,7 +7,7 @@
     display: grid;
     justify-items: center;
 }
-.card-picture-container {
+.card-picture-container-bouquet {
     width: 240px;
     height: 240px;
     overflow: hidden;
@@ -18,35 +18,40 @@
     align-items: center;
     cursor: zoom-in;
 }
-.card-name {
+.card-name-bouquet {
     margin: 10px;
     font-family: Balsamiq_Sans_Bold, serif;
     font-size: 1.4em;
     max-width: 220px;
 }
-.card-price {
+.card-price-bouquet {
     margin: 10px;
     font-family: Balsamiq_Sans_Italic, serif;
 }
-.card > button {
+.card-bouquet > button {
     margin: 10px;
     font-size: 1em;
+    height: 40px;
 }
-.card-minimized {
+.card-flower {
     margin: 20px;
     height: 80px;
     border-radius: 10px;
     text-align: center;
-    background: linear-gradient(270deg, #f492f0aa, #a18dceaa);
+    background: linear-gradient(270deg, #F9FA, #A8EA);
     backdrop-filter: blur(4px);
     display: grid;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(3, auto);
     align-items: center;
     justify-content: space-between;
     width: 280px;
 }
-.card-picture-container-minimized {
+.card-flower div {
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.card-picture-container-flower {
     width: 80px;
     height: 80px;
     overflow: hidden;
@@ -56,11 +61,8 @@
     justify-content: center;
     align-items: center;
     cursor: zoom-in;
-    grid-row-start: 1;
-    grid-row-end: 3;
-    grid-column: 1;
 }
-.card-name-minimized {
+.card-name-flower {
     margin: 5px;
     font-family: Balsamiq_Sans_Bold, serif;
     font-size: 1em;
@@ -68,23 +70,23 @@
     grid-column: 2;
     max-width: 190px;
 }
-.card-price-minimized {
+.card-price-flower {
     margin: 5px;
     font-family: Balsamiq_Sans_Italic, serif;
     grid-row: 2;
     grid-column: 2;
 }
-.card-minimized > button {
+.card-flower > button {
     margin: 10px;
     padding: 0;
     font-size: 2em;
+    height: 40px;
+    width: 40px;
     color: white;
     border: none;
     grid-row-start: 1;
     grid-row-end: 3;
     grid-column: 3;
-    height: 40px;
-    width: 40px;
 }
 .blue-button-1 {
     background: radial-gradient(#C9F, #85F);
@@ -123,4 +125,138 @@
 }
 .pink-button-2:active {
     background: radial-gradient(#FCC, #FEE);
+}
+.card-selected {
+    display: grid;
+    grid-template-columns: 120px 240px 120px;
+    align-items: center;
+    height: 120px;
+    background-color: #FFF7;
+    border: black solid 1px;
+    border-radius: 5px;
+}
+.card-picture-container-selected {
+    margin: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-in;
+}
+.card-selected p {
+    margin: 0;
+}
+.card-name-selected {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px;
+}
+.card-info-selected {
+    font-style: italic;
+}
+.card-price-selected {
+    padding: 10px;
+}
+.add-sub-button-container-selected {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.add-sub-button {
+    padding: 0;
+    font-size: 2em;
+    height: 40px;
+    width: 40px;
+    font-weight: bold;
+}
+.del-button {
+    background-image: url("../public/trash.png"), radial-gradient(#EDD, #A9D);
+    background-size: 16px, cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    transform: translate(90px, -30px);
+    filter: hue-rotate(75deg);
+}
+.del-button:hover {
+    background-image: url("../public/trash.png"), radial-gradient(#EDD, #A6F);
+    background-size: 16px, cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.del-button:active {
+    background-image: url("../public/trash.png"), radial-gradient(#EDD, #95C);
+    background-size: 16px, cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.card-custom {
+    display: grid;
+    grid-template-columns: 40px 360px 120px;
+    gap: 10px;
+    align-items: center;
+    justify-items: left;
+    border: black solid 1px;
+    background: linear-gradient(90deg, #F9FA, #A8EA);
+}
+.card-picture-container-custom {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-in;
+}
+.card-info-custom {
+    margin: 0;
+    font-style: italic;
+    font-size: 0.8em;
+}
+.add-sub-button-container-custom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80px;
+}
+.add-sub-custom-button {
+    border: black solid 1px;
+    font-size: 1em;
+    width: 32px;
+    height: 32px;
+}
+.del-custom-button {
+    width: 24px;
+    height: 24px;
+    transform: translate(90px, 4px);
+}
+.card-selected-custom {
+    display: grid;
+    grid-template-columns: 120px 300px 60px;
+    align-items: center;
+    padding: 10px;
+    background-color: #FFF7;
+    border: black solid 1px;
+    border-radius: 5px;
+}
+.card-selected-custom p {
+    margin: 0;
+}
+.card-flower-list {
+    background-color: #FFF7;
+    text-align: left;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+}
+.del-button-container-custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.del-button-custom {
+    transform: none;
+    width: 30px;
+    height: 30px;
 }

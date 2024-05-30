@@ -25,6 +25,9 @@ button {
     padding: 10px;
     border-radius: 5px;
 }
+input{
+    font-family: Balsamiq_Sans_Regular, serif;
+}
 .default-button {
     background: linear-gradient(135deg, #77F9, #FAF9);
     border-left: solid #369 2px;
@@ -49,6 +52,24 @@ button {
     padding: 8px 20px;
     max-width: 10em;
 }
-input{
-    font-family: Balsamiq_Sans_Regular, serif;
+.dark-button {
+    background: #203A;
+    border-left: solid #314F 3px;
+    border-top: solid #314F 3px;
+    border-right: solid #203F 3px;
+    border-bottom: solid #203F 3px;
+    border-radius: 5px;
+    backdrop-filter: blur(4px);
+    color: #DBD;
+}
+.dark-button:hover {
+    color: #FDF;
+    background: #203A;
+}
+.dark-button:active {
+    background: #202A;
+    border-left: solid #203F 3px;
+    border-top: solid #203F 3px;
+    border-right: solid #314F 3px;
+    border-bottom: solid #314F 3px;
 }

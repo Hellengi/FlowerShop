@@ -93,7 +93,7 @@ class Login extends React.Component {
                         <button
                             className={"default-button large-button"}
                             onClick={() => {
-                                this.props.setLogin()
+                                void fetch('http://localhost:8080/login')
                                 this.setState({
                                     exit: true
                                 })
@@ -114,7 +114,7 @@ class Login extends React.Component {
                         <button
                             className={"default-button large-button"}
                             onClick={() => {
-                                this.props.setLogin()
+                                void fetch('http://localhost:8080/login')
                                 this.setState({
                                     exit: true
                                 })

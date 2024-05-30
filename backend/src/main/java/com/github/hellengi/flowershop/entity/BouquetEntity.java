@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 @Table
 public class BouquetEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bouquet_seq")
+    @SequenceGenerator(name = "bouquet_seq", sequenceName = "bouquet_sequence", allocationSize = 1)
     private long id;
     @Column(name = "title")
     private String title;
@@ -15,6 +16,7 @@ public class BouquetEntity {
     private int price;
     @Column(name = "amount")
     private int amount;
+    public BouquetEntity() {}
     public BouquetEntity(String title, int price, int amount) {
         this.title = title;
         this.price = price;

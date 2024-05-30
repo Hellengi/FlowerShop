@@ -16,15 +16,13 @@ class Bouquets extends React.Component {
         const blocks = []
         const response = await fetch('http://localhost:8080/bouquets')
         const data = await response.json()
-        let i = 0
         for (const info of data) {
             blocks.push(<Card
-                key={i}
+                key={info.id}
                 info={info}
                 openImage={this.props.openImage}
-                minimized={false}
+                mode={"bouquet"}
             />)
-            i += 1
         }
         this.setState({
             blocks

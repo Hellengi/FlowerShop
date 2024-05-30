@@ -1,11 +1,15 @@
 package com.github.hellengi.flowershop.controller;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 import com.github.hellengi.flowershop.entity.BouquetEntity;
+import com.github.hellengi.flowershop.entity.CustomEntity;
 import com.github.hellengi.flowershop.entity.FlowerEntity;
-import com.github.hellengi.flowershop.repository.Repository;
+import com.github.hellengi.flowershop.repository.BouquetRepository;
+import com.github.hellengi.flowershop.repository.CustomRepository;
+import com.github.hellengi.flowershop.repository.FlowerRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,83 +19,192 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class Controller {
     Random random = new Random();
-    public Integer RandomPrice(boolean SingleFlower) {
-        if (SingleFlower) {
-            return (random.nextInt(26) + 5) * 10;
-        }
-        else {
-            return (random.nextInt(26) + 15) * 100;
+    public Integer RandomBouquetPrice(boolean SingleFlower) {
+        return (random.nextInt(26) + 15) * 100;
+    }
+
+    public Integer RandomFlowerPrice(boolean SingleFlower) {
+        return (random.nextInt(26) + 5) * 10;
+    }
+
+    @Autowired
+    private BouquetRepository bouquetRepository;
+    @Autowired
+    private FlowerRepository flowerRepository;
+    @Autowired
+    private CustomRepository customRepository;
+
+    Boolean Logged = false;
+    HashMap<Long, Integer> CustomFlower = new HashMap<>();
+
+    @PostConstruct
+    public void init() {
+        if (bouquetRepository.count() == 0 && flowerRepository.count() == 0) {
+            bouquetRepository.save(new BouquetEntity("Герберы красные и желтые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Герберы красные и розовые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Герберы розовые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Герберы, хризантемы, розы", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Гортензия", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Ирисы синие и розы белые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Ирисы синие и розы розовые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Лизиантусы и орхидеи", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Пионы розовые и белые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Розы багровые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Розы желтые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Розы и орхидеи", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Розы красные", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Розы красные и белые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Розы оранжевые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Розы розовые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Тюльпаны красные и белые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Тюльпаны розовые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Флорина", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Флористика", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Хризантемы белые и фиолетовые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Хризантемы розовые и зеленые", RandomBouquetPrice(false), 0));
+            bouquetRepository.save(new BouquetEntity("Эустома", RandomBouquetPrice(false), 0));
+            flowerRepository.save(new FlowerEntity("Альстометрия сиреневая", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Георгина", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Герберы белые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Герберы желтые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Герберы красные", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Герберы розовые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Герберы фиолетовые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Герберы оранжевые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Ирисы синие", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Лизантусы белые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Магнолия", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Обриета", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Орхидеи синие", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Пионы белые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Пионы розовые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Подсолнух", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Розы белые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Розы красные", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Розы розовые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Статица розовая", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Тюльпан розовый", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Тюльпаны бело-красные", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Тюльпаны белые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Тюльпаны красные", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Хризантемы белые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Хризантемы зеленые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Хризантемы кустовые", RandomFlowerPrice(true)));
+            flowerRepository.save(new FlowerEntity("Хризантемы розовые", RandomFlowerPrice(true)));
         }
     }
-    @Autowired
-    Repository repository;
+
+    @GetMapping("/login")
+    public void login() {
+        Logged = true;
+    }
+
+    @GetMapping("/logout")
+    public void logout() {
+        Logged = false;
+    }
+
+    @GetMapping("/get-log-status")
+    public Boolean getLogStatus() {
+        return Logged;
+    }
 
     @GetMapping("/bouquets")
-    public ResponseEntity<ArrayList<BouquetEntity>> getBouquets() {
-        ArrayList<BouquetEntity> bouquetsList = new ArrayList<>();
-        bouquetsList.add(new BouquetEntity("Герберы красные и желтые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Герберы красные и розовые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Герберы розовые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Герберы, хризантемы, розы", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Гортензия", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Ирисы синие и розы белые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Ирисы синие и розы розовые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Лизиантусы и орхидеи", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Пионы розовые и белые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Розы багровые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Розы желтые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Розы и орхидеи", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Розы красные", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Розы красные и белые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Розы оранжевые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Розы розовые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Тюльпаны красные и белые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Тюльпаны розовые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Флорина", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Флористика", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Хризантемы белые и фиолетовые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Хризантемы розовые и зеленые", RandomPrice(false), 60));
-        bouquetsList.add(new BouquetEntity("Эустома", RandomPrice(false), 60));
+    public ResponseEntity<List<BouquetEntity>> getBouquets() {
+        List<BouquetEntity> bouquetsList = bouquetRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         return new ResponseEntity<>(bouquetsList, HttpStatus.OK);
     }
+
     @GetMapping("/flowers")
-    public ResponseEntity<ArrayList<FlowerEntity>> getFlowers() {
-        ArrayList<FlowerEntity> flowerList = new ArrayList<>();
-        flowerList.add(new FlowerEntity("Альстометрия сиреневая", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Георгина", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Герберы белые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Герберы желтые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Герберы красные", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Герберы розовые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Герберы фиолетовые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Гереберы оранжевые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Ирисы синие", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Лизантусы белые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Магнолия", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Обриета", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Орхидеи синие", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Пионы белые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Пионы розовые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Подсолнух", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Розы белые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Розы красные", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Розы розовые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Статица розовая", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Тюльпан розовый", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Тюльпаны бело-красные", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Тюльпаны белые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Тюльпаны красные", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Хризантемы белые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Хризантемы зеленые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Хризантемы кустовые", RandomPrice(true), 60));
-        flowerList.add(new FlowerEntity("Хризантемы розовые", RandomPrice(true), 60));
+    public ResponseEntity<List<FlowerEntity>> getFlowers() {
+        List<FlowerEntity> flowerList = flowerRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         return new ResponseEntity<>(flowerList, HttpStatus.OK);
     }
-    @GetMapping("/")
-    public String method() {
-        return ("Hi!");
+
+    @GetMapping("/set-bouquet-amount")
+    public void setBouquetAmount(@RequestParam(value = "id") Long id, @RequestParam(value = "amount") Integer amount) {
+        Optional<BouquetEntity> optionalBouquet = bouquetRepository.findById(id);
+        if (optionalBouquet.isPresent()) {
+            BouquetEntity bouquet = optionalBouquet.get();
+            bouquet.setAmount(amount);
+            bouquetRepository.save(bouquet);
+        }
     }
-    @GetMapping("/hello")
+
+    @GetMapping("/selected-bouquets")
+    public ResponseEntity<List<BouquetEntity>> getSelectedBouquets() {
+        List<BouquetEntity> bouquetsList = bouquetRepository.findSelectedBouquets();
+        return new ResponseEntity<>(bouquetsList, HttpStatus.OK);
+    }
+
+    @GetMapping("/set-custom-flower")
+    public void setCustomFlower(@RequestParam(value = "id") Long id, @RequestParam(value = "amount") Integer amount) {
+        if (amount > 0) {
+            CustomFlower.put(id, amount);
+        }
+        else {
+            CustomFlower.remove(id);
+        }
+    }
+
+    @GetMapping("/get-custom-flower")
+    public Integer getCustomFlower(@RequestParam(value = "id") Long id) {
+        return CustomFlower.getOrDefault(id, 0);
+    }
+
+    @GetMapping("/get-all-custom-flowers")
+    public HashMap<Long, Integer> getAllCustomFlowers() {
+        return CustomFlower;
+    }
+
+    @GetMapping("/get-flower")
+    public ResponseEntity<FlowerEntity> getFlowerById(@RequestParam(value = "id") Long id) {
+        Optional<FlowerEntity> optionalFlower = flowerRepository.findById(id);
+        if (optionalFlower.isPresent()) {
+            FlowerEntity flower = optionalFlower.get();
+            return new ResponseEntity<>(flower, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/accept-custom")
+    public void acceptCustom() {
+        if (CustomFlower.isEmpty()) {
+            return;
+        }
+        int price = 0;
+        List<CustomEntity> customList = customRepository.findAll();
+        int num = 1;
+        while (customRepository.containsTitle("Букет №" + num)) num++;
+        String title = "Букет №" + num;
+        String FinalFlower = "";
+        for (Map.Entry<Long, Integer> entryFlower : CustomFlower.entrySet()) {
+            Optional<FlowerEntity> optionalFlower = flowerRepository.findById(entryFlower.getKey());
+            if (optionalFlower.isPresent()) {
+                FlowerEntity flower = optionalFlower.get();
+                FinalFlower = FinalFlower.concat(flower.getTitle() + ":" + entryFlower.getValue() + ";");
+                price += flower.getPrice() * entryFlower.getValue();
+            }
+        }
+        FinalFlower = FinalFlower.substring(0, FinalFlower.length() - 1);
+        customRepository.save(new CustomEntity(title, FinalFlower, price));
+        CustomFlower = new HashMap<>();
+    }
+
+    @GetMapping("/get-custom")
+    public ResponseEntity<List<CustomEntity>> getCustom() {
+        List<CustomEntity> customList = customRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return new ResponseEntity<>(customList, HttpStatus.OK);
+    }
+
+    @GetMapping("/delete-custom")
+    public void deleteCustom(@RequestParam(value = "id") Long id) {
+        customRepository.deleteById(id);
+    }
+
+    @GetMapping("/")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
         return String.format("Hello %s!", name);
     }

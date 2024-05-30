@@ -2,7 +2,6 @@ import React from "react";
 import "./main.css"
 import Bouquets from "./bouquets";
 import Flowers from "./flowers";
-import Image from "./image";
 import Header from "./header";
 import BackImage from "./back";
 
@@ -12,13 +11,9 @@ class Main extends React.Component {
         this.state = {
             mainStatus: true,
             bouquetsDisplayed: true,
-            flowersDisplayed: false,
-            imageOpened: false,
-            image: null
+            flowersDisplayed: false
         }
         this.mainSwitch = this.mainSwitch.bind(this)
-        this.openImage = this.openImage.bind(this)
-        this.closeImage = this.closeImage.bind(this)
     }
     mainSwitch(status) {
         this.setState({
@@ -34,39 +29,18 @@ class Main extends React.Component {
             })
         }, 1000)
     }
-    openImage(image) {
-        this.setState({
-            imageOpened: true,
-            image: image.current
-        })
-    }
-    closeImage() {
-        this.setState({
-            imageOpened: false,
-            image: null
-        })
-    }
     render() {
         return (
             <>
                 <BackImage page={"main"}/>
-                {
-                    this.state.imageOpened && <Image
-                        image={this.state.image}
-                        closeImage={this.closeImage}
-                    />
-                }
-                <Header
-                    cancelLogin={this.props.cancelLogin}
-                    logged={this.props.logged}
-                />
+                <Header/>
                 <SubHeader mainSwitch={this.mainSwitch} mainStatus={this.state.mainStatus}></SubHeader>
                 <div className={"main-body"} style={{transform: `translateX(${this.state.mainStatus ? "0" : "-100vw"})`}}>
                     <div className={"bouquets-container"} style={{transform: `rotate(${this.state.mainStatus ? "0" : "35deg"})`}}>
-                        {this.state.bouquetsDisplayed && <Bouquets openImage={this.openImage}/>}
+                        {this.state.bouquetsDisplayed && <Bouquets openImage={this.props.openImage}/>}
                     </div>
                     <div className={"flowers-container"} style={{transform: `rotate(${this.state.mainStatus ? "-35deg" : "0"})`}}>
-                        {this.state.flowersDisplayed && <Flowers openImage={this.openImage}/>}
+                        {this.state.flowersDisplayed && <Flowers openImage={this.props.openImage}/>}
                     </div>
                 </div>
             </>

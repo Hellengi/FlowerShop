@@ -6,6 +6,7 @@ import Login from "./login";
 import Cart from "./cart";
 import Profile from "./profile";
 import NotFound from "./notfound";
+import Image from "./image";
 import './index.css'
 
 const Root = ReactDOM.createRoot(document.getElementById("root"))
@@ -14,37 +15,46 @@ class Body extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            logged: false
+            imageOpened: false,
+            image: null
         }
-        this.setLogin = this.setLogin.bind(this)
-        this.cancelLogin = this.cancelLogin.bind(this)
+        this.openImage = this.openImage.bind(this)
+        this.closeImage = this.closeImage.bind(this)
     }
-    setLogin() {
+    openImage(image) {
         this.setState({
-            logged: true
+            imageOpened: true,
+            image: image.current
         })
     }
-    cancelLogin() {
+    closeImage() {
         this.setState({
-            logged: false
+            imageOpened: false,
+            image: null
         })
     }
     render() {
         return (
             <>
+                {
+                    this.state.imageOpened && <Image
+                        image={this.state.image}
+                        closeImage={this.closeImage}
+                    />
+                }
                 <BrowserRouter>
                     <Routes>
                         <Route path={"/"} element={
-                            <Main cancelLogin={this.cancelLogin} logged={this.state.logged}/>
+                            <Main openImage={this.openImage}/>
                         }/>
                         <Route path={"/login"} element={
-                            <Login setLogin={this.setLogin} logged={this.state.logged}/>
+                            <Login/>
                         }/>
                         <Route path={"/cart"} element={
-                            <Cart cancelLogin={this.cancelLogin} logged={this.state.logged}/>
+                            <Cart openImage={this.openImage}/>
                         }/>
                         <Route path={"/profile"} element={
-                            <Profile cancelLogin={this.cancelLogin} logged={this.state.logged}/>
+                            <Profile/>
                         }/>
                         <Route path={"*"} element={
                             <NotFound/>

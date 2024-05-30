@@ -1,76 +1,249 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "./card.css"
 
-function Card({info, openImage, minimized}) {
-    const image = useRef(null)
+function Card({info, openImage, mode, updateMap, setCustom, customAmount, customMap, removeCustom}) {
+        useEffect(() => {
+        if (mode === "selected-custom") {
+            setAmountInCart(1)
+        }
+        // eslint-disable-next-line
+    }, [])
+    function deleteCustom(id) {
+        removeCustom(id)
+        setAmountInCart(0)
+    }
     useEffect(() => {
-        image.current.addEventListener("load", () => {
-            if (image.current.clientHeight > image.current.clientWidth) {
-                image.current.style.maxWidth = minimized ? "80px" : "240px"
+        if (mode === "flower" && customMap !== undefined) {
+            if (customMap.get(info.id) !== undefined) {
+                setAmountInCart(customMap.get(info.id))
             }
             else {
-                image.current.style.maxHeight = minimized ? "80px" : "240px"
+                setAmountInCart(0)
+            }
+        }
+        // eslint-disable-next-line
+    }, [customMap])
+    const [amountInCart, setAmountInCart] = useState(info.amount)
+    useEffect(() => {
+        if (mode === "custom") {
+            setAmountInCart(customAmount)
+        }
+        // eslint-disable-next-line
+    }, [customAmount])
+    function setAmount(amount) {
+        if (amount < 0) {
+            amount = 0
+        }
+        setAmountInCart(amount)
+        if (mode === "bouquet" || mode === "selected") {
+            const src = 'http://localhost:8080/set-bouquet-amount'
+            void fetch(src + '?id=' + info.id + '&amount=' + amount)
+        }
+        if (mode === "selected") {
+            updateMap(info.title, [info.price, amount])
+        }
+        if (mode === "custom") {
+            setCustom(info, amount)
+        }
+    }
+    return (
+        <>
+            {(amountInCart > 0 || (mode !== "selected" && mode !== "selected-custom")) && <div className={"card-" + mode}>
+                <Icon title={info.title} openImage={openImage} mode={mode}/>
+                <Info title={info.title} info={info.info} amount={amountInCart} price={info.price} mode={mode}/>
+                {mode === "bouquet" && <SelectButton amount={amountInCart} setAmount={setAmount}/>}
+                {mode === "flower" && <SelectFlowerButton info={info} selectedAmount={amountInCart} setCustom={setCustom}/>}
+                {(mode === "selected" || mode === "custom") && <AddSubButton amount={amountInCart} setAmount={setAmount} mode={mode}/>}
+                {mode === "selected-custom" && <DelButton removeCustom={deleteCustom} id={info.id}/>}
+            </div>}
+        </>
+    )
+}
+function Icon({title, openImage, mode}) {
+    const image = useRef(null)
+    const [src, setSrc] = useState(mode)
+    useEffect(() => {
+        if (mode === "selected") {
+            setSrc("bouquet")
+        }
+        if (mode === "custom") {
+            setSrc("flower")
+        }
+        // eslint-disable-next-line
+    }, [])
+    useEffect(() => {
+        image.current.addEventListener("load", () => {
+            const portrait = image.current.clientHeight > image.current.clientWidth
+            switch (mode) {
+                case "bouquet":
+                    portrait ? image.current.style.maxWidth = "240px" : image.current.style.maxHeight = "240px"
+                    break
+                case "flower":
+                    portrait ? image.current.style.maxWidth = "80px" : image.current.style.maxHeight = "80px"
+                    break
+                case "selected":
+                    portrait ? image.current.style.maxWidth = "100px" : image.current.style.maxHeight = "100px"
+                    break
+                case "custom":
+                    portrait ? image.current.style.maxWidth = "40px" : image.current.style.maxHeight = "40px"
+                    break
+                case "selected-custom":
+                    portrait ? image.current.style.maxWidth = "100px" : image.current.style.maxHeight = "100px"
+                    break
+                default:
+                    break
             }
         })
-    }, [minimized])
+    }, [mode])
     return (
-        <div className={minimized ? "card-minimized" : "card"}>
-            <div className={minimized ? "card-picture-container-minimized" : "card-picture-container"}>
+        <>
+            {mode !== "selected-custom" && <div className={"card-picture-container-" + mode}>
                 <img
-                    src={minimized ? `/Flowers/${info.title}.jpg` : `/Bouquets/${info.title}.jpg`}
+                    src={`/${src}s/${title}.jpg`}
                     onClick={() => {openImage(image)}}
                     ref={image}
                     alt={""}
                 />
-            </div>
-            <p className={minimized ? "card-name-minimized" : "card-name"}>{
-                /**
-                 * @param info
-                 */
-                info.title
-            }</p>
-            <p className={minimized ? "card-price-minimized" : "card-price"}>{
-                /**
-                 * @param info
-                 */
-                info.price
-            } руб</p>
-            <ToCart minimized={minimized}/>
+            </div>}
+            {mode === "selected-custom" && <div className={"card-picture-container-selected"} style={{cursor: "initial"}}>
+                <img
+                    src={`/bouquet.png`}
+                    ref={image}
+                    alt={""}
+                />
+            </div>}
+        </>
+    )
+}
+function Info({title, amount, price, mode, info}) {
+    const flowerList = []
+    if (mode === "selected-custom") {
+        let i = 0
+        for (const line of info.split(";")) {
+            i += 1
+            flowerList.push(<div
+            key={i}>
+                {line.replace(":", ": ")} шт
+            </div>)
+        }
+    }
+    return (
+        <div>
+            {(mode === "bouquet" || mode === "flower") && <>
+                <p className={"card-name-" + mode}>{title}</p>
+                <p className={"card-price-" + mode}>{price} руб</p>
+            </>}
+            {(mode === "selected") && <>
+                <p className={"card-name-" + mode}>{title}</p>
+                {amount === 1 && <p className={"card-info-" + mode}>{price} руб</p>}
+                {amount > 1 && <p className={"card-info-" + mode}>{amount} шт по {price} руб</p>}
+                {amount > 1 && <p className={"card-price-" + mode}>Суммарно {amount * price} руб</p>}
+            </>}
+            {(mode === "custom") && <>
+                {amount === 1 && <p className={"card-info-" + mode}>{title}: {price} руб</p>}
+                {amount > 1 && <p className={"card-info-" + mode}>{title}: {amount} шт по {price} руб</p>}
+            </>}
+            {(mode === "selected-custom") && <>
+                <p className={"card-name-selected"}>{title}</p>
+                <div className={"card-flower-list"}>
+                    {flowerList}
+                </div>
+                <p className={"card-info-selected"}>{price} руб</p>
+            </>}
         </div>
     )
 }
-class ToCart extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            numberInCart: 0
+function SelectButton({amount, setAmount}) {
+    const navigate = useNavigate()
+    return (
+        <>
+            {amount === 0 && <button
+                className={"blue-button-1"}
+                onClick={() => {setAmount(1)}}
+            >Заказать</button>}
+            {amount > 0 && <button
+                className={"blue-button-2"}
+                onClick={() => {navigate("/cart")}}
+            >Перейти в корзину</button>}
+        </>
+    )
+}
+function SelectFlowerButton({info, selectedAmount, setCustom}) {
+    const [amount, setAmount] = useState(0)
+    useEffect(() => {
+        setAmount(selectedAmount)
+    }, [selectedAmount])
+    useEffect(() => {
+        void init()
+        // eslint-disable-next-line
+    }, [])
+    function changeAmount(amount) {
+        setAmount(amount)
+        setCustom(info, amount)
+    }
+    async function init() {
+        const response = await fetch('http://localhost:8080/get-custom-flower?id=' + info.id)
+        const data = await response.json()
+        setAmount(data)
+    }
+    return (
+        <>
+            {amount === 0 && <button
+                className={"pink-button-1"}
+                onClick={() => {changeAmount(1)}}
+            >+</button>}
+            {amount > 0 && <button
+                className={"pink-button-2"}
+                onClick={() => {changeAmount(0)}}
+            >✓</button>}
+        </>
+    )
+}
+function AddSubButton({amount, setAmount, mode}) {
+    const [addSubName, setAddSubName] = useState("")
+    const [delName, setDelName] = useState("")
+    useEffect(() => {
+        if (mode === "selected") {
+            setAddSubName("blue-button-2 add-sub-button")
+            setDelName("blue-button-2 del-button")
         }
-        this.setNumberInCart = this.setNumberInCart.bind(this)
-    }
-    setNumberInCart(number) {
-        this.setState({
-            numberInCart: number
-        })
-    }
-    render() {
-        return (
-            <>
-                {
-                    this.state.numberInCart === 0 &&
-                    <button
-                        className={this.props.minimized ? "pink-button-1" : "blue-button-1"}
-                        onClick={() => {this.setNumberInCart(1)}}
-                    >{this.props.minimized ? "+" : "Заказать"}</button>
-                }
-                {
-                    this.state.numberInCart > 0 &&
-                    <button
-                        className={this.props.minimized ? "pink-button-2" : "blue-button-2"}
-                    >{this.props.minimized ? "✓" : "Перейти в корзину"}</button>
-                }
-            </>
-        )
-    }
+        if (mode === "custom") {
+            setAddSubName("pink-button-2 add-sub-button add-sub-custom-button")
+            setDelName("blue-button-2 del-button del-custom-button")
+        }
+        // eslint-disable-next-line
+    }, [])
+    return (
+        <div className={`add-sub-button-container-${mode}`}>
+            <button
+                className={delName}
+                onClick={() => {setAmount(0)}}
+            ></button>
+            <button
+                className={addSubName}
+                onClick={() => {setAmount(amount - 1)}}
+            >-</button>
+            <button
+                className={addSubName}
+                onClick={() => {setAmount(amount + 1)}}
+            >+</button>
+        </div>
+    )
+}
+function DelButton({removeCustom, id}) {
+    return (
+        <div className={`del-button-container-custom`}>
+            <button
+                className={"blue-button-2 del-button del-button-custom"}
+                onClick={() => {
+                    if (window.confirm("Вы действительно хотите удалить букет из корзины?")) {
+                        removeCustom(id)
+                    }
+                }}
+            ></button>
+        </div>
+    )
 }
 
 export default Card

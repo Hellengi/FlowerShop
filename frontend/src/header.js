@@ -21,10 +21,7 @@ function Header(props) {
         <header className={`header ${style}`}>
             <Logo/>
             <Search style={style}/>
-            <User
-                cancelLogin={props.cancelLogin}
-                logged={props.logged}
-            />
+            <User/>
         </header>
     )
 }
@@ -41,22 +38,35 @@ function Search({style}) {
     return <input type={"text"} placeholder={"Поиск..."}
                   className={`search ${style==="system" ? "search-light" : ""}`}></input>
 }
-function User({logged, cancelLogin}) {
+function User() {
+    const navigate = useNavigate()
+    const location = useLocation()
+    const [logged, setLogged] = useState(false)
     function exit() {
-        if (logged && window.confirm("Вы действительно хотите выйти из аккаунта?")) {
-            cancelLogin()
+        if (window.confirm("Вы действительно хотите выйти из аккаунта?")) {
+            void fetch('http://localhost:8080/logout')
+            setLogged(false)
+            location.pathname === "/profile" && navigate('/')
         }
     }
-    const location = useLocation()
+    useEffect(() => {
+        void init()
+        // eslint-disable-next-line
+    }, [])
+    async function init() {
+        const response = await fetch('http://localhost:8080/get-log-status')
+        const data = await response.json()
+        setLogged(data)
+    }
     return (
         <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
-            {location.pathname !== "/cart" && <Cart/>}
-            {logged && <Profile/>}
+            <ToCart/>
+            {logged && <ToProfile/>}
             {logged ? <LogOut exit={exit}/> : <LogIn/>}
         </div>
     )
 }
-function Cart() {
+function ToCart() {
     const navigate = useNavigate()
     return <button className={"default-button"} onClick={()=>{navigate("/cart")}}>Корзина</button>
 }
@@ -67,7 +77,7 @@ function LogIn() {
 function LogOut({exit}) {
     return <button className={"default-button"} onClick={exit}>Выйти</button>
 }
-function Profile() {
+function ToProfile() {
     const navigate = useNavigate()
     return <button className={"default-button"} onClick={()=>{navigate("/profile")}}>Профиль</button>
 }

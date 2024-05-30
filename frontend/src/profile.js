@@ -1,24 +1,34 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./profile.css"
 import BackImage from "./back";
 import Header from "./header";
+import {useNavigate} from "react-router-dom";
 
-class Profile extends React.Component {
-    render() {
-        return (
-            <>
-                <BackImage page={"profile"}/>
-                <Header
-                    cancelLogin={this.props.cancelLogin}
-                    logged={this.props.logged}
-                />
-                <div className={"profile-container"}>
-                    <ProfileInfo/>
-                    <ProfileAvatar/>
-                </div>
-            </>
-        )
+function Profile() {
+    const navigate = useNavigate()
+    const [logged, setLogged] = useState(false)
+    useEffect(() => {
+        void init()
+        // eslint-disable-next-line
+    }, [])
+    async function init() {
+        const response = await fetch('http://localhost:8080/get-log-status')
+        const data = await response.json()
+        setLogged(data)
+        if (data === false) {
+            navigate('/')
+        }
     }
+    return (
+        <>
+            <BackImage page={"profile"}/>
+            <Header/>
+            {logged && <div className={"profile-container"}>
+                <ProfileInfo/>
+                <ProfileAvatar/>
+            </div>}
+        </>
+    )
 }
 
 function ProfileInfo() {

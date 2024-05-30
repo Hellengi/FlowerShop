@@ -33,18 +33,6 @@
 .list-of-flowers {
 
 }
-.block_ {
-    width: 320px;
-    height: 120px;
-    margin: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-.block_:after {
-    content: "FLOWER";
-    line-height: 120px;
-    font-size: 2em;
-}
 .selected-flowers-container {
     margin: 20px;
     padding: 20px;
@@ -53,10 +41,20 @@
     top: 20px;
     backdrop-filter: blur(4px);
     border-radius: 10px;
-    max-height: calc(100vh - 40px);
+    max-height: calc(100vh - 80px);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: #80F2;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .selected-flowers {
     font-size: 1.4em;
+}
+.selected-flowers h1 {
+    margin-top: 0;
 }
 .bouquet-created {
     display: flex;
@@ -65,7 +63,31 @@
     gap: 20px;
     font-size: 1.4em;
 }
-.selected-flowers-container > button {
+.selected-flowers-price {
+    font-style: italic;
+    font-size: 1.4em;
+    text-align: right;
+    margin: 20px 100px 20px 20px;
+    width: 100%;
+}
+.medium-button {
     font-size: 0.8em;
     width: 160px;
+}
+.bouquet-created .dark-button {
+    max-width: 100px;
+    color: black;
+    filter: hue-rotate(320deg) brightness(110%);
+    background-color: #0000;
+    border-width: 2px;
+}
+.bouquet-created .dark-button:hover {
+    background-color: #0000;
+    color: black;
+    filter: hue-rotate(300deg) brightness(110%);
+}
+.bouquet-created .dark-button:active {
+    background-color: #0000;
+    border-width: 2px;
+    filter: hue-rotate(280deg) brightness(110%);
 }

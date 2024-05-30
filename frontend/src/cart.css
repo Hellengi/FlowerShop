@@ -1,8 +1,26 @@
+.cart-background {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
 .cart-container {
-    width: 80vw;
-    height: 120vh;
     background-color: #52AD;
     backdrop-filter: blur(4px);
     border: solid #004;
-    margin: auto;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.cart-container > h1 {
+    margin: 0;
+    color: #404;
+    text-shadow: #FBFA 0 0 10px, #FBFA 0 0 5px;
+}
+.cart-container > button {
+    font-size: 1.2em;
+    width: 160px;
 }

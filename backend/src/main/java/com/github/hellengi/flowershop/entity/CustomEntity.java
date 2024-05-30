@@ -2,22 +2,25 @@ package com.github.hellengi.flowershop.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashMap;
+
 @Entity
 @Table
-public class FlowerEntity {
+public class CustomEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flower_seq")
-    @SequenceGenerator(name = "flower_seq", sequenceName = "flower_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_seq")
+    @SequenceGenerator(name = "custom_seq", sequenceName = "custom_sequence", allocationSize = 1)
     private long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "description")
-    private String description;
+    @Column(name = "info")
+    private String info;
     @Column(name = "price")
     private int price;
-    public FlowerEntity() {}
-    public FlowerEntity(String title, int price) {
+    public CustomEntity() {}
+    public CustomEntity(String title, String info, int price) {
         this.title = title;
+        this.info = info;
         this.price = price;
     }
     public long getId() {
@@ -29,11 +32,11 @@ public class FlowerEntity {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getDescription() {
-        return description;
+    public String getInfo() {
+        return info;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setInfo(String info) {
+        this.info = info;
     }
     public int getPrice() {
         return price;

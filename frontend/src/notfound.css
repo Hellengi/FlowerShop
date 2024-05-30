@@ -24,23 +24,4 @@
 .notfound-button {
     font-size: 0.35em;
     padding: 10px;
-    background: #203A;
-    border-left: solid #314F 3px;
-    border-top: solid #314F 3px;
-    border-right: solid #203F 3px;
-    border-bottom: solid #203F 3px;
-    border-radius: 5px;
-    backdrop-filter: blur(4px);
-    color: #DBD;
-}
-.notfound-button:hover {
-    color: #FDF;
-    background: #203A;
-}
-.notfound-button:active {
-    background: #202A;
-    border-left: solid #203F 3px;
-    border-top: solid #203F 3px;
-    border-right: solid #314F 3px;
-    border-bottom: solid #314F 3px;
 }
