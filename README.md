@@ -1,4 +1,5 @@
-# Flower Shop
+## Fourth semester project (2nd year)
+## _Flower Shop_
 
 ### Frontend (React)
 - Use `npm install` to install dependencies
@@ -9,10 +10,15 @@
 - Use `mvn clean install` to install dependencies
 - Use `mvn spring-boot:run` to launch
 - Use `mvn package` to create an executable jar
+- Or launch with IntelliJ
 
 ### Database (PostgreSQL)
 - Create a `flower-shop` database for application deployment
 - Default password is `password`
 
-### Server (Nginx)
-- ???
+
+![image](image_1.png?raw=true)
+
+![image](image_2.png?raw=true)
+
+![image](image_3.png?raw=true)
