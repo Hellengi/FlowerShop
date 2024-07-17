@@ -1,5 +1,4 @@
 ## Fourth semester project (2nd year)
-## _Flower Shop_
 
 ### Frontend (React)
 - Use `npm install` to install dependencies
