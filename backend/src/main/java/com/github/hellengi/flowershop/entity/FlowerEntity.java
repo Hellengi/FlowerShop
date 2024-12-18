@@ -3,7 +3,7 @@ package com.github.hellengi.flowershop.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name="flower")
 public class FlowerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flower_seq")

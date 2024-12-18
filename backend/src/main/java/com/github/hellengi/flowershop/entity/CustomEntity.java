@@ -2,10 +2,8 @@ package com.github.hellengi.flowershop.entity;
 
 import jakarta.persistence.*;
 
-import java.util.HashMap;
-
 @Entity
-@Table
+@Table(name="custom")
 public class CustomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_seq")

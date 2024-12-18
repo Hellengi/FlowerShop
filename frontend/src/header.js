@@ -54,7 +54,7 @@ function User() {
         // eslint-disable-next-line
     }, [])
     async function init() {
-        const response = await fetch('http://localhost:8080/get-log-status')
+        const response = await fetch('http://localhost:8080/logged')
         const data = await response.json()
         setLogged(data)
     }

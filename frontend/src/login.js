@@ -9,7 +9,10 @@ class Login extends React.Component {
         this.state = {
             loginPanel: true,
             switching: false,
-            exit: false
+            exit: false,
+            name: "",
+            email: "",
+            password: ""
         }
         this.toSignup = this.toSignup.bind(this)
         this.toLogin = this.toLogin.bind(this)
@@ -37,6 +40,23 @@ class Login extends React.Component {
             })
         }, 500)
     }
+
+    handleUsernameChange = (event) => {
+        this.setState({
+            name: event.target.value
+        });
+    };
+    handleEmailChange = (event) => {
+        this.setState({
+            email: event.target.value
+        });
+    };
+    handlePasswordChange = (event) => {
+        this.setState({
+            password: event.target.value
+        });
+    };
+
     componentDidMount() {
         document.addEventListener("keydown", this.escPressed)
     }
@@ -87,13 +107,23 @@ class Login extends React.Component {
                             opacity: this.state.loginPanel ? "0" : "1"
                     }}>
                         <h1>Создать аккаунт</h1>
-                        <input type={"text"} placeholder={"Имя"}/>
-                        <input type={"text"} placeholder={"E-mail"}/>
-                        <input type={"text"} placeholder={"Пароль"}/>
+                        <input type={"text"} placeholder={"Имя"} onInput={this.handleUsernameChange}/>
+                        <input type={"text"} placeholder={"E-mail"} onInput={this.handleEmailChange}/>
+                        <input type={"text"} placeholder={"Пароль"} onInput={this.handlePasswordChange}/>
                         <button
                             className={"default-button large-button"}
                             onClick={() => {
-                                void fetch('http://localhost:8080/login')
+                                const data = {
+                                    name: this.state.name,
+                                    email: this.state.email,
+                                    password: this.state.password
+                                };
+                                console.log(data)
+                                void fetch('http://localhost:8080/signup', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/json'},
+                                    body: JSON.stringify(data)
+                                });
                                 this.setState({
                                     exit: true
                                 })
@@ -108,16 +138,31 @@ class Login extends React.Component {
                             opacity: this.state.loginPanel ? "1" : "0"
                     }}>
                         <h1>Войти</h1>
-                        <input type={"text"} placeholder={"E-mail"}/>
-                        <input type={"text"} placeholder={"Пароль"}/>
+                        <input type={"text"} placeholder={"E-mail"} onInput={this.handleEmailChange}/>
+                        <input type={"text"} placeholder={"Пароль"} onInput={this.handlePasswordChange}/>
                         <button className={"password-forget"}>Забыли пароль?</button>
                         <button
                             className={"default-button large-button"}
-                            onClick={() => {
-                                void fetch('http://localhost:8080/login')
-                                this.setState({
-                                    exit: true
-                                })
+                            onClick={async () => {
+                                const data = {
+                                    email: this.state.email,
+                                    password: this.state.password
+                                };
+                                const response = await fetch('http://localhost:8080/login', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/json'},
+                                    body: JSON.stringify(data)
+                                });
+                                console.log("login")
+                                const result = await response.json();
+                                if (result) {
+                                    this.setState({
+                                        exit: true
+                                    })
+                                }
+                                else {
+                                    alert("Неверный пароль")
+                                }
                             }}
                         >Вход</button>
                     </div>

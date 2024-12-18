@@ -4,9 +4,15 @@ import java.util.*;
 import com.github.hellengi.flowershop.entity.BouquetEntity;
 import com.github.hellengi.flowershop.entity.CustomEntity;
 import com.github.hellengi.flowershop.entity.FlowerEntity;
+import com.github.hellengi.flowershop.entity.ClientEntity;
+import com.github.hellengi.flowershop.entity.SellerEntity;
+import com.github.hellengi.flowershop.entity.AdminEntity;
 import com.github.hellengi.flowershop.repository.BouquetRepository;
 import com.github.hellengi.flowershop.repository.CustomRepository;
 import com.github.hellengi.flowershop.repository.FlowerRepository;
+import com.github.hellengi.flowershop.repository.ClientRepository;
+import com.github.hellengi.flowershop.repository.SellerRepository;
+import com.github.hellengi.flowershop.repository.AdminRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -33,8 +39,14 @@ public class Controller {
     private FlowerRepository flowerRepository;
     @Autowired
     private CustomRepository customRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private SellerRepository sellerRepository;
+    @Autowired
+    private AdminRepository adminRepository;
 
-    Boolean Logged = false;
+    ClientEntity client = null;
     HashMap<Long, Integer> CustomFlower = new HashMap<>();
 
     @PostConstruct
@@ -94,19 +106,57 @@ public class Controller {
         }
     }
 
-    @GetMapping("/login")
-    public void login() {
-        Logged = true;
+    @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.OK)
+    public void signup(@RequestBody ClientEntity clientEntity) {
+        String name = clientEntity.getName();
+        String email = clientEntity.getEmail();
+        String password = clientEntity.getPassword();
+        client = new ClientEntity(name, email, password);
+        clientRepository.save(client);
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public Boolean login(@RequestBody ClientEntity clientEntity) {
+        String email = clientEntity.getEmail();
+        String password = clientEntity.getPassword();
+        client = clientRepository.checkPassword(email, password);
+        return client != null;
     }
 
     @GetMapping("/logout")
     public void logout() {
-        Logged = false;
+        client = null;
     }
 
-    @GetMapping("/get-log-status")
-    public Boolean getLogStatus() {
-        return Logged;
+    @PostMapping("/drop")
+    public void drop() {
+        clientRepository.dropClient(client);
+        client = null;
+    }
+
+    @GetMapping("/logged")
+    public Boolean logged() {
+        return client != null;
+    }
+
+    @GetMapping("/profile")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, String> teachers() {
+        if (client == null) {
+            throw new IllegalStateException("User is not logged in.");
+        }
+        String role = "client";
+        if (sellerRepository.check(client)) role = "seller";
+        if (adminRepository.check(client)) role = "admin";
+        Map<String, String> profile = new HashMap<>();
+        profile.put("name", client.getName());
+        profile.put("email", client.getEmail());
+        profile.put("password", client.getPassword());
+        profile.put("avatar", client.getAvatar());
+        profile.put("role", role);
+        return (profile);
     }
 
     @GetMapping("/bouquets")
