@@ -118,7 +118,6 @@ class Login extends React.Component {
                                     email: this.state.email,
                                     password: this.state.password
                                 };
-                                console.log(data)
                                 void fetch('http://localhost:8080/signup', {
                                     method: 'POST',
                                     headers: {'Content-Type': 'application/json'},
@@ -153,7 +152,6 @@ class Login extends React.Component {
                                     headers: {'Content-Type': 'application/json'},
                                     body: JSON.stringify(data)
                                 });
-                                console.log("login")
                                 const result = await response.json();
                                 if (result) {
                                     this.setState({

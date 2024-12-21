@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "./card.css"
 
-function Card({info, openImage, mode, updateMap, setCustom, customAmount, customMap, removeCustom}) {
+function Card({info, openImage, mode, role, updateMap, setCustom, customAmount, customMap, removeCustom}) {
         useEffect(() => {
         if (mode === "selected-custom") {
             setAmountInCart(1)
@@ -12,6 +12,46 @@ function Card({info, openImage, mode, updateMap, setCustom, customAmount, custom
     function deleteCustom(id) {
         removeCustom(id)
         setAmountInCart(0)
+    }
+    async function updateBouquet(id) {
+        let title = prompt("Введите название букета")
+        if (title === null) return
+        let price = parseInt(prompt("Введите стоимость букета"))
+        if (isNaN(price)) return
+        const data = {
+            title,
+            price
+        };
+        await fetch(`http://localhost:8080/update-bouquet?id=${id}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        window.location.reload()
+    }
+    async function updateFlower(id) {
+        let title = prompt("Введите название цветка")
+        if (title === null) return
+        let price = parseInt(prompt("Введите стоимость цветка"))
+        if (isNaN(price)) return
+        const data = {
+            title,
+            price
+        };
+        await fetch(`http://localhost:8080/update-flower?id=${id}`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        window.location.reload()
+    }
+    async function dropBouquet(id) {
+        await fetch(`http://localhost:8080/drop-bouquet?id=${id}`)
+        window.location.reload()
+    }
+    async function dropFlower(id) {
+        await fetch(`http://localhost:8080/drop-flower?id=${id}`)
+        window.location.reload()
     }
     useEffect(() => {
         if (mode === "flower" && customMap !== undefined) {
@@ -55,7 +95,11 @@ function Card({info, openImage, mode, updateMap, setCustom, customAmount, custom
                 {mode === "bouquet" && <SelectButton amount={amountInCart} setAmount={setAmount}/>}
                 {mode === "flower" && <SelectFlowerButton info={info} selectedAmount={amountInCart} setCustom={setCustom}/>}
                 {(mode === "selected" || mode === "custom") && <AddSubButton amount={amountInCart} setAmount={setAmount} mode={mode}/>}
-                {mode === "selected-custom" && <DelButton removeCustom={deleteCustom} id={info.id}/>}
+                {mode === "selected-custom" && <RemoveButton remove={deleteCustom} id={info.id}/>}
+                {role === "admin" && mode === "bouquet" && <UpdateButton update={updateBouquet} id={info.id} mode={mode}/>}
+                {role === "admin" && mode === "flower" && <UpdateButton update={updateFlower} id={info.id} mode={mode}/>}
+                {role === "admin" && mode === "bouquet" && <DropButton drop={dropBouquet} id={info.id} mode={mode}/>}
+                {role === "admin" && mode === "flower" && <DropButton drop={dropFlower} id={info.id} mode={mode}/>}
             </div>}
         </>
     )
@@ -101,6 +145,7 @@ function Icon({title, openImage, mode}) {
             {mode !== "selected-custom" && <div className={"card-picture-container-" + mode}>
                 <img
                     src={`/${src}s/${title}.jpg`}
+                    onError={e => e.target.src = 'bouquet.png'}
                     onClick={() => {openImage(image)}}
                     ref={image}
                     alt={""}
@@ -206,11 +251,11 @@ function AddSubButton({amount, setAmount, mode}) {
     useEffect(() => {
         if (mode === "selected") {
             setAddSubName("blue-button-2 add-sub-button")
-            setDelName("blue-button-2 del-button")
+            setDelName("blue-button-2 edit-button delete-button")
         }
         if (mode === "custom") {
             setAddSubName("pink-button-2 add-sub-button add-sub-custom-button")
-            setDelName("blue-button-2 del-button del-custom-button")
+            setDelName("blue-button-2 edit-button delete-button del-custom-button")
         }
         // eslint-disable-next-line
     }, [])
@@ -231,14 +276,44 @@ function AddSubButton({amount, setAmount, mode}) {
         </div>
     )
 }
-function DelButton({removeCustom, id}) {
+function RemoveButton({remove, id}) {
     return (
-        <div className={`del-button-container-custom`}>
+        <div className={"button-container delete-button-container-custom"}>
             <button
-                className={"blue-button-2 del-button del-button-custom"}
+                className={"blue-button-2 edit-button delete-button delete-button-custom"}
                 onClick={() => {
                     if (window.confirm("Вы действительно хотите удалить букет из корзины?")) {
-                        removeCustom(id)
+                        remove(id)
+                    }
+                }}
+            ></button>
+        </div>
+    )
+}
+function UpdateButton({update, id, mode}) {
+    return (
+        <div className={`button-container update-button-container-${mode}`}>
+            <button
+                className={`blue-button-2 edit-button update-button button-${mode}`}
+                onClick={() => {
+                    if (window.confirm(`Вы хотите обновить информацию ${
+                        mode === "bouquet" ? "о букете" : "о цветке"} в базе данных?`)) {
+                        update(id)
+                    }
+                }}
+            ></button>
+        </div>
+    )
+}
+function DropButton({drop, id, mode}) {
+    return (
+        <div className={`button-container drop-button-container-${mode}`}>
+            <button
+                className={`blue-button-2 edit-button delete-button button-${mode}`}
+                onClick={() => {
+                    if (window.confirm(`Вы действительно хотите удалить ${
+                        mode === "bouquet" ? "букет" : "цветок"} из базы данных?`)) {
+                        drop(id)
                     }
                 }}
             ></button>

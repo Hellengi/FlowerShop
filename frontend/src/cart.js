@@ -65,6 +65,9 @@ function FlowerList({openImage}) {
         }
     }
     async function init() {
+        const role_response = await fetch('http://localhost:8080/role')
+        const role = await role_response.text()
+
         const bouquetBlocks = []
         const response = await fetch('http://localhost:8080/selected-bouquets')
         const data = await response.json()
@@ -74,6 +77,7 @@ function FlowerList({openImage}) {
                 info={info}
                 openImage={openImage}
                 mode={"selected"}
+                role={role}
                 updateMap={updateMap}
             />)
             updateMap(info.title, [info.price, info.amount])
@@ -89,6 +93,9 @@ function FlowerList({openImage}) {
         void fetch(`http://localhost:8080/delete-custom?id=${id}`)
     }
     async function init_2() {
+        const role_response = await fetch('http://localhost:8080/role')
+        const role = await role_response.text()
+
         const customBlocks = []
         const response = await fetch('http://localhost:8080/get-custom')
         const data = await response.json()
@@ -98,6 +105,7 @@ function FlowerList({openImage}) {
                 info={info}
                 openImage={openImage}
                 mode={"selected-custom"}
+                role={role}
                 removeCustom={removeCustom}
             />)
             updateMap2(info.id, info.price)

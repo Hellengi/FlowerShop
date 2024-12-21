@@ -52,8 +52,17 @@ class SubHeader extends React.Component {
         super(props);
         this.state = {
             toBouquetsButtonDisplayed: false,
-            toFlowersButtonDisplayed: true
+            toFlowersButtonDisplayed: true,
+            role: "unauthorized"
         }
+        void this.getRole()
+    }
+    async getRole() {
+        const role_response = await fetch('http://localhost:8080/role')
+        const role = await role_response.text()
+        this.setState({
+            role
+        })
     }
     buttonSwitch(status) {
         this.setState({
@@ -66,6 +75,38 @@ class SubHeader extends React.Component {
                 toFlowersButtonDisplayed: status
             })
         }, 1000)
+    }
+    async createBouquet() {
+        const title = prompt("Введите название букета")
+        if (title === null) return
+        const price = parseInt(prompt("Введите стоимость букета"))
+        if (isNaN(price)) return
+        const data = {
+            title,
+            price
+        };
+        await fetch('http://localhost:8080/create-bouquet', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        window.location.reload()
+    }
+    async createFlower() {
+        const title = prompt("Введите название цветка")
+        if (title === null) return
+        const price = parseInt(prompt("Введите стоимость цветка"))
+        if (isNaN(price)) return
+        const data = {
+            title,
+            price
+        };
+        await fetch('http://localhost:8080/create-flower', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        window.location.reload()
     }
     render() {
         const { mainSwitch, mainStatus } = this.props
@@ -88,6 +129,22 @@ class SubHeader extends React.Component {
                         }}
                         className={"default-button large-button"}
                     >Составить свой букет →</button>}
+                </div>
+                <div className={"create-bouquet"}>
+                    {this.state.role === "admin" && !this.state.toBouquetsButtonDisplayed && <button
+                        onClick={() => {
+                            void this.createBouquet()
+                        }}
+                        className={"default-button azure-button"}
+                    >Добавить букет в БД</button>}
+                </div>
+                <div className={"create-flower"}>
+                    {this.state.role === "admin" && !this.state.toFlowersButtonDisplayed && <button
+                        onClick={() => {
+                            void this.createFlower()
+                        }}
+                        className={"default-button azure-button"}
+                    >Добавить цветок в БД</button>}
                 </div>
             </div>
         )

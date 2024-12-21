@@ -26,3 +26,12 @@
     transform: translateX(-50vw);
     transition: transform 1s ease-in-out;
 }
+.create-bouquet {
+    position: absolute;
+    margin-top: 10px;
+}
+.create-flower {
+    position: absolute;
+    margin-top: 10px;
+    justify-self: right;
+}

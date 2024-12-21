@@ -1,5 +1,6 @@
 package com.github.hellengi.flowershop.controller;
 import java.util.*;
+import java.util.logging.Filter;
 
 import com.github.hellengi.flowershop.entity.BouquetEntity;
 import com.github.hellengi.flowershop.entity.CustomEntity;
@@ -143,7 +144,7 @@ public class Controller {
 
     @GetMapping("/profile")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, String> teachers() {
+    public Map<String, String> profile() {
         if (client == null) {
             throw new IllegalStateException("User is not logged in.");
         }
@@ -159,15 +160,35 @@ public class Controller {
         return (profile);
     }
 
+    @GetMapping("/role")
+    @ResponseStatus(HttpStatus.OK)
+    public String role() {
+        String role = "unauthorized";
+        if (client != null) {
+            role = "client";
+            if (sellerRepository.check(client)) role = "seller";
+            if (adminRepository.check(client)) role = "admin";
+        }
+        return role;
+    }
+
     @GetMapping("/bouquets")
     public ResponseEntity<List<BouquetEntity>> getBouquets() {
-        List<BouquetEntity> bouquetsList = bouquetRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<BouquetEntity> bouquetsList = bouquetRepository.findAll(Sort.by(Sort.Direction.ASC, "title"));
         return new ResponseEntity<>(bouquetsList, HttpStatus.OK);
     }
 
     @GetMapping("/flowers")
     public ResponseEntity<List<FlowerEntity>> getFlowers() {
-        List<FlowerEntity> flowerList = flowerRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        List<FlowerEntity> flowerList = flowerRepository.findAll(Sort.by(Sort.Direction.ASC, "title"));
+        return new ResponseEntity<>(flowerList, HttpStatus.OK);
+    }
+
+    @GetMapping("/search-flowers")
+    public ResponseEntity<List<FlowerEntity>> searchFlowers(@RequestParam(value = "searchText") String searchText,
+                                                            @RequestParam(value = "minPrice") Integer minPrice,
+                                                            @RequestParam(value = "maxPrice") Integer maxPrice) {
+        List<FlowerEntity> flowerList = flowerRepository.search(searchText, minPrice, maxPrice);
         return new ResponseEntity<>(flowerList, HttpStatus.OK);
     }
 
@@ -252,6 +273,56 @@ public class Controller {
     @GetMapping("/delete-custom")
     public void deleteCustom(@RequestParam(value = "id") Long id) {
         customRepository.deleteById(id);
+    }
+
+    @PostMapping("/create-bouquet")
+    public void createBouquet(@RequestBody BouquetEntity bouquetEntity) {
+       bouquetRepository.save(bouquetEntity);
+    }
+
+    @PostMapping("/create-flower")
+    public void createFlower(@RequestBody FlowerEntity flowerEntity) {
+       flowerRepository.save(flowerEntity);
+    }
+
+    @PostMapping("/update-bouquet")
+    public void updateBouquet(@RequestBody BouquetEntity bouquetEntity, @RequestParam(value = "id") Long id) {
+        if (bouquetEntity.getTitle().isEmpty()) {
+            bouquetRepository.findById(id).ifPresent(existingBouquet ->
+                    bouquetEntity.setTitle(existingBouquet.getTitle())
+            );
+        }
+        if (bouquetEntity.getPrice() == -1) {
+            bouquetRepository.findById(id).ifPresent(existingBouquet ->
+                    bouquetEntity.setPrice(existingBouquet.getPrice())
+            );
+        }
+        bouquetRepository.update(bouquetEntity, id);
+    }
+
+    @PostMapping("/update-flower")
+    public void updateFlower(@RequestBody FlowerEntity flowerEntity, @RequestParam(value = "id") Long id) {
+        if (flowerEntity.getTitle().isEmpty()) {
+            flowerRepository.findById(id).ifPresent(existingFlower ->
+                    flowerEntity.setTitle(existingFlower.getTitle())
+            );
+        }
+        if (flowerEntity.getPrice() == -1) {
+            flowerRepository.findById(id).ifPresent(existingFlower ->
+                    flowerEntity.setPrice(existingFlower.getPrice())
+            );
+        }
+        flowerRepository.update(flowerEntity, id);
+    }
+
+    @GetMapping("/drop-bouquet")
+    public void dropBouquet(@RequestParam(value = "id") Long id) {
+        bouquetRepository.deleteById(id);
+    }
+
+    @GetMapping("/drop-flower")
+    public void dropFlower(@RequestParam(value = "id") Long id) {
+        flowerRepository.deleteById(id);
     }
 
     @GetMapping("/")

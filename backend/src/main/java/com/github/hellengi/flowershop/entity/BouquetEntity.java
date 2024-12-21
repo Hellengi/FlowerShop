@@ -17,6 +17,11 @@ public class BouquetEntity {
     @Column(name = "amount")
     private int amount;
     public BouquetEntity() {}
+    public BouquetEntity(String title, int price) {
+        this.title = title;
+        this.price = price;
+        this.amount = 0;
+    }
     public BouquetEntity(String title, int price, int amount) {
         this.title = title;
         this.price = price;

@@ -71,12 +71,35 @@ class Flowers extends React.Component {
 function ListOfFlowers({openImage, setCustom, customMap}) {
     const [blocks, setBlocks] = useState([])
     const [infoMap, setInfoMap] = useState(new Map())
+    const [role, setRole] = useState("")
+    const [searchText, setSearchText] = useState("")
+    const [minPrice, setMinPrice] = useState(0)
+    const [maxPrice, setMaxPrice] = useState(2147483647)
     useEffect(() => {
         void init()
     }, [])
     async function init() {
+        const role_response = await fetch('http://localhost:8080/role')
+        const role = await role_response.text()
+        setRole(role)
+
         const response = await fetch('http://localhost:8080/flowers')
         const data = await response.json()
+        data.forEach(info => {
+            setInfoMap(prevInfoMap => {
+                const newInfoMap = new Map(prevInfoMap)
+                newInfoMap.set(info.id, info)
+                return newInfoMap
+            })
+        })
+    }
+    async function searchFlower() {
+        const response = await fetch(`http://localhost:8080/search-flowers?searchText=${
+            searchText}&minPrice=${minPrice}&maxPrice=${maxPrice}`, {
+            method: 'GET'
+        })
+        const data = await response.json()
+        setInfoMap(new Map())
         data.forEach(info => {
             setInfoMap(prevInfoMap => {
                 const newInfoMap = new Map(prevInfoMap)
@@ -93,6 +116,7 @@ function ListOfFlowers({openImage, setCustom, customMap}) {
                 info={info}
                 openImage={openImage}
                 mode={"flower"}
+                role={role}
                 setCustom={setCustom}
                 customMap={customMap}
             />)
@@ -100,9 +124,43 @@ function ListOfFlowers({openImage, setCustom, customMap}) {
         setBlocks(newBlocks)
         // eslint-disable-next-line
     }, [infoMap, customMap])
+    async function handleSearchTextChange(event) {
+        await setSearchText(event.target.value)
+    }
+    async function handleMinPriceChange(event) {
+        const price = parseInt(event.target.value)
+        if (isNaN(price)) await setMinPrice(0)
+        else if (price > 2147483647) await setMinPrice(2147483647)
+        else if (price < 0) await setMinPrice(0)
+        else await setMinPrice(price)
+    }
+    async function handleMaxPriceChange(event) {
+        const price = parseInt(event.target.value)
+        if (isNaN(price)) await setMaxPrice(2147483647)
+        else if (price > 2147483647) await setMaxPrice(2147483647)
+        else if (price < 0) await setMaxPrice(0)
+        else await setMaxPrice(price)
+    }
+    useEffect(() => {
+        void searchFlower()
+        // eslint-disable-next-line
+    }, [searchText, minPrice, maxPrice]);
     return (
         <div>
-            <input className={"list-of-flowers-search"} type={"text"} placeholder={"Поиск..."}/>
+            <div className={"search-block"}>
+                <input className={"list-of-flowers-search search-text"}
+                       type={"text"}
+                       placeholder={"Поиск..."}
+                       onInput={handleSearchTextChange}/>
+                <input className={"list-of-flowers-search search-price"}
+                       type={"text"}
+                       placeholder={"Мин. цена"}
+                       onInput={handleMinPriceChange}/>
+                <input className={"list-of-flowers-search search-price"}
+                       type={"text"}
+                       placeholder={"Макс. цена"}
+                       onInput={handleMaxPriceChange}/>
+            </div>
             <div className={"list-of-flowers"}>
                 {blocks}
             </div>
@@ -121,6 +179,9 @@ function SelectedFlowers({openImage, customMap, setCustom, changeStatusReady}) {
         // eslint-disable-next-line
     }, [customMap])
     async function init() {
+        const role_response = await fetch('http://localhost:8080/role')
+        const role = await role_response.text()
+
         const flowerBlocks = []
         for (const [id, amount] of customMap) {
             const response = await fetch(`http://localhost:8080/get-flower?id=${id}`)
@@ -130,6 +191,7 @@ function SelectedFlowers({openImage, customMap, setCustom, changeStatusReady}) {
                 info={data}
                 openImage={openImage}
                 mode={"custom"}
+                role={role}
                 setCustom={setCustom}
                 customAmount={amount}
             />)

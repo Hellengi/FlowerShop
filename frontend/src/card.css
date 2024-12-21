@@ -168,8 +168,7 @@
     width: 40px;
     font-weight: bold;
 }
-.del-button {
-    background-image: url("../public/trash.png"), radial-gradient(#EDD, #A9D);
+.edit-button {
     background-size: 16px, cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -177,19 +176,36 @@
     height: 20px;
     width: 20px;
     transform: translate(90px, -30px);
+}
+.edit-button:hover {
+    background-size: 16px, cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.edit-button:active {
+    background-size: 16px, cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.delete-button {
+    background-image: url("../public/trash.png"), radial-gradient(#EDD, #A9D);
     filter: hue-rotate(75deg);
 }
-.del-button:hover {
+.delete-button:hover {
     background-image: url("../public/trash.png"), radial-gradient(#EDD, #A6F);
-    background-size: 16px, cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
-.del-button:active {
+.delete-button:active {
     background-image: url("../public/trash.png"), radial-gradient(#EDD, #95C);
-    background-size: 16px, cover;
-    background-position: center;
-    background-repeat: no-repeat;
+}
+.update-button {
+    background-image: url("../public/edit.png"), radial-gradient(#EDD, #A9D);
+    filter: hue-rotate(205deg);
+}
+.update-button:hover {
+    background-image: url("../public/edit.png"), radial-gradient(#EDD, #A6F);
+}
+.update-button:active {
+    background-image: url("../public/edit.png"), radial-gradient(#EDD, #95C);
 }
 .card-custom {
     display: grid;
@@ -234,7 +250,7 @@
     display: grid;
     grid-template-columns: 120px 300px 60px;
     align-items: center;
-    padding: 10px;
+    padding-bottom: 10px;
     background-color: #FFF7;
     border: black solid 1px;
     border-radius: 5px;
@@ -250,13 +266,44 @@
     display: grid;
     gap: 10px;
 }
-.del-button-container-custom {
+.button-container {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.del-button-custom {
+.delete-button-container-custom {
+    position: initial;
+}
+.delete-button-custom {
     transform: none;
     width: 30px;
     height: 30px;
+}
+.button-bouquet {
+    transform: none;
+    width: 30px;
+    height: 30px;
+}
+.drop-button-container-bouquet {
+    right: 30px;
+    top: 30px;
+}
+.drop-button-container-flower {
+    right: 20px;
+    bottom: -40px;
+}
+.button-flower {
+    transform: none;
+    width: 20px;
+    height: 20px;
+    border: #0004 solid 1px;
+}
+.update-button-container-bouquet {
+    right: 70px;
+    top: 30px;
+}
+.update-button-container-flower {
+    right: 50px;
+    bottom: -40px;
 }

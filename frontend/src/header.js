@@ -40,13 +40,13 @@ function Search({style}) {
 }
 function User() {
     const navigate = useNavigate()
-    const location = useLocation()
     const [logged, setLogged] = useState(false)
-    function exit() {
+    async function exit() {
         if (window.confirm("Вы действительно хотите выйти из аккаунта?")) {
-            void fetch('http://localhost:8080/logout')
-            setLogged(false)
-            location.pathname === "/profile" && navigate('/')
+            await fetch('http://localhost:8080/logout')
+            await setLogged(false)
+            await navigate('/')
+            window.location.reload()
         }
     }
     useEffect(() => {

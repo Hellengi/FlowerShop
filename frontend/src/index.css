@@ -73,3 +73,21 @@ input{
     border-right: solid #314F 3px;
     border-bottom: solid #314F 3px;
 }
+.azure-button {
+    background: linear-gradient(#07F9, #0AF9);
+    border-left: solid #069 2px;
+    border-top: solid #069 2px;
+    border-right: solid #04A 2px;
+    border-bottom: solid #04A 2px;
+}
+.azure-button:hover {
+    color: #004;
+    background: linear-gradient(#08F9, #0CF9);
+}
+.azure-button:active {
+    background: linear-gradient(#07F9, #0AF9);
+    border-left: solid #04A 2px;
+    border-top: solid #04A 2px;
+    border-right: solid #069 2px;
+    border-bottom: solid #069 2px;
+}

@@ -91,3 +91,20 @@
     border-width: 2px;
     filter: hue-rotate(280deg) brightness(110%);
 }
+.search-block {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    width: 280px;
+    margin: 0 20px;
+    gap: 10px;
+}
+.search-text {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 0;
+}
+.search-price {
+    margin: 0;
+    width: 120px;
+}
