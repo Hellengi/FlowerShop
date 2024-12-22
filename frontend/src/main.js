@@ -34,13 +34,26 @@ class Main extends React.Component {
             <>
                 <BackImage page={"main"}/>
                 <Header/>
-                <SubHeader mainSwitch={this.mainSwitch} mainStatus={this.state.mainStatus}></SubHeader>
+                <SubHeader
+                    mainSwitch={this.mainSwitch}
+                    mainStatus={this.state.mainStatus}
+                    bouquetsDisplayed={this.state.bouquetsDisplayed}
+                    flowersDisplayed={this.state.flowersDisplayed}
+                ></SubHeader>
                 <div className={"main-body"} style={{transform: `translateX(${this.state.mainStatus ? "0" : "-100vw"})`}}>
-                    <div className={"bouquets-container"} style={{transform: `rotate(${this.state.mainStatus ? "0" : "35deg"})`}}>
-                        {this.state.bouquetsDisplayed && <Bouquets openImage={this.props.openImage}/>}
+                    <div className={"bouquets-container"} style={{
+                        transform: `rotate(${this.state.mainStatus ? "0" : "35deg"})`,
+                        height: this.state.bouquetsDisplayed ? 1 : 0,
+                        overflow: this.state.bouquetsDisplayed ? 'initial' : 'hidden'
+                    }}>
+                        <Bouquets openImage={this.props.openImage}/>
                     </div>
-                    <div className={"flowers-container"} style={{transform: `rotate(${this.state.mainStatus ? "-35deg" : "0"})`}}>
-                        {this.state.flowersDisplayed && <Flowers openImage={this.props.openImage}/>}
+                    <div className={"flowers-container"} style={{
+                        transform: `rotate(${this.state.mainStatus ? "-35deg" : "0"})`,
+                        height: this.state.flowersDisplayed ? 1 : 0,
+                        overflow: this.state.flowersDisplayed ? 'initial' : 'hidden'
+                    }}>
+                        <Flowers openImage={this.props.openImage}/>
                     </div>
                 </div>
             </>
@@ -51,8 +64,6 @@ class SubHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            toBouquetsButtonDisplayed: false,
-            toFlowersButtonDisplayed: true,
             role: "unauthorized"
         }
         void this.getRole()
@@ -63,18 +74,6 @@ class SubHeader extends React.Component {
         this.setState({
             role
         })
-    }
-    buttonSwitch(status) {
-        this.setState({
-            toBouquetsButtonDisplayed: true,
-            toFlowersButtonDisplayed: true
-        })
-        setTimeout(() => {
-            this.setState({
-                toBouquetsButtonDisplayed: !status,
-                toFlowersButtonDisplayed: status
-            })
-        }, 1000)
     }
     async createBouquet() {
         const title = prompt("Введите название букета")
@@ -109,37 +108,35 @@ class SubHeader extends React.Component {
         window.location.reload()
     }
     render() {
-        const { mainSwitch, mainStatus } = this.props
+        const { mainSwitch, mainStatus, bouquetsDisplayed, flowersDisplayed } = this.props
         return (
             <div className={"sub-header"}>
                 <div className={"to-bouquets"} style={{transform: `translateX(${mainStatus ? "-50vw" : "0"})`}}>
-                    {this.state.toBouquetsButtonDisplayed && <button
+                    {flowersDisplayed && <button
                         onClick={() => {
                             mainSwitch(true)
-                            this.buttonSwitch(true)
                         }}
                         className={"default-button large-button"}
                     >← Выбрать из готовых букетов</button>}
                 </div>
                 <div className={"to-flowers"} style={{transform: `translateX(${mainStatus ? "0" : "50vw"})`}}>
-                    {this.state.toFlowersButtonDisplayed && <button
+                    {bouquetsDisplayed && <button
                         onClick={() => {
                             mainSwitch(false)
-                            this.buttonSwitch(false)
                         }}
                         className={"default-button large-button"}
                     >Составить свой букет →</button>}
                 </div>
-                <div className={"create-bouquet"}>
-                    {this.state.role === "admin" && !this.state.toBouquetsButtonDisplayed && <button
+                <div className={"create-bouquet"} style={{opacity: mainStatus ? 1 : 0, transform: `translateX(${mainStatus ? "0" : "-200px"})`}}>
+                    {this.state.role === "admin" && bouquetsDisplayed && <button
                         onClick={() => {
                             void this.createBouquet()
                         }}
                         className={"default-button azure-button"}
                     >Добавить букет в БД</button>}
                 </div>
-                <div className={"create-flower"}>
-                    {this.state.role === "admin" && !this.state.toFlowersButtonDisplayed && <button
+                <div className={"create-flower"} style={{opacity: !mainStatus ? 1 : 0, transform: `translateX(${!mainStatus ? "0" : "200px"})`}}>
+                    {this.state.role === "admin" && flowersDisplayed && <button
                         onClick={() => {
                             void this.createFlower()
                         }}

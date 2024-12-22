@@ -21,7 +21,7 @@ function Header(props) {
         <header className={`header ${style}`}>
             <Logo/>
             <Search style={style}/>
-            <User/>
+            <User style={style}/>
         </header>
     )
 }
@@ -38,7 +38,7 @@ function Search({style}) {
     return <input type={"text"} placeholder={"Поиск..."}
                   className={`search ${style==="system" ? "search-light" : ""}`}></input>
 }
-function User() {
+function User({style}) {
     const navigate = useNavigate()
     const [logged, setLogged] = useState(false)
     async function exit() {
@@ -60,26 +60,26 @@ function User() {
     }
     return (
         <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
-            <ToCart/>
-            {logged && <ToProfile/>}
-            {logged ? <LogOut exit={exit}/> : <LogIn/>}
+            <ToCart style={style}/>
+            {logged && <ToProfile style={style}/>}
+            {logged ? <LogOut style={style} exit={exit}/> : <LogIn style={style}/>}
         </div>
     )
 }
-function ToCart() {
+function ToCart({style}) {
     const navigate = useNavigate()
-    return <button className={"default-button"} onClick={()=>{navigate("/cart")}}>Корзина</button>
+    return <button className={`user ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/cart")}}>Корзина</button>
 }
-function LogIn() {
+function LogIn({style}) {
     const navigate = useNavigate()
-    return <button className={"default-button"} onClick={()=>{navigate("/login")}}>Войти</button>
+    return <button className={`user ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/login")}}>Войти</button>
 }
-function LogOut({exit}) {
-    return <button className={"default-button"} onClick={exit}>Выйти</button>
+function LogOut({exit, style}) {
+    return <button className={`user ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={exit}>Выйти</button>
 }
-function ToProfile() {
+function ToProfile({style}) {
     const navigate = useNavigate()
-    return <button className={"default-button"} onClick={()=>{navigate("/profile")}}>Профиль</button>
+    return <button className={`user ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/profile")}}>Профиль</button>
 }
 
 export default Header

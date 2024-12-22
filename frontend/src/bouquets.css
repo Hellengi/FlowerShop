@@ -1,6 +1,11 @@
 .bouquets {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
+    margin: 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 200px));
+    max-width: 90vw;
+    background-color: #4169;
+    backdrop-filter: blur(4px);
+    border: 2px #203 solid;
+    border-radius: 5px;
 }

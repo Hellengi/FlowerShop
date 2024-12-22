@@ -2,7 +2,8 @@ import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "./card.css"
 
-function Card({info, openImage, mode, role, updateMap, setCustom, customAmount, customMap, removeCustom}) {
+function Card({info, openImage, mode, role, updateMap,
+                  setCustom, customAmount, customMap, removeCustom}) {
         useEffect(() => {
         if (mode === "selected-custom") {
             setAmountInCart(1)
@@ -89,17 +90,37 @@ function Card({info, openImage, mode, role, updateMap, setCustom, customAmount, 
     }
     return (
         <>
-            {(amountInCart > 0 || (mode !== "selected" && mode !== "selected-custom")) && <div className={"card-" + mode}>
+            {(amountInCart > 0 || (mode !== "selected" && mode !== "selected-custom"))
+                && <div className={"card-" + mode}>
                 <Icon title={info.title} openImage={openImage} mode={mode}/>
-                <Info title={info.title} info={info.info} amount={amountInCart} price={info.price} mode={mode}/>
-                {mode === "bouquet" && <SelectButton amount={amountInCart} setAmount={setAmount}/>}
-                {mode === "flower" && <SelectFlowerButton info={info} selectedAmount={amountInCart} setCustom={setCustom}/>}
-                {(mode === "selected" || mode === "custom") && <AddSubButton amount={amountInCart} setAmount={setAmount} mode={mode}/>}
-                {mode === "selected-custom" && <RemoveButton remove={deleteCustom} id={info.id}/>}
-                {role === "admin" && mode === "bouquet" && <UpdateButton update={updateBouquet} id={info.id} mode={mode}/>}
-                {role === "admin" && mode === "flower" && <UpdateButton update={updateFlower} id={info.id} mode={mode}/>}
-                {role === "admin" && mode === "bouquet" && <DropButton drop={dropBouquet} id={info.id} mode={mode}/>}
-                {role === "admin" && mode === "flower" && <DropButton drop={dropFlower} id={info.id} mode={mode}/>}
+                <Info title={info.title}
+                      info={info.info}
+                      amount={amountInCart}
+                      price={info.price}
+                      mode={mode}
+                />
+                {mode === "bouquet" &&
+                    <SelectButton amount={amountInCart}
+                                  setAmount={setAmount}
+                                  price={info.price}
+                    />}
+                {mode === "flower" &&
+                    <SelectFlowerButton info={info}
+                                        selectedAmount={amountInCart}
+                                        setCustom={setCustom}
+                    />}
+                {(mode === "selected" || mode === "custom")
+                    && <AddSubButton amount={amountInCart} setAmount={setAmount} mode={mode}/>}
+                {mode === "selected-custom"
+                    && <RemoveButton remove={deleteCustom} id={info.id}/>}
+                {role === "admin" && mode === "bouquet"
+                    && <UpdateButton update={updateBouquet} id={info.id} mode={mode}/>}
+                {role === "admin" && mode === "flower"
+                    && <UpdateButton update={updateFlower} id={info.id} mode={mode}/>}
+                {role === "admin" && mode === "bouquet"
+                    && <DropButton drop={dropBouquet} id={info.id} mode={mode}/>}
+                {role === "admin" && mode === "flower"
+                    && <DropButton drop={dropFlower} id={info.id} mode={mode}/>}
             </div>}
         </>
     )
@@ -117,28 +138,40 @@ function Icon({title, openImage, mode}) {
         // eslint-disable-next-line
     }, [])
     useEffect(() => {
-        image.current.addEventListener("load", () => {
-            const portrait = image.current.clientHeight > image.current.clientWidth
-            switch (mode) {
-                case "bouquet":
-                    portrait ? image.current.style.maxWidth = "240px" : image.current.style.maxHeight = "240px"
-                    break
-                case "flower":
-                    portrait ? image.current.style.maxWidth = "80px" : image.current.style.maxHeight = "80px"
-                    break
-                case "selected":
-                    portrait ? image.current.style.maxWidth = "100px" : image.current.style.maxHeight = "100px"
-                    break
-                case "custom":
-                    portrait ? image.current.style.maxWidth = "40px" : image.current.style.maxHeight = "40px"
-                    break
-                case "selected-custom":
-                    portrait ? image.current.style.maxWidth = "100px" : image.current.style.maxHeight = "100px"
-                    break
-                default:
-                    break
+        if (image.current) {
+            const handleLoad = () => {
+                const portrait = image.current.clientHeight > image.current.clientWidth
+                switch (mode) {
+                    case "bouquet":
+                        portrait ? image.current.style.maxWidth = "240px" :
+                            image.current.style.maxHeight = "240px"
+                        break
+                    case "flower":
+                        portrait ? image.current.style.maxWidth = "80px" :
+                            image.current.style.maxHeight = "80px"
+                        break
+                    case "selected":
+                        portrait ? image.current.style.maxWidth = "100px" :
+                            image.current.style.maxHeight = "100px"
+                        break
+                    case "custom":
+                        portrait ? image.current.style.maxWidth = "40px" :
+                            image.current.style.maxHeight = "40px"
+                        break
+                    case "selected-custom":
+                        portrait ? image.current.style.maxWidth = "100px" :
+                            image.current.style.maxHeight = "100px"
+                        break
+                    default:
+                        break
+                }
             }
-        })
+            const currentImage = image.current;
+            currentImage.addEventListener("load", handleLoad);
+            return () => {
+                currentImage.removeEventListener("load", handleLoad);
+            };
+        }
     }, [mode])
     return (
         <>
@@ -151,7 +184,8 @@ function Icon({title, openImage, mode}) {
                     alt={""}
                 />
             </div>}
-            {mode === "selected-custom" && <div className={"card-picture-container-selected"} style={{cursor: "initial"}}>
+            {mode === "selected-custom" && <div className={"card-picture-container-selected"}
+                                                style={{cursor: "initial"}}>
                 <img
                     src={`/bouquet.png`}
                     ref={image}
@@ -177,17 +211,26 @@ function Info({title, amount, price, mode, info}) {
         <div>
             {(mode === "bouquet" || mode === "flower") && <>
                 <p className={"card-name-" + mode}>{title}</p>
-                <p className={"card-price-" + mode}>{price} руб</p>
             </>}
             {(mode === "selected") && <>
                 <p className={"card-name-" + mode}>{title}</p>
-                {amount === 1 && <p className={"card-info-" + mode}>{price} руб</p>}
-                {amount > 1 && <p className={"card-info-" + mode}>{amount} шт по {price} руб</p>}
-                {amount > 1 && <p className={"card-price-" + mode}>Суммарно {amount * price} руб</p>}
+                {amount === 1 && <p className={"card-info-" + mode}>
+                    {price} руб
+                </p>}
+                {amount > 1 && <p className={"card-info-" + mode}>
+                    {amount} шт по {price} руб
+                </p>}
+                {amount > 1 && <p className={"card-price-" + mode}>
+                    Суммарно {amount * price} руб
+                </p>}
             </>}
             {(mode === "custom") && <>
-                {amount === 1 && <p className={"card-info-" + mode}>{title}: {price} руб</p>}
-                {amount > 1 && <p className={"card-info-" + mode}>{title}: {amount} шт по {price} руб</p>}
+                {amount === 1 && <p className={"card-info-" + mode}>
+                    {title}: {price} руб
+                </p>}
+                {amount > 1 && <p className={"card-info-" + mode}>
+                    {title}: {amount} шт по {price} руб
+                </p>}
             </>}
             {(mode === "selected-custom") && <>
                 <p className={"card-name-selected"}>{title}</p>
@@ -199,14 +242,30 @@ function Info({title, amount, price, mode, info}) {
         </div>
     )
 }
-function SelectButton({amount, setAmount}) {
+function SelectButton({amount, setAmount, price}) {
     const navigate = useNavigate()
+    const [hover, setHover] = useState(false)
     return (
         <>
             {amount === 0 && <button
                 className={"blue-button-1"}
                 onClick={() => {setAmount(1)}}
-            >Заказать</button>}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+            >
+                <p style={{
+                    transform: `translateY(${hover ? "-16px" : "0"})`,
+                    opacity: hover ? 0 : 1
+                }}>
+                    {`${price} руб`}
+                </p>
+                <p style={{
+                    transform: `translateY(${hover ? "-36px" : "-20px"})`,
+                    opacity: hover ? 1 : 0
+                }}>
+                    Заказать
+                </p>
+            </button>}
             {amount > 0 && <button
                 className={"blue-button-2"}
                 onClick={() => {navigate("/cart")}}
@@ -228,7 +287,8 @@ function SelectFlowerButton({info, selectedAmount, setCustom}) {
         setCustom(info, amount)
     }
     async function init() {
-        const response = await fetch('http://localhost:8080/get-custom-flower?id=' + info.id)
+        const response =
+            await fetch('http://localhost:8080/get-custom-flower?id=' + info.id)
         const data = await response.json()
         setAmount(data)
     }

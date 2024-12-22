@@ -1,0 +1,85 @@
+.volume-button {
+    border: 0;
+    color: #ccc;
+    width: 120px;
+    height: 50px;
+    transition: width 0.3s ease, height 0.3s ease;
+    border-radius: 1em;
+    margin: 10px;
+    cursor: pointer;
+    background: var(--button-color);
+    box-shadow: var(--x-shift-neg) var(--y-shift-neg) 0 var(--button-color),
+    var(--x-shift-neg) var(--y-shift-neg) 0 var(--button-shadow-color) inset;
+    --button-color: #AAA;
+    --hovered-button-color: #999;
+    --button-shadow-color: #888;
+    --pushed-color: #666;
+    --hovered-pushed-color: #555;
+    --pushed-shadow-color: #444;
+    --x-shift: 2px;
+    --y-shift: 2px;
+    --x-shift-neg: calc(-1 * var(--x-shift));
+    --y-shift-neg: calc(-1 * var(--y-shift));
+}
+.volume-button:hover {
+    background: var(--hovered-button-color);
+    box-shadow: var(--x-shift-neg) var(--y-shift-neg) 0 var(--hovered-button-color),
+    var(--x-shift-neg) var(--y-shift-neg) 0 var(--button-shadow-color) inset;
+}
+.volume-button:active:not(.pushed) {
+    animation: button-push 0.2s linear forwards;
+}
+.volume-button:not(:active):not(.pushed) {
+    animation: button-release 0.2s linear;
+}
+.volume-button.pushed {
+    box-shadow: 0 0 0 var(--pushed-color), var(--x-shift) var(--y-shift) 0 var(--pushed-shadow-color) inset;
+    background: var(--pushed-color);
+}
+.volume-button.pushed:hover {
+    background: var(--hovered-pushed-color);
+}
+.volume-button > span {
+    display: block;
+    pointer-events: none;
+    transition: transform 0.2s linear;
+    transform: translate(var(--x-shift-neg), var(--y-shift-neg));
+}
+.volume-button:active > span, button.pushed > span {
+    transform: translate(var(--x-shift), var(--y-shift));
+}
+.volume-button > span:after {
+    display: block;
+}
+@keyframes button-push {
+    0% {
+        box-shadow: var(--x-shift-neg) var(--y-shift-neg) 0 var(--hovered-button-color),
+        var(--x-shift-neg) var(--y-shift-neg) 0 var(--button-shadow-color) inset;
+        background: var(--hovered-button-color);
+    }
+    50% {
+        box-shadow: 0 0 0 var(--hovered-button-color), 0 0 0 var(--button-shadow-color) inset;
+        background: var(--hovered-button-color);
+    }
+    100% {
+        box-shadow: 0 0 0 var(--hovered-button-color),
+        var(--x-shift) var(--y-shift) 0 var(--pushed-shadow-color) inset;
+        background: var(--pushed-color);
+    }
+}
+@keyframes button-release {
+    0% {
+        box-shadow: 0 0 0 var(--button-color),
+        var(--x-shift) var(--y-shift) 0 var(--pushed-shadow-color) inset;
+        background: var(--pushed-color);
+    }
+    50% {
+        box-shadow: 0 0 0 var(--button-color), 0 0 0 var(--button-shadow-color) inset;
+        background: var(--button-color);
+    }
+    100% {
+        box-shadow: var(--x-shift-neg) var(--y-shift-neg) 0 var(--button-color),
+        var(--x-shift-neg) var(--y-shift-neg) 0 var(--button-shadow-color) inset;
+        background: var(--button-color);
+    }
+}

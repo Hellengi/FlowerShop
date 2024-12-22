@@ -1,7 +1,6 @@
 package com.github.hellengi.flowershop.entity;
 
 import jakarta.persistence.*;
-import com.github.hellengi.flowershop.entity.ClientEntity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

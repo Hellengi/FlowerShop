@@ -1,6 +1,6 @@
 @font-face {
     font-family: Dancing_Script_Bold;
-    src: url("dancing_script/DancingScript-Bold.ttf") format("truetype");
+    src: url("Dancing_Script/DancingScript-Bold.ttf") format("truetype");
 }
 .header {
     height: 64px;
@@ -46,18 +46,25 @@
     width: 400px;
     height: 32px;
     padding: 5px;
-    border: #030 solid 1px;
-    border-radius: 12px;
+    border: #303 solid 1px;
+    border-radius: 8px;
     outline: none;
     font-size: 1em;
-    background: linear-gradient(135deg, #A8D, #86E);
+    background: linear-gradient(135deg, #B9E, #A8F);
 }
 .search:focus {
     border: none;
-    outline: #030 solid 2px;
+    outline: #303 solid 2px;
+    background: linear-gradient(135deg, #DBF, #B9F);
 }
 .search-light {
-    background: linear-gradient(135deg, #8AD, #68E);
+    border: #006 solid 1px;
+    background: linear-gradient(135deg, #9BE, #8AF);
+}
+.search-light:focus {
+    border: none;
+    outline: #006 solid 2px;
+    background: linear-gradient(135deg, #BDF, #9BF);
 }
 .user {
     display: flex;

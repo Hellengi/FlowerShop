@@ -1,6 +1,5 @@
 package com.github.hellengi.flowershop.repository;
 
-import com.github.hellengi.flowershop.entity.BouquetEntity;
 import com.github.hellengi.flowershop.entity.FlowerEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

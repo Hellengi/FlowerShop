@@ -239,7 +239,7 @@ function BouquetCreated({changeStatusReady}) {
                 onClick={() => {changeStatusReady(false)}}
             >Новый букет</button>
             <button
-                className={"dark-button"}
+                className={"azure-button"}
                 onClick={() => {navigate("/cart")}}
             >Перейти в корзину</button>
         </div>

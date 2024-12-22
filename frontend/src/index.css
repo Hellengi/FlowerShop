@@ -1,18 +1,21 @@
 @font-face {
     font-family: Balsamiq_Sans_Regular;
-    src: url("balsamiq_sans/BalsamiqSans-Regular.ttf") format("truetype");
+    src: url("Balsamiq_Sans/BalsamiqSans-Regular.ttf") format("truetype");
 }
 @font-face {
     font-family: Balsamiq_Sans_Bold;
-    src: url("balsamiq_sans/BalsamiqSans-Bold.ttf") format("truetype");
+    src: url("Balsamiq_Sans/BalsamiqSans-Bold.ttf") format("truetype");
 }
 @font-face {
     font-family: Balsamiq_Sans_Italic;
-    src: url("balsamiq_sans/BalsamiqSans-Italic.ttf") format("truetype");
+    src: url("Balsamiq_Sans/BalsamiqSans-Italic.ttf") format("truetype");
 }
 @font-face {
     font-family: Balsamiq_Sans_Bold_Italic;
-    src: url("balsamiq_sans/BalsamiqSans-BoldItalic.ttf") format("truetype");
+    src: url("Balsamiq_Sans/BalsamiqSans-BoldItalic.ttf") format("truetype");
+}
+p {
+    margin: 0;
 }
 body {
     margin: 0;
@@ -30,22 +33,44 @@ input{
 }
 .default-button {
     background: linear-gradient(135deg, #77F9, #FAF9);
-    border-left: solid #369 2px;
-    border-top: solid #369 2px;
+    border-left: solid #76B 2px;
+    border-top: solid #76B 2px;
     border-right: solid #54A 2px;
     border-bottom: solid #54A 2px;
     backdrop-filter: blur(4px);
 }
 .default-button:hover {
-    color: #404;
-    background: linear-gradient(135deg, #88F9, #FCF9);
+    background: linear-gradient(135deg, #75F9, #F8F9);
+    border-left: solid #74B 2px;
+    border-top: solid #74B 2px;
+    border-right: solid #52A 2px;
+    border-bottom: solid #52A 2px;
 }
 .default-button:active {
-    background: linear-gradient(90deg, #77F9, #FAF9);
-    border-left: solid #54A 2px;
-    border-top: solid #54A 2px;
-    border-right: solid #369 2px;
-    border-bottom: solid #369 2px;
+    background: #B6FB;
+    border-left: solid #52A 2px;
+    border-top: solid #52A 2px;
+    border-right: solid #74B 2px;
+    border-bottom: solid #74B 2px;
+}
+.cyan-button {
+    background: linear-gradient(135deg, #2AA9, #5AF9);
+    border-left: solid #199 2px;
+    border-top: solid #199 2px;
+    border-right: solid #077 2px;
+    border-bottom: solid #077 2px;
+    backdrop-filter: blur(4px);
+}
+.cyan-button:hover {
+    filter: brightness(120%);
+}
+.cyan-button:active {
+    background: linear-gradient(135deg, #2AA9, #5AF9);
+    border-left: solid #077 2px;
+    border-top: solid #077 2px;
+    border-right: solid #199 2px;
+    border-bottom: solid #199 2px;
+    filter: brightness(120%) hue-rotate(340deg);
 }
 .large-button {
     font-size: 1.2em;
@@ -74,20 +99,22 @@ input{
     border-bottom: solid #314F 3px;
 }
 .azure-button {
-    background: linear-gradient(#07F9, #0AF9);
-    border-left: solid #069 2px;
-    border-top: solid #069 2px;
-    border-right: solid #04A 2px;
-    border-bottom: solid #04A 2px;
+    border-left: solid #669 2px;
+    border-top: solid #669 2px;
+    border-right: solid #44A 2px;
+    border-bottom: solid #44A 2px;
+    border-radius: 5px;
+    backdrop-filter: blur(4px);
+    filter: hue-rotate(320deg) brightness(110%);
+    background-color: #0000;
 }
 .azure-button:hover {
-    color: #004;
-    background: linear-gradient(#08F9, #0CF9);
+    filter: hue-rotate(300deg) brightness(110%);
 }
 .azure-button:active {
-    background: linear-gradient(#07F9, #0AF9);
-    border-left: solid #04A 2px;
-    border-top: solid #04A 2px;
-    border-right: solid #069 2px;
-    border-bottom: solid #069 2px;
+    border-left: solid #44A 2px;
+    border-top: solid #44A 2px;
+    border-right: solid #88B 2px;
+    border-bottom: solid #88B 2px;
+    filter: hue-rotate(280deg) brightness(110%);
 }
