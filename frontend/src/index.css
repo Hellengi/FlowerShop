@@ -1,18 +1,18 @@
 @font-face {
     font-family: Balsamiq_Sans_Regular;
-    src: url("./Balsamiq_Sans/BalsamiqSans-Regular.ttf") format("truetype");
+    src: url("../public/Balsamiq_Sans/BalsamiqSans-Regular.ttf") format("truetype");
 }
 @font-face {
     font-family: Balsamiq_Sans_Bold;
-    src: url("./Balsamiq_Sans/BalsamiqSans-Bold.ttf") format("truetype");
+    src: url("../public/Balsamiq_Sans/BalsamiqSans-Bold.ttf") format("truetype");
 }
 @font-face {
     font-family: Balsamiq_Sans_Italic;
-    src: url("./Balsamiq_Sans/BalsamiqSans-Italic.ttf") format("truetype");
+    src: url("../public/Balsamiq_Sans/BalsamiqSans-Italic.ttf") format("truetype");
 }
 @font-face {
     font-family: Balsamiq_Sans_Bold_Italic;
-    src: url("./Balsamiq_Sans/BalsamiqSans-BoldItalic.ttf") format("truetype");
+    src: url("../public/Balsamiq_Sans/BalsamiqSans-BoldItalic.ttf") format("truetype");
 }
 p {
     margin: 0;
