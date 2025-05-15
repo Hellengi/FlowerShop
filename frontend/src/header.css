@@ -1,6 +1,6 @@
 @font-face {
     font-family: Dancing_Script_Bold;
-    src: url("Dancing_Script/DancingScript-Bold.ttf") format("truetype");
+    src: url("./Dancing_Script/DancingScript-Bold.ttf") format("truetype");
 }
 .header {
     height: 64px;
