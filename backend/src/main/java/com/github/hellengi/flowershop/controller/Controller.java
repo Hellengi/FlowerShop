@@ -228,6 +228,18 @@ public class Controller {
         return CustomFlower;
     }
 
+    @GetMapping("/get-bouquet")
+    public ResponseEntity<BouquetEntity> getBouquetById(@RequestParam(value = "id") Long id) {
+        Optional<BouquetEntity> optionalBouquet = bouquetRepository.findById(id);
+        if (optionalBouquet.isPresent()) {
+            BouquetEntity bouquet = optionalBouquet.get();
+            return new ResponseEntity<>(bouquet, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/get-flower")
     public ResponseEntity<FlowerEntity> getFlowerById(@RequestParam(value = "id") Long id) {
         Optional<FlowerEntity> optionalFlower = flowerRepository.findById(id);

@@ -40,3 +40,35 @@
     justify-self: right;
     transition: opacity 0.4s linear, transform 0.4s ease-in;
 }
+
+.container {
+    margin: 20px 10vw;
+    padding: 20px;
+    max-width: 90vw;
+    border-radius: 5px;
+    backdrop-filter: blur(4px);
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 200px));
+    margin: 0;
+}
+.dark-container {
+    background-color: #4169;
+    border: 2px #203 solid;
+}
+.light-container {
+    background-color: #CCAAFF99;
+    border: 2px #203 solid;
+}
+.gradient-container {
+    background: linear-gradient(90deg, #696eff99, #f8acff99);
+    border-left: solid #62F 2px;
+    border-top: solid #73C 2px;
+    border-right: solid #84A 2px;
+    border-bottom: solid #73C 2px;
+}
+.white-container {
+    background-color: #FFF9;
+    border: 2px #000 solid;
+}

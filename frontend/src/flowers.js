@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Card from "./card";
+import "./main.css"
 import "./flowers.css"
+import "./button.css"
 import {useNavigate} from "react-router-dom";
 
 class Flowers extends React.Component {
@@ -49,7 +51,7 @@ class Flowers extends React.Component {
     }
     render() {
         return (
-            <div className={"flowers"}>
+            <div className={"flowers container gradient-container"}>
                 <div className={"list-of-flowers-container"}>
                     <ListOfFlowers
                         openImage={this.props.openImage}
@@ -220,11 +222,11 @@ function SelectedFlowers({openImage, customMap, setCustom, changeStatusReady}) {
                 {flowerBlocks}
                 <div className={"selected-flowers-price"}>{`Стоимость: ${totalPrice} руб`}</div>
                 <button
-                    className={"default-button medium-button"}
+                    className={"volume-button default-button medium-button"}
                     onClick={() => {
                         void sendCustom()
                     }}
-                >Добавить букет в корзину</button>
+                ><span>Добавить букет в корзину</span></button>
             </>}
         </div>
     )
@@ -235,13 +237,13 @@ function BouquetCreated({changeStatusReady}) {
         <div className={"selected-flowers-container bouquet-created"}>
             <h1>Готово!</h1>
             <button
-                className={"default-button medium-button"}
+                className={"volume-button default-button medium-button"}
                 onClick={() => {changeStatusReady(false)}}
-            >Новый букет</button>
+            ><span>Новый букет</span></button>
             <button
-                className={"azure-button"}
+                className={"volume-button default-button azure-button"}
                 onClick={() => {navigate("/cart")}}
-            >Перейти в корзину</button>
+            ><span>Перейти в корзину</span></button>
         </div>
     )
 }

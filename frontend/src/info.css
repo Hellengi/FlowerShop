@@ -1,0 +1,42 @@
+.info-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.picture-container {
+    width: 40vw;
+    height: 40vw;
+    overflow: hidden;
+    border: 2px #203 solid;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text-container {
+    margin: 0;
+    flex-grow: 1;
+    max-width: 30vw;
+}
+.text-container > .title {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.text-container > .description {
+    margin: 10px;
+    padding: 5px;
+}
+.text-container > .price {
+    font-size: 1.4em;
+    font-style: italic;
+    margin: 20px;
+    text-align: center;
+}
+.text-container > .info-button-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}

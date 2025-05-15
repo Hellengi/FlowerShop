@@ -29,7 +29,7 @@ function Logo() {
     const navigate = useNavigate()
     return (
         <div className={"logo-container"} onClick={()=>{navigate("/")}}>
-            <img src={"flower-icon.png"} alt={""} className={"logo-image"}/>
+            <img src={"/flower-icon.png"} alt={""} className={"logo-image"}/>
             <p className={"logo-name"}>Flower Shop</p>
         </div>
     )
@@ -68,18 +68,18 @@ function User({style}) {
 }
 function ToCart({style}) {
     const navigate = useNavigate()
-    return <button className={`user ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/cart")}}>Корзина</button>
+    return <button className={`user volume-button ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/cart")}}><span>Корзина</span></button>
 }
 function LogIn({style}) {
     const navigate = useNavigate()
-    return <button className={`user ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/login")}}>Войти</button>
+    return <button className={`user volume-button ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/login")}}><span>Войти</span></button>
 }
 function LogOut({exit, style}) {
-    return <button className={`user ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={exit}>Выйти</button>
+    return <button className={`user volume-button ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={exit}><span>Выйти</span></button>
 }
 function ToProfile({style}) {
     const navigate = useNavigate()
-    return <button className={`user ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/profile")}}>Профиль</button>
+    return <button className={`user volume-button ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/profile")}}><span>Профиль</span></button>
 }
 
 export default Header

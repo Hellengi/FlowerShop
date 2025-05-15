@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./card";
-import "./bouquets.css"
+import "./main.css"
 
 class Bouquets extends React.Component {
     constructor(props) {
@@ -34,7 +34,7 @@ class Bouquets extends React.Component {
     }
     render() {
         return (
-            <div className={"bouquets"}>
+            <div className={"container dark-container grid-container"}>
                 {this.state.blocks}
             </div>
         )

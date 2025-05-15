@@ -29,7 +29,7 @@ function NotFound() {
                 <div className={"circle c8"}></div>
                 <div className={"notfound-sign"}>
                     <p className={"notfound-text"}>Страница не найдена!</p>
-                    <button className={"dark-button"} onClick={()=>{navigate("/")}}>Вернуться на главную</button>
+                    <button className={"volume-button dark-button"} onClick={()=>{navigate("/")}}><span>Вернуться на главную</span></button>
                 </div>
             </div>
             <BackImage page={"notfound"}/>

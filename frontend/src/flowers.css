@@ -1,16 +1,7 @@
 .flowers {
-    grid-column-start: 2;
-    margin: 20px 10vw;
     display: grid;
+    grid-column-start: 2;
     grid-template-columns: 1fr 2fr;
-    background: linear-gradient(90deg, #696eff99, #f8acff99);
-    backdrop-filter: blur(4px);
-    border-left: solid #62F 2px;
-    border-top: solid #73C 2px;
-    border-right: solid #84A 2px;
-    border-bottom: solid #73C 2px;
-    border-radius: 5px;
-    padding: 20px;
 }
 .list-of-flowers-container {
     display: grid;
@@ -75,10 +66,6 @@
     text-align: right;
     margin: 20px 100px 20px 20px;
     width: 100%;
-}
-.medium-button {
-    font-size: 0.8em;
-    width: 160px;
 }
 .bouquet-created .azure-button {
     max-width: 100px;

@@ -1,8 +1,6 @@
 .volume-button {
     border: 0;
     color: #ccc;
-    width: 120px;
-    height: 50px;
     transition: width 0.3s ease, height 0.3s ease;
     border-radius: 1em;
     margin: 10px;
@@ -27,10 +25,10 @@
     var(--x-shift-neg) var(--y-shift-neg) 0 var(--button-shadow-color) inset;
 }
 .volume-button:active:not(.pushed) {
-    animation: button-push 0.2s linear forwards;
+    animation: button-push 0.1s linear forwards;
 }
 .volume-button:not(:active):not(.pushed) {
-    animation: button-release 0.2s linear;
+    animation: button-release 0.1s linear;
 }
 .volume-button.pushed {
     box-shadow: 0 0 0 var(--pushed-color), var(--x-shift) var(--y-shift) 0 var(--pushed-shadow-color) inset;
@@ -42,7 +40,7 @@
 .volume-button > span {
     display: block;
     pointer-events: none;
-    transition: transform 0.2s linear;
+    transition: transform 0.1s linear;
     transform: translate(var(--x-shift-neg), var(--y-shift-neg));
 }
 .volume-button:active > span, button.pushed > span {
@@ -82,4 +80,115 @@
         var(--x-shift-neg) var(--y-shift-neg) 0 var(--button-shadow-color) inset;
         background: var(--button-color);
     }
+}
+
+.default-button {
+    backdrop-filter: blur(4px);
+    color: #004;
+    border-radius: 10px;
+    --button-color: #B8F9;
+    --hovered-button-color: #B8FB;
+    --button-shadow-color: #65A;
+    --pushed-color: #96D9;
+    --hovered-pushed-color: #96DB;
+    --pushed-shadow-color: #438;
+}
+.cyan-button {
+    backdrop-filter: blur(4px);
+    color: #002;
+    --button-color: #3AC9;
+    --hovered-button-color: #3ACB;
+    --button-shadow-color: #057;
+    --pushed-color: #18A9;
+    --hovered-pushed-color: #18AB;
+    --pushed-shadow-color: #055;
+}
+.cyan-button:hover {
+    filter: brightness(120%);
+}
+.cyan-button:active {
+    filter: brightness(120%) hue-rotate(340deg);
+}
+.medium-button {
+    font-size: 0.8em;
+    width: 160px;
+}
+.large-button {
+    font-size: 1.2em;
+    padding: 8px 20px;
+    max-width: 10em;
+}
+.dark-button {
+    border-radius: 5px;
+    backdrop-filter: blur(4px);
+    color: #DBD;
+    --button-color: #3149;
+    --hovered-button-color: #314B;
+    --button-shadow-color: #314;
+    --pushed-color: #2039;
+    --hovered-pushed-color: #203B;
+    --pushed-shadow-color: #203;
+}
+.azure-button {
+    border-radius: 5px;
+    filter: hue-rotate(320deg) brightness(110%);
+}
+.azure-button:hover {
+    filter: hue-rotate(300deg) brightness(110%);
+}
+.azure-button:active {
+    filter: hue-rotate(280deg) brightness(110%);
+}
+
+
+
+.blue-button-1 {
+    background: radial-gradient(#C9F, #85F);
+    border: black solid 1px;
+}
+.blue-button-1:hover {
+    background: radial-gradient(#C9F, #A6F, #63F);
+}
+.blue-button-1:active {
+    background: radial-gradient(#A6F, #63F);
+}
+.blue-button-2 {
+    background: radial-gradient(#EDD, #A9D);
+    border: black solid 1px;
+}
+.blue-button-2:hover {
+    background: radial-gradient(#EDD, #A6F);
+}
+.blue-button-2:active {
+    background: radial-gradient(#EDD, #95C);
+}
+.blue-button-3 {
+    background: radial-gradient(#8CF, #66F);
+    border: black solid 1px;
+}
+.blue-button-3:hover {
+    background: radial-gradient(#8CF, #79F, #54F);
+}
+.blue-button-3:active {
+    background: radial-gradient(#79F, #54F);
+}
+.pink-button-1 {
+    background: radial-gradient(#F9F, #F9C);
+    border: #C69 solid 1px;
+}
+.pink-button-1:hover {
+    background: radial-gradient(#F9F, #F9C, #FBE);
+}
+.pink-button-1:active {
+    background: radial-gradient(#F9C, #FBE);
+}
+.pink-button-2 {
+    background: radial-gradient(#F9C, #FCC);
+    border: #D7A solid 1px;
+}
+.pink-button-2:hover {
+    background: radial-gradient(#F9C, #FCC, #FEE);
+}
+.pink-button-2:active {
+    background: radial-gradient(#FCC, #FEE);
 }

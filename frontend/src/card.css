@@ -105,46 +105,6 @@
     grid-row-end: 3;
     grid-column: 3;
 }
-.blue-button-1 {
-    background: radial-gradient(#C9F, #85F);
-    border: black solid 1px;
-}
-.blue-button-1:hover {
-    background: radial-gradient(#C9F, #A6F, #63F);
-}
-.blue-button-1:active {
-    background: radial-gradient(#A6F, #63F);
-}
-.blue-button-2 {
-    background: radial-gradient(#EDD, #A9D);
-    border: black solid 1px;
-}
-.blue-button-2:hover {
-    background: radial-gradient(#EDD, #A6F);
-}
-.blue-button-2:active {
-    background: radial-gradient(#EDD, #95C);
-}
-.pink-button-1 {
-    background: radial-gradient(#F9F, #F9C);
-    border: #C69 solid 1px;
-}
-.pink-button-1:hover {
-    background: radial-gradient(#F9F, #F9C, #FBE);
-}
-.pink-button-1:active {
-    background: radial-gradient(#F9C, #FBE);
-}
-.pink-button-2 {
-    background: radial-gradient(#F9C, #FCC);
-    border: #D7A solid 1px;
-}
-.pink-button-2:hover {
-    background: radial-gradient(#F9C, #FCC, #FEE);
-}
-.pink-button-2:active {
-    background: radial-gradient(#FCC, #FEE);
-}
 .card-selected {
     display: grid;
     grid-template-columns: 120px 240px 120px;
@@ -327,4 +287,15 @@
 .update-button-container-flower {
     right: 50px;
     bottom: -40px;
+}
+
+.link {
+    cursor: pointer;
+    user-select: none;
+}
+.link:hover {
+    text-decoration: underline;
+}
+.link:active {
+    color: #000066;
 }

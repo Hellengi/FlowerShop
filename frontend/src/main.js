@@ -1,5 +1,6 @@
 import React from "react";
 import "./main.css"
+import "./button.css"
 import Bouquets from "./bouquets";
 import Flowers from "./flowers";
 import Header from "./header";
@@ -116,32 +117,32 @@ class SubHeader extends React.Component {
                         onClick={() => {
                             mainSwitch(true)
                         }}
-                        className={"default-button large-button"}
-                    >← Выбрать из готовых букетов</button>}
+                        className={"volume-button default-button large-button"}
+                    ><span>← Выбрать из готовых букетов</span></button>}
                 </div>
                 <div className={"to-flowers"} style={{transform: `translateX(${mainStatus ? "0" : "50vw"})`}}>
                     {bouquetsDisplayed && <button
                         onClick={() => {
                             mainSwitch(false)
                         }}
-                        className={"default-button large-button"}
-                    >Составить свой букет →</button>}
+                        className={"volume-button default-button large-button"}
+                    ><span>Составить свой букет →</span></button>}
                 </div>
                 <div className={"create-bouquet"} style={{opacity: mainStatus ? 1 : 0, transform: `translateX(${mainStatus ? "0" : "-200px"})`}}>
                     {this.state.role === "admin" && bouquetsDisplayed && <button
                         onClick={() => {
                             void this.createBouquet()
                         }}
-                        className={"default-button azure-button"}
-                    >Добавить букет в БД</button>}
+                        className={"volume-button default-button azure-button"}
+                    ><span>Добавить букет в БД</span></button>}
                 </div>
                 <div className={"create-flower"} style={{opacity: !mainStatus ? 1 : 0, transform: `translateX(${!mainStatus ? "0" : "200px"})`}}>
                     {this.state.role === "admin" && flowersDisplayed && <button
                         onClick={() => {
                             void this.createFlower()
                         }}
-                        className={"default-button azure-button"}
-                    >Добавить цветок в БД</button>}
+                        className={"volume-button default-button azure-button"}
+                    ><span>Добавить цветок в БД</span></button>}
                 </div>
             </div>
         )

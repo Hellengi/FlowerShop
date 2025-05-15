@@ -5,6 +5,12 @@ function BackImage(props) {
     if (props.page === "main") return (
         <DynamicBackImage page={props.page}/>
     )
+    if (props.page === "info") return (
+        <DynamicBackImage page={props.page}/>
+    )
+    if (props.page === "chat") return (
+        <DynamicBackImage page={props.page}/>
+    )
     else if (props.page === "login") return (
         <StaticBackImage page={props.page}/>
     )

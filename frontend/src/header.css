@@ -8,7 +8,7 @@
     border: #ECF solid 1px;
     padding: 12px;
     display: grid;
-    grid-template-columns: 64px auto auto;
+    grid-template-columns: auto auto auto;
     gap: 12px;
     align-items: center;
     justify-content: space-between;
@@ -66,7 +66,16 @@
     outline: #006 solid 2px;
     background: linear-gradient(135deg, #BDF, #9BF);
 }
+@media screen and (max-width: 1000px) {
+    .search {
+        width: calc(40vw);
+    }
+}
+@media screen and (max-width: 800px) {
+    .search {
+        width: calc(40vw);
+    }
+}
 .user {
     display: flex;
-    gap: 12px;
 }

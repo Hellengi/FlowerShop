@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Main from "./main";
+import Info from "./info";
+import Chat from "./chat";
 import Login from "./login";
 import Cart from "./cart";
 import Profile from "./profile";
@@ -46,6 +48,18 @@ class Body extends React.Component {
                     <Routes>
                         <Route path={"/"} element={
                             <Main openImage={this.openImage}/>
+                        }/>
+                        <Route path={"/info"} element={
+                            <Info/>
+                        }/>
+                        <Route path={"/bouquet/:id"} element={
+                            <Info mode={"bouquet"}/>
+                        }/>
+                        <Route path={"/flower/:id"} element={
+                            <Info mode={"flower"}/>
+                        }/>
+                        <Route path={"/chat"} element={
+                            <Chat/>
                         }/>
                         <Route path={"/login"} element={
                             <Login/>

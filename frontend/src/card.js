@@ -1,10 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import "./button.css"
 import "./card.css"
 
 function Card({info, openImage, mode, role, updateMap,
                   setCustom, customAmount, customMap, removeCustom}) {
-        useEffect(() => {
+    const navigate = useNavigate()
+    useEffect(() => {
         if (mode === "selected-custom") {
             setAmountInCart(1)
         }
@@ -88,6 +90,14 @@ function Card({info, openImage, mode, role, updateMap,
             setCustom(info, amount)
         }
     }
+    function openInfo() {
+        if (mode === "bouquet") {
+            navigate(`/bouquet/${info.id}`)
+        }
+        else if (mode === "flower") {
+            navigate(`/flower/${info.id}`)
+        }
+    }
     return (
         <>
             {(amountInCart > 0 || (mode !== "selected" && mode !== "selected-custom"))
@@ -98,6 +108,7 @@ function Card({info, openImage, mode, role, updateMap,
                       amount={amountInCart}
                       price={info.price}
                       mode={mode}
+                      openInfo={openInfo}
                 />
                 {mode === "bouquet" &&
                     <SelectButton amount={amountInCart}
@@ -143,8 +154,8 @@ function Icon({title, openImage, mode}) {
                 const portrait = image.current.clientHeight > image.current.clientWidth
                 switch (mode) {
                     case "bouquet":
-                        portrait ? image.current.style.maxWidth = "240px" :
-                            image.current.style.maxHeight = "240px"
+                        portrait ? image.current.style.maxWidth = "180px" :
+                            image.current.style.maxHeight = "180px"
                         break
                     case "flower":
                         portrait ? image.current.style.maxWidth = "80px" :
@@ -195,7 +206,7 @@ function Icon({title, openImage, mode}) {
         </>
     )
 }
-function Info({title, amount, price, mode, info}) {
+function Info({title, amount, price, mode, info, openInfo}) {
     const flowerList = []
     if (mode === "selected-custom") {
         let i = 0
@@ -209,11 +220,13 @@ function Info({title, amount, price, mode, info}) {
     }
     return (
         <div>
-            {(mode === "bouquet" || mode === "flower") && <>
-                <p className={"card-name-" + mode}>{title}</p>
+            {(mode === "bouquet" || mode === "flower" || mode === "selected") && <>
+                <p className={"link card-name-" + mode} onClick={() => openInfo()}>{title}</p>
+            </>}
+            {(mode === "flower") && <>
+                <p className={"card-info-selected"}>{price} руб</p>
             </>}
             {(mode === "selected") && <>
-                <p className={"card-name-" + mode}>{title}</p>
                 {amount === 1 && <p className={"card-info-" + mode}>
                     {price} руб
                 </p>}

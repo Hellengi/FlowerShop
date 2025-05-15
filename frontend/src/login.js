@@ -111,7 +111,7 @@ class Login extends React.Component {
                         <input type={"text"} placeholder={"E-mail"} onInput={this.handleEmailChange}/>
                         <input type={"text"} placeholder={"Пароль"} onInput={this.handlePasswordChange}/>
                         <button
-                            className={"default-button large-button"}
+                            className={"volume-button default-button large-button"}
                             onClick={() => {
                                 const data = {
                                     name: this.state.name,
@@ -127,7 +127,7 @@ class Login extends React.Component {
                                     exit: true
                                 })
                             }}
-                        >Регистрация</button>
+                        ><span>Регистрация</span></button>
                     </div>
                     <div
                         className={"log-sig login"}
@@ -141,7 +141,7 @@ class Login extends React.Component {
                         <input type={"text"} placeholder={"Пароль"} onInput={this.handlePasswordChange}/>
                         <button className={"password-forget"}>Забыли пароль?</button>
                         <button
-                            className={"default-button large-button"}
+                            className={"volume-button default-button large-button"}
                             onClick={async () => {
                                 const data = {
                                     email: this.state.email,
@@ -162,7 +162,7 @@ class Login extends React.Component {
                                     alert("Неверный пароль")
                                 }
                             }}
-                        >Вход</button>
+                        ><span>Вход</span></button>
                     </div>
                 </div>
             </>

@@ -121,11 +121,11 @@ function FlowerList({openImage}) {
                 <>
                     <h1>Итого: {totalPrice} руб</h1>
                     <button
-                        className={"default-button"}
+                        className={"volume-button default-button"}
                         onClick={() => {
                             console.log("Click")
                         }}
-                    >Заказать</button>
+                    ><span>Заказать</span></button>
                 </>}
         </div>
     )
