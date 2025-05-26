@@ -25,7 +25,7 @@ function Card({info, openImage, mode, role, updateMap,
             title,
             price
         };
-        await fetch(`http://localhost:8080/update-bouquet?id=${id}`, {
+        await fetch(`/api/update-bouquet?id=${id}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
@@ -41,7 +41,7 @@ function Card({info, openImage, mode, role, updateMap,
             title,
             price
         };
-        await fetch(`http://localhost:8080/update-flower?id=${id}`, {
+        await fetch(`/api/update-flower?id=${id}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
@@ -49,11 +49,11 @@ function Card({info, openImage, mode, role, updateMap,
         window.location.reload()
     }
     async function dropBouquet(id) {
-        await fetch(`http://localhost:8080/drop-bouquet?id=${id}`)
+        await fetch(`/api/drop-bouquet?id=${id}`)
         window.location.reload()
     }
     async function dropFlower(id) {
-        await fetch(`http://localhost:8080/drop-flower?id=${id}`)
+        await fetch(`/api/drop-flower?id=${id}`)
         window.location.reload()
     }
     useEffect(() => {
@@ -80,7 +80,7 @@ function Card({info, openImage, mode, role, updateMap,
         }
         setAmountInCart(amount)
         if (mode === "bouquet" || mode === "selected") {
-            const src = 'http://localhost:8080/set-bouquet-amount'
+            const src = '/api/set-bouquet-amount'
             void fetch(src + '?id=' + info.id + '&amount=' + amount)
         }
         if (mode === "selected") {
@@ -189,7 +189,12 @@ function Icon({title, openImage, mode}) {
             {mode !== "selected-custom" && <div className={"card-picture-container-" + mode}>
                 <img
                     src={`/${src}s/${title}.jpg`}
-                    onError={e => e.target.src = 'bouquet.png'}
+                    onError={e => {
+                        e.target.src = 'bouquet.png'
+                        console.log(e)
+                        console.log(src)
+                        console.log(title)
+                    }}
                     onClick={() => {openImage(image)}}
                     ref={image}
                     alt={""}
@@ -301,7 +306,7 @@ function SelectFlowerButton({info, selectedAmount, setCustom}) {
     }
     async function init() {
         const response =
-            await fetch('http://localhost:8080/get-custom-flower?id=' + info.id)
+            await fetch('/api/get-custom-flower?id=' + info.id)
         const data = await response.json()
         setAmount(data)
     }

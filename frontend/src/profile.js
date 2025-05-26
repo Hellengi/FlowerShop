@@ -19,20 +19,20 @@ function Profile() {
         // eslint-disable-next-line
     }, [])
     async function init() {
-        const response = await fetch('http://localhost:8080/logged')
+        const response = await fetch('/api/logged')
         const data = await response.json()
         setLogged(data)
         if (data === false) {
             navigate('/')
         }
         else {
-            const response = await fetch('http://localhost:8080/profile')
+            const response = await fetch('/api/profile')
             const data = await response.json()
             setProfile(data)
         }
     }
     async function drop() {
-        await fetch('http://localhost:8080/drop', {
+        await fetch('/api/drop', {
             method: 'POST'
         });
         navigate('/')

@@ -1,23 +1,22 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  frontend:
-    build: ./frontend
+  flower-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-
-  backend:
-    build: ./backend
-    ports:
+      - "80:80"
       - "8080:8080"
+    restart: unless-stopped
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/flower-shop
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: password
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/flower-shop
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
     depends_on:
       - db
+    networks:
+      - flower-net
 
   db:
     image: postgres:15
@@ -26,10 +25,14 @@ services:
       POSTGRES_DB: flower-shop
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-    ports:
-      - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - flower-db-data:/var/lib/postgresql/data
+    networks:
+      - flower-net
 
 volumes:
-  pgdata:
+  flower-db-data:
+
+networks:
+  flower-net:
+    driver: bridge

@@ -19,7 +19,7 @@ function Info({mode}) {
         // eslint-disable-next-line
     }, [amountInCart])
     async function init() {
-        const response = await fetch(`http://localhost:8080/get-${src}?id=${id}`)
+        const response = await fetch(`/api/get-${src}?id=${id}`)
         const data = await response.json()
         setInfo(data)
         setTitle(data.title)
@@ -45,7 +45,7 @@ function Info({mode}) {
             amount = 0
         }
         setAmountInCart(amount)
-        const src = 'http://localhost:8080/set-bouquet-amount'
+        const src = '/api/set-bouquet-amount'
         void fetch(src + '?id=' + info.id + '&amount=' + amount)
     }
     return (

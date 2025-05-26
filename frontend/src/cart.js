@@ -65,11 +65,11 @@ function FlowerList({openImage}) {
         }
     }
     async function init() {
-        const role_response = await fetch('http://localhost:8080/role')
+        const role_response = await fetch('/api/role')
         const role = await role_response.text()
 
         const bouquetBlocks = []
-        const response = await fetch('http://localhost:8080/selected-bouquets')
+        const response = await fetch('/api/selected-bouquets')
         const data = await response.json()
         for (const info of data) {
             bouquetBlocks.push(<Card
@@ -90,14 +90,14 @@ function FlowerList({openImage}) {
             newMap2.delete(id)
             return newMap2
         })
-        void fetch(`http://localhost:8080/delete-custom?id=${id}`)
+        void fetch(`/api/delete-custom?id=${id}`)
     }
     async function init_2() {
-        const role_response = await fetch('http://localhost:8080/role')
+        const role_response = await fetch('/api/role')
         const role = await role_response.text()
 
         const customBlocks = []
-        const response = await fetch('http://localhost:8080/get-custom')
+        const response = await fetch('/api/get-custom')
         const data = await response.json()
         for (const info of data) {
             customBlocks.push(<Card

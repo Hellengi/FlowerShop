@@ -70,7 +70,7 @@ class SubHeader extends React.Component {
         void this.getRole()
     }
     async getRole() {
-        const role_response = await fetch('http://localhost:8080/role')
+        const role_response = await fetch('/api/role')
         const role = await role_response.text()
         this.setState({
             role
@@ -85,7 +85,7 @@ class SubHeader extends React.Component {
             title,
             price
         };
-        await fetch('http://localhost:8080/create-bouquet', {
+        await fetch('/api/create-bouquet', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
@@ -101,7 +101,7 @@ class SubHeader extends React.Component {
             title,
             price
         };
-        await fetch('http://localhost:8080/create-flower', {
+        await fetch('/api/create-flower', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)

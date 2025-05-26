@@ -17,7 +17,7 @@ class Flowers extends React.Component {
         this.setCustom = this.setCustom.bind(this)
     }
     async init() {
-        const response = await fetch('http://localhost:8080/get-all-custom-flowers')
+        const response = await fetch('/api/get-all-custom-flowers')
         const data = await response.json()
         const tempMap = new Map(Object.entries(data))
         const customMap = new Map(Array.from(tempMap, ([id, amount]) => [parseInt(id), amount]))
@@ -36,7 +36,7 @@ class Flowers extends React.Component {
         }
     }
     setCustom(info, amount) {
-        const src = 'http://localhost:8080/set-custom-flower'
+        const src = '/api/set-custom-flower'
         void fetch(`${src}?id=${info.id}&amount=${amount}`)
         this.setState(prevState => {
             const newCustomMap = new Map(prevState.customMap)
@@ -81,11 +81,11 @@ function ListOfFlowers({openImage, setCustom, customMap}) {
         void init()
     }, [])
     async function init() {
-        const role_response = await fetch('http://localhost:8080/role')
+        const role_response = await fetch('/api/role')
         const role = await role_response.text()
         setRole(role)
 
-        const response = await fetch('http://localhost:8080/flowers')
+        const response = await fetch('/api/flowers')
         const data = await response.json()
         data.forEach(info => {
             setInfoMap(prevInfoMap => {
@@ -96,7 +96,7 @@ function ListOfFlowers({openImage, setCustom, customMap}) {
         })
     }
     async function searchFlower() {
-        const response = await fetch(`http://localhost:8080/search-flowers?searchText=${
+        const response = await fetch(`/api/search-flowers?searchText=${
             searchText}&minPrice=${minPrice}&maxPrice=${maxPrice}`, {
             method: 'GET'
         })
@@ -181,12 +181,12 @@ function SelectedFlowers({openImage, customMap, setCustom, changeStatusReady}) {
         // eslint-disable-next-line
     }, [customMap])
     async function init() {
-        const role_response = await fetch('http://localhost:8080/role')
+        const role_response = await fetch('/api/role')
         const role = await role_response.text()
 
         const flowerBlocks = []
         for (const [id, amount] of customMap) {
-            const response = await fetch(`http://localhost:8080/get-flower?id=${id}`)
+            const response = await fetch(`/api/get-flower?id=${id}`)
             const data = await response.json()
             flowerBlocks.push(<Card
                 key={data.id}
@@ -203,14 +203,14 @@ function SelectedFlowers({openImage, customMap, setCustom, changeStatusReady}) {
     async function updatePrice() {
         let newPrice = 0
         for (const [id, count] of customMap) {
-            const response = await fetch(`http://localhost:8080/get-flower?id=${id}`)
+            const response = await fetch(`/api/get-flower?id=${id}`)
             const data = await response.json()
             newPrice += data.price * count
         }
         setTotalPrice(newPrice)
     }
     async function sendCustom() {
-        await fetch("http://localhost:8080/accept-custom")
+        await fetch("/api/accept-custom")
         setFlowerBlocks([])
         changeStatusReady(true)
     }

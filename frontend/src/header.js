@@ -43,7 +43,7 @@ function User({style}) {
     const [logged, setLogged] = useState(false)
     async function exit() {
         if (window.confirm("Вы действительно хотите выйти из аккаунта?")) {
-            await fetch('http://localhost:8080/logout')
+            await fetch('/api/logout')
             await setLogged(false)
             await navigate('/')
             window.location.reload()
@@ -54,7 +54,7 @@ function User({style}) {
         // eslint-disable-next-line
     }, [])
     async function init() {
-        const response = await fetch('http://localhost:8080/logged')
+        const response = await fetch('/api/logged')
         const data = await response.json()
         setLogged(data)
     }

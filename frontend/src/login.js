@@ -118,7 +118,7 @@ class Login extends React.Component {
                                     email: this.state.email,
                                     password: this.state.password
                                 };
-                                void fetch('http://localhost:8080/signup', {
+                                void fetch('/api/signup', {
                                     method: 'POST',
                                     headers: {'Content-Type': 'application/json'},
                                     body: JSON.stringify(data)
@@ -147,7 +147,7 @@ class Login extends React.Component {
                                     email: this.state.email,
                                     password: this.state.password
                                 };
-                                const response = await fetch('http://localhost:8080/login', {
+                                const response = await fetch('/api/login', {
                                     method: 'POST',
                                     headers: {'Content-Type': 'application/json'},
                                     body: JSON.stringify(data)
