@@ -13,7 +13,6 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:22
 
-# RUN apt update && apt install -y nginx supervisor
 RUN apt update && apt install -y nginx
 
 WORKDIR /app
@@ -22,11 +21,9 @@ COPY --from=backend-builder /backend/target/*.jar app.jar
 
 COPY --from=frontend-builder /frontend/build /usr/share/nginx/html
 
-COPY frontend/nginx.conf /etc/nginx/nginx.conf
-# COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 EXPOSE 8080
 
-# CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 CMD sh -c "java -jar /app/app.jar & nginx -g 'daemon off;'"

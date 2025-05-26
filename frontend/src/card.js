@@ -191,9 +191,6 @@ function Icon({title, openImage, mode}) {
                     src={`/${src}s/${title}.jpg`}
                     onError={e => {
                         e.target.src = 'bouquet.png'
-                        console.log(e)
-                        console.log(src)
-                        console.log(title)
                     }}
                     onClick={() => {openImage(image)}}
                     ref={image}

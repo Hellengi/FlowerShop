@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class Controller {
     Random random = new Random();
     public Integer RandomBouquetPrice(boolean SingleFlower) {
@@ -104,6 +104,13 @@ public class Controller {
             flowerRepository.save(new FlowerEntity("Хризантемы зеленые", RandomFlowerPrice(true)));
             flowerRepository.save(new FlowerEntity("Хризантемы кустовые", RandomFlowerPrice(true)));
             flowerRepository.save(new FlowerEntity("Хризантемы розовые", RandomFlowerPrice(true)));
+        }
+        String email = "admin@gmail.com";
+        if (!adminRepository.checkByEmail(email)) {
+            ClientEntity client = new ClientEntity("admin", email, "password");
+            client = clientRepository.save(client);
+            AdminEntity admin = new AdminEntity(client);
+            adminRepository.save(admin);
         }
     }
 

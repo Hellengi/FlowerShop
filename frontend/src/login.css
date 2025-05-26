@@ -93,15 +93,18 @@
 .log-sig > input:focus {
     outline: solid #007D 2px;
 }
-.password-forget {
+.text-link {
     color: black;
     background: none;
     border: none;
     display: block;
     margin: 0 auto;
 }
-.password-forget:hover {
+.text-link:hover {
     text-decoration: underline;
+}
+.admin-link {
+    color: #660000;
 }
 .login > .log-sig-button {
     margin: 0;

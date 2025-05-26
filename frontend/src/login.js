@@ -113,6 +113,18 @@ class Login extends React.Component {
                         <button
                             className={"volume-button default-button large-button"}
                             onClick={() => {
+                                if (!this.state.name.trim()) {
+                                    alert("Введите имя");
+                                    return;
+                                }
+                                if (!this.state.email.trim()) {
+                                    alert("Введите логин");
+                                    return;
+                                }
+                                if (!this.state.password.trim()) {
+                                    alert("Введите пароль");
+                                    return;
+                                }
                                 const data = {
                                     name: this.state.name,
                                     email: this.state.email,
@@ -137,12 +149,26 @@ class Login extends React.Component {
                             opacity: this.state.loginPanel ? "1" : "0"
                     }}>
                         <h1>Войти</h1>
+                        <button
+                            className={"text-link admin-link"}
+                            onClick={async () => {
+                                alert("Данные для входа:\nE-mail: admin@gmail.com\nПароль: password");
+                            }}
+                        >Войти как Администратор</button>
                         <input type={"text"} placeholder={"E-mail"} onInput={this.handleEmailChange}/>
                         <input type={"text"} placeholder={"Пароль"} onInput={this.handlePasswordChange}/>
-                        <button className={"password-forget"}>Забыли пароль?</button>
+                        <button className={"text-link"}>Забыли пароль?</button>
                         <button
                             className={"volume-button default-button large-button"}
                             onClick={async () => {
+                                if (!this.state.email.trim()) {
+                                    alert("Введите логин");
+                                    return;
+                                }
+                                if (!this.state.password.trim()) {
+                                    alert("Введите пароль");
+                                    return;
+                                }
                                 const data = {
                                     email: this.state.email,
                                     password: this.state.password
@@ -159,7 +185,7 @@ class Login extends React.Component {
                                     })
                                 }
                                 else {
-                                    alert("Неверный пароль")
+                                    alert("Неверный логин или пароль")
                                 }
                             }}
                         ><span>Вход</span></button>

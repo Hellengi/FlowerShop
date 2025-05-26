@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  flower-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
     networks:
-      - flower-net
+      - net
 
   db:
     image: postgres:15
@@ -26,13 +26,13 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
-      - flower-db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     networks:
-      - flower-net
+      - net
 
 volumes:
-  flower-db-data:
+  db-data:
 
 networks:
-  flower-net:
+  net:
     driver: bridge
