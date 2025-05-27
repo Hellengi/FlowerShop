@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
-import "./profile.css"
-import BackImage from "./back";
-import Header from "./header";
+import "./Profile.css"
+import BackImage from "../../components/Back/Back";
+import Header from "../../components/Header/Header";
 import {useNavigate} from "react-router-dom";
 
 function Profile() {

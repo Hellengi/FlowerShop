@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import Card from "./card";
-import "./main.css"
-import "./flowers.css"
-import "./button.css"
+import Card from "../../components/Card/Card";
+import "../../pages/Main/Main.css"
+import "./Flowers.css"
+import "../../components/Button/Button.css"
 import {useNavigate} from "react-router-dom";
 
 class Flowers extends React.Component {
@@ -40,7 +40,7 @@ class Flowers extends React.Component {
         }
     }
     setCustom(info, amount) {
-        void fetch(`/api/custom/current/flowers/${info.id}&amount=${amount}`, {
+        void fetch(`/api/custom/current/flowers/${info.id}?amount=${amount}`, {
             method: 'PATCH',
             credentials: 'include',
             headers: {'Content-Type': 'application/json'},

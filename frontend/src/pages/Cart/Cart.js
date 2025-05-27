@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import "./cart.css"
-import BackImage from "./back";
-import Header from "./header";
-import Card from "./card";
+import "./Cart.css"
+import BackImage from "../../components/Back/Back";
+import Header from "../../components/Header/Header";
+import Card from "../../components/Card/Card";
 
 function Cart({openImage}) {
     return (

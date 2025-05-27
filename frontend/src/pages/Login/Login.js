@@ -1,7 +1,7 @@
 import React from "react"
 import {Navigate} from "react-router-dom";
-import "./login.css"
-import BackImage from "./back";
+import "./Login.css"
+import BackImage from "../../components/Back/Back";
 
 class Login extends React.Component {
     constructor(props) {

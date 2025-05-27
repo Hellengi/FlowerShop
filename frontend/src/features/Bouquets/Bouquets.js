@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "./card";
-import "./main.css"
+import Card from "../../components/Card/Card";
+import "../../pages/Main/Main.css"
 
 class Bouquets extends React.Component {
     constructor(props) {

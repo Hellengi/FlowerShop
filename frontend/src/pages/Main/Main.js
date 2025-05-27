@@ -1,11 +1,10 @@
 import React from "react";
-import "./main.css"
-import "./button.css"
-import Bouquets from "./bouquets";
-import Flowers from "./flowers";
-import Header from "./header";
-import BackImage from "./back";
-import Card from "./card";
+import "./Main.css"
+import "../../components/Button/Button.css"
+import Bouquets from "../../features/Bouquets/Bouquets";
+import Flowers from "../../features/Flowers/Flowers";
+import Header from "../../components/Header/Header";
+import BackImage from "../../components/Back/Back";
 
 class Main extends React.Component {
     constructor(props) {
@@ -26,11 +25,13 @@ class Main extends React.Component {
             credentials: 'include',
             headers: {'Content-Type': 'application/json'},
         })
-        if (!response.ok) {
-            alert("Если на странице нет карточек с товарами, значит backend ещё не успел запуститься.\n\n" +
+        if (response.ok) {
+            const message = "Если на странице нет карточек с товарами, значит backend ещё не успел запуститься.\n\n" +
                 "Возможно вы открываете приложение со страницы https://flowershop-t3d1.onrender.com/, " +
                 "в этом случае проблема связана с тем, что используется бесплатная версия Render.\n\n" +
-                "Необходимо подождать несколько минут, пока backend не запустится.")
+                "Необходимо подождать несколько минут, пока backend не запустится."
+            alert(message)
+            console.log(message)
         }
     }
     mainSwitch(status) {

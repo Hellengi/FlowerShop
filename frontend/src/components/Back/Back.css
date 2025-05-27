@@ -26,7 +26,7 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background-image: url("../public/profile.jpg");
+    background-image: url("../../../public/profile.jpg");
     background-size: cover;
     background-position: center;
     display: flex;

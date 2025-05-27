@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import "./button.css"
-import "./card.css"
+import "../Button/Button.css"
+import "./Card.css"
 
 function Card({info, openImage, mode, role, updateMap,
                   setCustom, customAmount, customMap, removeCustom}) {

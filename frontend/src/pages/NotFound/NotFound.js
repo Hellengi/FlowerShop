@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
-import "./notfound.css"
-import BackImage from "./back";
+import "./NotFound.css"
+import BackImage from "../../components/Back/Back";
 import {useNavigate} from "react-router-dom";
 
 function NotFound() {

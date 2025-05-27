@@ -1,5 +1,5 @@
 import React from "react";
-import "./back.css"
+import "./Back.css"
 
 function BackImage(props) {
     if (props.page === "main") return (

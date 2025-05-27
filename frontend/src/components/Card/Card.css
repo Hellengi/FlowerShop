@@ -168,24 +168,24 @@
     background-repeat: no-repeat;
 }
 .delete-button {
-    background-image: url("../public/trash.png"), radial-gradient(#EDD, #A9D);
+    background-image: url("../../../public/trash.png"), radial-gradient(#EDD, #A9D);
     filter: hue-rotate(75deg);
 }
 .delete-button:hover {
-    background-image: url("../public/trash.png"), radial-gradient(#EDD, #A6F);
+    background-image: url("../../../public/trash.png"), radial-gradient(#EDD, #A6F);
 }
 .delete-button:active {
-    background-image: url("../public/trash.png"), radial-gradient(#EDD, #95C);
+    background-image: url("../../../public/trash.png"), radial-gradient(#EDD, #95C);
 }
 .update-button {
-    background-image: url("../public/edit.png"), radial-gradient(#EDD, #A9D);
+    background-image: url("../../../public/edit.png"), radial-gradient(#EDD, #A9D);
     filter: hue-rotate(205deg);
 }
 .update-button:hover {
-    background-image: url("../public/edit.png"), radial-gradient(#EDD, #A6F);
+    background-image: url("../../../public/edit.png"), radial-gradient(#EDD, #A6F);
 }
 .update-button:active {
-    background-image: url("../public/edit.png"), radial-gradient(#EDD, #95C);
+    background-image: url("../../../public/edit.png"), radial-gradient(#EDD, #95C);
 }
 .card-custom {
     display: grid;

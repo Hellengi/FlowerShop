@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Main from "./main";
-import Info from "./info";
-import Chat from "./chat";
-import Login from "./login";
-import Cart from "./cart";
-import Profile from "./profile";
-import NotFound from "./notfound";
-import Image from "./image";
+import Main from "./pages/Main/Main";
+import Info from "./pages/Info/Info";
+import Chat from "./pages/Chat/Chat";
+import Login from "./pages/Login/Login";
+import Cart from "./pages/Cart/Cart";
+import Profile from "./pages/Profile/Profile";
+import NotFound from "./pages/NotFound/NotFound";
+import Image from "./components/Image/Image";
 import './index.css'
 
 const Root = ReactDOM.createRoot(document.getElementById("root"))
