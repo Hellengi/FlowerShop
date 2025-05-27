@@ -4,7 +4,7 @@ import java.util.*;
 import com.github.hellengi.flowershop.entity.BouquetEntity;
 import com.github.hellengi.flowershop.entity.CustomEntity;
 import com.github.hellengi.flowershop.entity.FlowerEntity;
-import com.github.hellengi.flowershop.entity.ClientEntity;
+import com.github.hellengi.flowershop.entity.UserEntity;
 import com.github.hellengi.flowershop.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -38,16 +38,16 @@ public class Controller {
 
     @PostMapping("/auth/signup")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean signUp(@RequestBody ClientEntity clientEntity,
+    public Boolean signUp(@RequestBody UserEntity userEntity,
                           HttpSession session) {
-        return authService.signUp(clientEntity, session);
+        return authService.signUp(userEntity, session);
     }
 
     @PostMapping("/auth/login")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean logIn(@RequestBody ClientEntity clientEntity,
+    public Boolean logIn(@RequestBody UserEntity userEntity,
                          HttpSession session) {
-        return authService.logIn(clientEntity, session);
+        return authService.logIn(userEntity, session);
     }
 
     @PostMapping("/auth/logout")

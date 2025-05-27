@@ -2,10 +2,11 @@ package com.github.hellengi.flowershop.config;
 
 import com.github.hellengi.flowershop.entity.AdminEntity;
 import com.github.hellengi.flowershop.entity.BouquetEntity;
-import com.github.hellengi.flowershop.entity.ClientEntity;
+import com.github.hellengi.flowershop.entity.UserEntity;
 import com.github.hellengi.flowershop.entity.FlowerEntity;
 import com.github.hellengi.flowershop.repository.*;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ public class DataLoader {
     @Autowired
     private FlowerRepository flowerRepository;
     @Autowired
-    private ClientRepository clientRepository;
+    private UserRepository userRepository;
     @Autowired
     private AdminRepository adminRepository;
 
@@ -31,6 +32,7 @@ public class DataLoader {
     }
 
     @PostConstruct
+    @Transactional
     public void init() {
         if (bouquetRepository.count() == 0 && flowerRepository.count() == 0) {
             bouquetRepository.save(new BouquetEntity("Герберы красные и желтые", RandomBouquetPrice(false), 0));
@@ -86,10 +88,17 @@ public class DataLoader {
             flowerRepository.save(new FlowerEntity("Хризантемы розовые", RandomFlowerPrice(true)));
         }
         String email = "admin@gmail.com";
-        if (!adminRepository.checkByEmail(email)) {
-            ClientEntity client = new ClientEntity("admin", email, "password");
-            client = clientRepository.save(client);
-            AdminEntity admin = new AdminEntity(client);
+        UserEntity user;
+
+        if (!userRepository.existsByEmail(email)) {
+            user = new UserEntity("admin", email, "password");
+            user = userRepository.save(user);
+        } else {
+            user = userRepository.getUser(email);
+        }
+
+        if (!adminRepository.existsByEmail(email)) {
+            AdminEntity admin = new AdminEntity(user);
             adminRepository.save(admin);
         }
     }

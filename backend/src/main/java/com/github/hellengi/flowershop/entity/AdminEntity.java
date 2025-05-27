@@ -6,32 +6,28 @@ import org.hibernate.annotations.OnDeleteAction;
 
 
 @Entity
-@Table(name="admin")
+@Table
 public class AdminEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_seq")
-    @SequenceGenerator(name = "admin_seq", sequenceName = "admin_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_admin")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_client", referencedColumnName = "id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private ClientEntity client;
+    private UserEntity user;
 
     public AdminEntity() {}
-    public AdminEntity(ClientEntity client) {
-        this.client = client;
+    public AdminEntity(UserEntity user) {
+        this.user = user;
     }
 
     public long getId() {
         return id;
     }
 
-    public ClientEntity getClient() {
-        return client;
-    }
-
-    public void setClient(ClientEntity client) {
-        this.client = client;
+    public UserEntity getUser() {
+        return user;
     }
 }

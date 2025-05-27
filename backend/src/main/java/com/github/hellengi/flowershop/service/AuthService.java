@@ -1,7 +1,7 @@
 package com.github.hellengi.flowershop.service;
 
-import com.github.hellengi.flowershop.entity.ClientEntity;
-import com.github.hellengi.flowershop.repository.ClientRepository;
+import com.github.hellengi.flowershop.entity.UserEntity;
+import com.github.hellengi.flowershop.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,37 +9,37 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
     @Autowired
-    private ClientRepository clientRepository;
+    private UserRepository userRepository;
 
-    public Boolean signUp(ClientEntity clientEntity, HttpSession session) {
-        String name = clientEntity.getName();
-        String email = clientEntity.getEmail();
-        String password = clientEntity.getPassword();
-        ClientEntity client = new ClientEntity(name, email, password);
-        if (clientRepository.existsByEmail(email)) {
+    public Boolean signUp(UserEntity userEntity, HttpSession session) {
+        String name = userEntity.getName();
+        String email = userEntity.getEmail();
+        String password = userEntity.getPassword();
+        UserEntity user = new UserEntity(name, email, password);
+        if (userRepository.existsByEmail(email)) {
             return false;
         }
-        clientRepository.save(client);
-        session.setAttribute("client", client);
+        userRepository.save(user);
+        session.setAttribute("user", user);
         return true;
     }
 
-    public Boolean logIn(ClientEntity clientEntity, HttpSession session) {
-        String email = clientEntity.getEmail();
-        String password = clientEntity.getPassword();
-        ClientEntity client = clientRepository.checkPassword(email, password);
-        if (client == null) {
+    public Boolean logIn(UserEntity userEntity, HttpSession session) {
+        String email = userEntity.getEmail();
+        String password = userEntity.getPassword();
+        UserEntity user = userRepository.checkPassword(email, password);
+        if (user == null) {
             return false;
         }
-        session.setAttribute("client", client);
+        session.setAttribute("user", user);
         return true;
     }
 
     public void logOut(HttpSession session) {
-        session.removeAttribute("client");
+        session.removeAttribute("user");
     }
 
     public Boolean isLogged(HttpSession session) {
-        return session.getAttribute("client") != null;
+        return session.getAttribute("user") != null;
     }
 }
