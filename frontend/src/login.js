@@ -130,10 +130,11 @@ class Login extends React.Component {
                                     email: this.state.email,
                                     password: this.state.password
                                 };
-                                void fetch('/api/signup', {
+                                void fetch('/api/auth/signup', {
                                     method: 'POST',
+                                    credentials: 'include',
                                     headers: {'Content-Type': 'application/json'},
-                                    body: JSON.stringify(data)
+                                    body: JSON.stringify(data),
                                 });
                                 this.setState({
                                     exit: true
@@ -173,10 +174,11 @@ class Login extends React.Component {
                                     email: this.state.email,
                                     password: this.state.password
                                 };
-                                const response = await fetch('/api/login', {
+                                const response = await fetch('/api/auth/login', {
                                     method: 'POST',
+                                    credentials: 'include',
                                     headers: {'Content-Type': 'application/json'},
-                                    body: JSON.stringify(data)
+                                    body: JSON.stringify(data),
                                 });
                                 const result = await response.json();
                                 if (result) {

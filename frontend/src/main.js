@@ -5,6 +5,7 @@ import Bouquets from "./bouquets";
 import Flowers from "./flowers";
 import Header from "./header";
 import BackImage from "./back";
+import Card from "./card";
 
 class Main extends React.Component {
     constructor(props) {
@@ -15,6 +16,22 @@ class Main extends React.Component {
             flowersDisplayed: false
         }
         this.mainSwitch = this.mainSwitch.bind(this)
+    }
+    componentDidMount() {
+        void this.init()
+    }
+    async init() {
+        const response = await fetch('/api/', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
+        if (!response.ok) {
+            alert("Если на странице нет карточек с товарами, значит backend ещё не успел запуститься.\n\n" +
+                "Возможно вы открываете приложение со страницы https://flowershop-t3d1.onrender.com/, " +
+                "в этом случае проблема связана с тем, что используется бесплатная версия Render.\n\n" +
+                "Необходимо подождать несколько минут, пока backend не запустится.")
+        }
     }
     mainSwitch(status) {
         this.setState({
@@ -70,7 +87,11 @@ class SubHeader extends React.Component {
         void this.getRole()
     }
     async getRole() {
-        const role_response = await fetch('/api/role')
+        const role_response = await fetch('/api/users/me/role', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const role = await role_response.text()
         this.setState({
             role
@@ -85,8 +106,9 @@ class SubHeader extends React.Component {
             title,
             price
         };
-        await fetch('/api/create-bouquet', {
+        await fetch('/api/bouquets', {
             method: 'POST',
+            credentials: 'include',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         });
@@ -101,10 +123,11 @@ class SubHeader extends React.Component {
             title,
             price
         };
-        await fetch('/api/create-flower', {
+        await fetch('/api/flowers', {
             method: 'POST',
+            credentials: 'include',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         });
         window.location.reload()
     }

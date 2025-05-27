@@ -19,21 +19,31 @@ function Profile() {
         // eslint-disable-next-line
     }, [])
     async function init() {
-        const response = await fetch('/api/logged')
+        const response = await fetch('/api/auth/status', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const data = await response.json()
         setLogged(data)
         if (data === false) {
             navigate('/')
         }
         else {
-            const response = await fetch('/api/profile')
+            const response = await fetch('/api/users/me', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'},
+            })
             const data = await response.json()
             setProfile(data)
         }
     }
     async function drop() {
-        await fetch('/api/drop', {
-            method: 'POST'
+        await fetch('/api/users/me', {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
         });
         navigate('/')
     }

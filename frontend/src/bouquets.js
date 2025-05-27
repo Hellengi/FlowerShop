@@ -13,11 +13,19 @@ class Bouquets extends React.Component {
         void this.init()
     }
     async init() {
-        const role_response = await fetch('/api/role')
+        const role_response = await fetch('/api/users/me/role', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const role = await role_response.text()
 
         const blocks = []
-        const response = await fetch('/api/bouquets')
+        const response = await fetch('/api/bouquets', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const data = await response.json()
         for (const info of data) {
             blocks.push(<Card

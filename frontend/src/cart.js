@@ -65,11 +65,19 @@ function FlowerList({openImage}) {
         }
     }
     async function init() {
-        const role_response = await fetch('/api/role')
+        const role_response = await fetch('/api/users/me/role', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const role = await role_response.text()
 
         const bouquetBlocks = []
-        const response = await fetch('/api/selected-bouquets')
+        const response = await fetch('/api/cart/bouquets', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const data = await response.json()
         for (const info of data) {
             bouquetBlocks.push(<Card
@@ -90,14 +98,26 @@ function FlowerList({openImage}) {
             newMap2.delete(id)
             return newMap2
         })
-        void fetch(`/api/delete-custom?id=${id}`)
+        void fetch(`/api/cart/custom/bouquets/${id}`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
     }
     async function init_2() {
-        const role_response = await fetch('/api/role')
+        const role_response = await fetch('/api/users/me/role', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const role = await role_response.text()
 
         const customBlocks = []
-        const response = await fetch('/api/get-custom')
+        const response = await fetch('/api/cart/custom/bouquets', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const data = await response.json()
         for (const info of data) {
             customBlocks.push(<Card

@@ -25,8 +25,9 @@ function Card({info, openImage, mode, role, updateMap,
             title,
             price
         };
-        await fetch(`/api/update-bouquet?id=${id}`, {
-            method: 'POST',
+        await fetch(`/api/bouquets/${id}`, {
+            method: 'PUT',
+            credentials: 'include',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         });
@@ -41,19 +42,28 @@ function Card({info, openImage, mode, role, updateMap,
             title,
             price
         };
-        await fetch(`/api/update-flower?id=${id}`, {
-            method: 'POST',
+        await fetch(`/api/flowers/${id}`, {
+            method: 'PUT',
+            credentials: 'include',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         });
         window.location.reload()
     }
     async function dropBouquet(id) {
-        await fetch(`/api/drop-bouquet?id=${id}`)
+        await fetch(`/api/bouquets/${id}`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         window.location.reload()
     }
     async function dropFlower(id) {
-        await fetch(`/api/drop-flower?id=${id}`)
+        await fetch(`/api/flowers/${id}`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         window.location.reload()
     }
     useEffect(() => {
@@ -80,8 +90,11 @@ function Card({info, openImage, mode, role, updateMap,
         }
         setAmountInCart(amount)
         if (mode === "bouquet" || mode === "selected") {
-            const src = '/api/set-bouquet-amount'
-            void fetch(src + '?id=' + info.id + '&amount=' + amount)
+            void fetch(`/api/cart/bouquets/${info.id}?amount=${amount}`, {
+                method: 'PATCH',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'},
+            })
         }
         if (mode === "selected") {
             updateMap(info.title, [info.price, amount])
@@ -303,7 +316,11 @@ function SelectFlowerButton({info, selectedAmount, setCustom}) {
     }
     async function init() {
         const response =
-            await fetch('/api/get-custom-flower?id=' + info.id)
+            await fetch(`/api/custom/current/flowers/${info.id}`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'},
+            })
         const data = await response.json()
         setAmount(data)
     }

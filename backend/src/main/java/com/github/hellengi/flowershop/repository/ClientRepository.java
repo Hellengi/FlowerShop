@@ -21,4 +21,5 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
     @Transactional
     @Query("DELETE FROM ClientEntity c WHERE c = :client")
     void dropClient(@Param("client") ClientEntity client);
+    boolean existsByEmail(String email);
 }

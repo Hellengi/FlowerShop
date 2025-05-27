@@ -8,18 +8,23 @@ import {useNavigate, useParams} from "react-router-dom";
 
 function Info({mode}) {
     const { id } = useParams()
-    const [src, setSrc] = useState(mode)
     const [info, setInfo] = useState()
     const [title, setTitle] = useState('')
     const [amountInCart, setAmountInCart] = useState(0)
+    // eslint-disable-next-line
     const [seller, setSeller] = useState('Flower Shop')
     const navigate = useNavigate()
+    const src = mode
     useEffect(() => {
         void init()
         // eslint-disable-next-line
     }, [amountInCart])
     async function init() {
-        const response = await fetch(`/api/get-${src}?id=${id}`)
+        const response = await fetch(`/api/${src}s/${id}`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         const data = await response.json()
         setInfo(data)
         setTitle(data.title)
@@ -45,8 +50,11 @@ function Info({mode}) {
             amount = 0
         }
         setAmountInCart(amount)
-        const src = '/api/set-bouquet-amount'
-        void fetch(src + '?id=' + info.id + '&amount=' + amount)
+        void fetch(`/api/cart/bouquets/${info.id}?amount=${amount}`, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
     }
     return (
         <>
