@@ -1,15 +1,13 @@
 package com.github.hellengi.flowershop.config;
 
-import com.github.hellengi.flowershop.entity.AdminEntity;
-import com.github.hellengi.flowershop.entity.BouquetEntity;
-import com.github.hellengi.flowershop.entity.UserEntity;
-import com.github.hellengi.flowershop.entity.FlowerEntity;
+import com.github.hellengi.flowershop.entity.*;
 import com.github.hellengi.flowershop.repository.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Random;
 
 @Component
@@ -22,84 +20,138 @@ public class DataLoader {
     private UserRepository userRepository;
     @Autowired
     private AdminRepository adminRepository;
+    @Autowired
+    private SellerRepository sellerRepository;
+    @Autowired
+    private CartRepository cartRepository;
+    @Autowired
+    private CustomRepository customRepository;
 
     Random random = new Random();
-    public Integer RandomBouquetPrice(boolean SingleFlower) {
-        return (random.nextInt(26) + 15) * 100;
+    public BigDecimal RandomBouquetPrice() {
+        return BigDecimal.valueOf((random.nextInt(26) + 15) * 100);
     }
-    public Integer RandomFlowerPrice(boolean SingleFlower) {
-        return (random.nextInt(26) + 5) * 10;
+    public BigDecimal RandomFlowerPrice() {
+        return BigDecimal.valueOf((random.nextInt(26) + 5) * 10);
     }
 
     @PostConstruct
     @Transactional
     public void init() {
-        if (bouquetRepository.count() == 0 && flowerRepository.count() == 0) {
-            bouquetRepository.save(new BouquetEntity("Герберы красные и желтые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Герберы красные и розовые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Герберы розовые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Герберы, хризантемы, розы", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Гортензия", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Ирисы синие и розы белые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Ирисы синие и розы розовые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Лизиантусы и орхидеи", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Пионы розовые и белые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Розы багровые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Розы желтые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Розы и орхидеи", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Розы красные", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Розы красные и белые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Розы оранжевые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Розы розовые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Тюльпаны красные и белые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Тюльпаны розовые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Флорина", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Флористика", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Хризантемы белые и фиолетовые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Хризантемы розовые и зеленые", RandomBouquetPrice(false), 0));
-            bouquetRepository.save(new BouquetEntity("Эустома", RandomBouquetPrice(false), 0));
-            flowerRepository.save(new FlowerEntity("Альстометрия сиреневая", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Георгина", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Герберы белые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Герберы желтые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Герберы красные", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Герберы розовые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Герберы фиолетовые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Герберы оранжевые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Ирисы синие", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Лизантусы белые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Магнолия", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Обриета", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Орхидеи синие", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Пионы белые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Пионы розовые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Подсолнух", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Розы белые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Розы красные", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Розы розовые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Статица розовая", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Тюльпан розовый", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Тюльпаны бело-красные", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Тюльпаны белые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Тюльпаны красные", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Хризантемы белые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Хризантемы зеленые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Хризантемы кустовые", RandomFlowerPrice(true)));
-            flowerRepository.save(new FlowerEntity("Хризантемы розовые", RandomFlowerPrice(true)));
-        }
         String email = "admin@gmail.com";
-        UserEntity user;
+        String nameLegal = "Flower Shop";
+        UserEntity superUser;
 
         if (!userRepository.existsByEmail(email)) {
-            user = new UserEntity("admin", email, "password");
-            user = userRepository.save(user);
+            superUser = new UserEntity("admin", email, "password");
+            superUser = userRepository.save(superUser);
         } else {
-            user = userRepository.getUser(email);
+            superUser = userRepository.getUser(email);
+        }
+
+        if (!cartRepository.existsActiveCartByUser(superUser)) {
+            CartEntity cart = new CartEntity(superUser);
+            cartRepository.save(cart);
+        }
+
+        if (!customRepository.existsActiveCustomByUser(superUser)) {
+            String title = "Букет №1";
+            CustomEntity customEntity = new CustomEntity(superUser, title);
+            customRepository.save(customEntity);
         }
 
         if (!adminRepository.existsByEmail(email)) {
-            AdminEntity admin = new AdminEntity(user);
+            AdminEntity admin = new AdminEntity(superUser);
             adminRepository.save(admin);
+        }
+
+        if (!sellerRepository.existsByName(nameLegal)) {
+            if (sellerRepository.existsByEmail(email)) {
+                sellerRepository.deleteByEmail(email);
+            }
+            SellerEntity seller = new SellerEntity(superUser, nameLegal);
+            sellerRepository.save(seller);
+        }
+
+        SellerEntity seller = sellerRepository.findByUser(superUser);
+
+        String guestEmail = "-";
+        UserEntity guest;
+
+        if (!userRepository.existsByEmail(guestEmail)) {
+            guest = new UserEntity("guest", guestEmail, "-");
+            userRepository.save(guest);
+        } else {
+            guest = userRepository.getUser(guestEmail);
+        }
+
+        if (!cartRepository.existsActiveCartByUser(guest)) {
+            CartEntity cart = new CartEntity(guest);
+            cartRepository.save(cart);
+        }
+
+        if (!customRepository.existsActiveCustomByUser(guest)) {
+            String title = "Букет №1";
+            CustomEntity customEntity = new CustomEntity(guest, title);
+            customRepository.save(customEntity);
+        }
+
+        if (bouquetRepository.count() == 0) {
+            bouquetRepository.save(new BouquetEntity(seller, "Герберы красные и желтые", RandomBouquetPrice(), 7, "red_and_yellow_gerberas.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Герберы красные и розовые", RandomBouquetPrice(), 7, "red_and_pink_gerberas.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Герберы розовые", RandomBouquetPrice(), 7, "pink_gerberas.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Герберы, хризантемы, розы", RandomBouquetPrice(), 7, "gerberas_chrysanthemums_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Гортензия", RandomBouquetPrice(), 7, "hydrangea.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Ирисы синие и розы белые", RandomBouquetPrice(), 7, "blue_irises_white_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Ирисы синие и розы розовые", RandomBouquetPrice(), 7, "blue_irises_pink_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Лизиантусы и орхидеи", RandomBouquetPrice(), 7, "lisianthus_orchids.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Пионы розовые и белые", RandomBouquetPrice(), 7, "pink_and_white_peonies.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Розы багровые", RandomBouquetPrice(), 7, "crimson_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Розы желтые", RandomBouquetPrice(), 7, "yellow_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Розы и орхидеи", RandomBouquetPrice(), 7, "roses_orchids.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Розы красные", RandomBouquetPrice(), 7, "red_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Розы красные и белые", RandomBouquetPrice(), 7, "red_and_white_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Розы оранжевые", RandomBouquetPrice(), 7, "orange_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Розы розовые", RandomBouquetPrice(), 7, "pink_roses.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Тюльпаны красные и белые", RandomBouquetPrice(), 7, "red_and_white_tulips.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Тюльпаны розовые", RandomBouquetPrice(), 7, "pink_tulips.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Флорина", RandomBouquetPrice(), 7, "florina.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Флористика", RandomBouquetPrice(), 7, "floristry.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Хризантемы белые и фиолетовые", RandomBouquetPrice(), 7, "white_and_purple_chrysanthemums.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Хризантемы розовые и зеленые", RandomBouquetPrice(), 7, "pink_and_green_chrysanthemums.jpg"));
+            bouquetRepository.save(new BouquetEntity(seller, "Эустома", RandomBouquetPrice(), 7, "eustoma.jpg"));
+        }
+
+        if (flowerRepository.count() == 0) {
+            flowerRepository.save(new FlowerEntity(seller, "Альстометрия сиреневая", RandomFlowerPrice(), 7, "purple_alstroemeria.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Георгина", RandomFlowerPrice(), 7, "dahlia.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Герберы белые", RandomFlowerPrice(), 7, "white_gerberas.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Герберы желтые", RandomFlowerPrice(), 7, "yellow_gerberas.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Герберы красные", RandomFlowerPrice(), 7, "red_gerberas.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Герберы оранжевые", RandomFlowerPrice(), 7, "orange_gerberas.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Герберы розовые", RandomFlowerPrice(), 7, "pink_gerberas.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Герберы фиолетовые", RandomFlowerPrice(), 7, "purple_gerberas.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Ирисы синие", RandomFlowerPrice(), 7, "blue_irises.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Лизантусы белые", RandomFlowerPrice(), 7, "white_lisianthus.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Магнолия", RandomFlowerPrice(), 7, "magnolia.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Обриета", RandomFlowerPrice(), 7, "aubrieta.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Орхидеи синие", RandomFlowerPrice(), 7, "blue_orchids.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Пионы белые", RandomFlowerPrice(), 7, "white_peonies.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Пионы розовые", RandomFlowerPrice(), 7, "pink_peonies.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Подсолнух", RandomFlowerPrice(), 7, "sunflower.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Розы белые", RandomFlowerPrice(), 7, "white_roses.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Розы красные", RandomFlowerPrice(), 7, "red_roses.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Розы розовые", RandomFlowerPrice(), 7, "pink_roses.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Статица розовая", RandomFlowerPrice(), 7, "pink_statice.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Тюльпан розовый", RandomFlowerPrice(), 7, "pink_tulip.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Тюльпаны бело-красные", RandomFlowerPrice(), 7, "white_red_tulips.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Тюльпаны белые", RandomFlowerPrice(), 7, "white_tulips.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Тюльпаны красные", RandomFlowerPrice(), 7, "red_tulips.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Хризантемы белые", RandomFlowerPrice(), 7, "white_chrysanthemums.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Хризантемы зеленые", RandomFlowerPrice(), 7, "green_chrysanthemums.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Хризантемы кустовые", RandomFlowerPrice(), 7, "bushy_chrysanthemums.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Хризантемы розовые", RandomFlowerPrice(), 7, "pink_chrysanthemums.jpg"));
+            flowerRepository.save(new FlowerEntity(seller, "Хризантемы фиолетовые", RandomFlowerPrice(), 7, "purple_chrysanthemums.jpg"));
         }
     }
 }

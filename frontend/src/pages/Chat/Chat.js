@@ -6,11 +6,11 @@ import Header from "../../components/Header/Header";
 import {useNavigate, useParams} from "react-router-dom";
 
 
-function Chat() {
+function Chat({openSearch, infoPage}) {
     return (
         <>
             <BackImage page={"chat"}/>
-            <Header/>
+            <Header openSearch={openSearch} infoPage={infoPage}/>
         </>
     )
 }

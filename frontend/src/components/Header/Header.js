@@ -2,9 +2,10 @@ import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import "./Header.css"
 
-function Header(props) {
+function Header({openSearch, infoPage}) {
     const location = useLocation()
     const [style, setStyle] = useState("")
+    const navigate = useNavigate()
     useEffect(() => {
         switch (location.pathname) {
             case "/cart":
@@ -17,10 +18,15 @@ function Header(props) {
                 setStyle("header-purple")
         }
     }, [location])
+    useEffect(() => {
+        if (infoPage !== null) {
+            navigate(`/bouquet/${infoPage}`)
+        }
+    }, [infoPage])
     return (
-        <header className={`header ${style}`}>
+        <header className={`header ${style}`} id={"header"}>
             <Logo/>
-            <Search style={style}/>
+            <Search style={style} openSearch={openSearch}/>
             <User style={style}/>
         </header>
     )
@@ -34,9 +40,21 @@ function Logo() {
         </div>
     )
 }
-function Search({style}) {
-    return <input type={"text"} placeholder={"Поиск..."}
-                  className={`search ${style==="system" ? "search-light" : ""}`}></input>
+function Search({style, openSearch}) {
+    const handleSearch = event => {
+        const search = event.target.value.trim()
+        openSearch(search)
+    }
+    return (
+        <>
+            <input type={"text"}
+                   placeholder={"Поиск..."}
+                   onInput={handleSearch}
+                   onClick={handleSearch}
+                   className={`search ${style==="system" ? "search-light" : ""}`}>
+            </input>
+        </>
+    )
 }
 function User({style}) {
     const navigate = useNavigate()

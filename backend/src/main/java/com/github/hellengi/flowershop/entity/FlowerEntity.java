@@ -1,48 +1,105 @@
 package com.github.hellengi.flowershop.entity;
 
+import com.github.hellengi.flowershop.enums.ItemStatus;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="flower")
 public class FlowerEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flower_seq")
-    @SequenceGenerator(name = "flower_seq", sequenceName = "flower_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_flower")
     private long id;
-    @Column(name = "title")
-    private String title;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "price")
-    private int price;
+
+    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "id_item", referencedColumnName = "id_item", nullable = false, unique = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ItemEntity item;
+
+    @Column(name = "picture_url")
+    private String image;
+
     public FlowerEntity() {}
-    public FlowerEntity(String title, int price) {
-        this.title = title;
-        this.price = price;
+
+    public FlowerEntity(ItemEntity item) {
+        this.item = item;
     }
+
+    public FlowerEntity(ItemEntity item, String image) {
+        this.item = item;
+        this.image = image;
+    }
+
+    public FlowerEntity(SellerEntity seller, String title, BigDecimal price, Integer stock) {
+        this.item = new ItemEntity(seller, title, price, stock);
+    }
+
+    public FlowerEntity(SellerEntity seller, String title, BigDecimal price, Integer stock, String image) {
+        this.item = new ItemEntity(seller, title, price, stock);
+        this.image = image;
+    }
+
     public long getId() {
         return id;
     }
+
+    public ItemEntity getItem() {
+        return item;
+    }
+
+    public long getItemId() {
+        return item.getId();
+    }
+
     public String getTitle() {
-        return title;
+        return item.getTitle();
     }
+
     public void setTitle(String title) {
-        this.title = title;
+        item.setTitle(title);
     }
+
     public String getDescription() {
-        return description;
+        return item.getDescription();
     }
+
     public void setDescription(String description) {
-        this.description = description;
+        item.setDescription(description);
     }
-    public int getPrice() {
-        return price;
+
+    public BigDecimal getPrice() {
+        return item.getPrice();
     }
-    public void setPrice(int price) {
-        this.price = price;
+
+    public void setPrice(BigDecimal price) {
+        item.setPrice(price);
     }
-    @Override
-    public String toString() {
-        return (title + " (" + price + " руб)");
+
+    public Integer getStock() {
+        return item.getStock();
+    }
+
+    public void setStock(Integer amount) {
+        item.setStock(amount);
+    }
+
+    public ItemStatus getStatus() {
+        return item.getStatus();
+    }
+
+    public void setStatus(ItemStatus status) {
+        item.setStatus(status);
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

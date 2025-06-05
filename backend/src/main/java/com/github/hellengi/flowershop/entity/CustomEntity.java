@@ -1,49 +1,57 @@
 package com.github.hellengi.flowershop.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name="custom")
 public class CustomEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_seq")
-    @SequenceGenerator(name = "custom_seq", sequenceName = "custom_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_custom")
     private long id;
-    @Column(name = "title")
+
+    @ManyToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private UserEntity user;
+
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
+
+    @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "info")
-    private String info;
-    @Column(name = "price")
-    private int price;
+
     public CustomEntity() {}
-    public CustomEntity(String title, String info, int price) {
+
+    public CustomEntity(UserEntity user, String title) {
+        this.user = user;
         this.title = title;
-        this.info = info;
-        this.price = price;
+        this.isActive = true;
     }
+
     public long getId() {
         return id;
     }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
-    }
-    public String getInfo() {
-        return info;
-    }
-    public void setInfo(String info) {
-        this.info = info;
-    }
-    public int getPrice() {
-        return price;
-    }
-    public void setPrice(int price) {
-        this.price = price;
-    }
-    @Override
-    public String toString() {
-        return (title + " (" + price + " руб)");
     }
 }

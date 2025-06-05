@@ -16,9 +16,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
                              @Param("password") String password);
     @Query("SELECT u FROM UserEntity u WHERE u.email = :email")
     UserEntity getUser(@Param("email") String email);
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("DELETE FROM UserEntity c WHERE c = :user")
     void deleteUser(@Param("user") UserEntity user);
     boolean existsByEmail(String email);
+    void deleteByEmail(String email);
 }

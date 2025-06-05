@@ -1,18 +1,13 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Card from "../../components/Card/Card";
 import "../../pages/Main/Main.css"
 
-class Bouquets extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            blocks: []
-        }
-    }
-    componentDidMount() {
-        void this.init()
-    }
-    async init() {
+function Bouquets({openImage}) {
+    const [blocks, setBlocks] = useState([])
+    useEffect(() => {
+        void init()
+    }, [])
+    async function init() {
         const role_response = await fetch('/api/users/me/role', {
             method: 'GET',
             credentials: 'include',
@@ -31,22 +26,18 @@ class Bouquets extends React.Component {
             blocks.push(<Card
                 key={info.id}
                 info={info}
-                openImage={this.props.openImage}
+                openImage={openImage}
                 mode={"bouquet"}
                 role={role}
             />)
         }
-        this.setState({
-            blocks
-        })
+        setBlocks(blocks)
     }
-    render() {
-        return (
-            <div className={"container dark-container grid-container"}>
-                {this.state.blocks}
-            </div>
-        )
-    }
+    return (
+        <div className={"container dark-container grid-container"}>
+            {blocks}
+        </div>
+    )
 }
 
 export default Bouquets

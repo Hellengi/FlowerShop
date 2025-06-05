@@ -35,11 +35,11 @@ public class UserService {
 
     public String getAccountRole(HttpSession session) {
         UserEntity user = (UserEntity) session.getAttribute("user");
-        String role = "unauthorized";
-        if (user != null) {
+        String role = "guest";
+        if (user != null && !user.getEmail().equals("-")) {
             role = "user";
-            if (sellerRepository.check(user)) role = "seller";
-            if (adminRepository.check(user)) role = "admin";
+            if (sellerRepository.existsByUser(user)) role = "seller";
+            if (adminRepository.existsByUser(user)) role = "admin";
         }
         return role;
     }

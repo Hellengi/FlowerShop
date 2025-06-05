@@ -15,10 +15,38 @@
     transition: transform 1s;
 }
 .sub-header {
-    margin: 0 96px;
     display: grid;
     grid-template-columns: auto auto;
     justify-content: space-between;
+}
+.sub-header button {
+    max-width: 200px;
+}
+.sub-header .to-flowers {
+    margin-right: 100px;
+}
+.sub-header .to-bouquets {
+    margin-left: 100px;
+}
+.sub-header .create-flower {
+    margin-right: 100px;
+}
+.sub-header .create-bouquet {
+    margin-left: 100px;
+}
+@media screen and (max-width: 800px) {
+    .sub-header .to-flowers {
+        margin-right: max(0px, 25vw - 100px);
+    }
+    .sub-header .to-bouquets {
+        margin-left: max(0px, 25vw - 100px);
+    }
+    .sub-header .create-flower {
+        margin-right: max(0px, 25vw - 100px);
+    }
+    .sub-header .create-bouquet {
+        margin-left: max(0px, 25vw - 100px);
+    }
 }
 .to-flowers {
     transform: translateX(0);

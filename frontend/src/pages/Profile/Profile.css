@@ -50,7 +50,7 @@
 }
 .profile-name {
     font-size: 2.4em;
-    font-family: Balsamiq_Sans_Bold, serif;
+    font-weight: bolder;
 }
 .profile-status-container {
     transform: translateX(40px);

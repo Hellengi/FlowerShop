@@ -4,7 +4,7 @@ import BackImage from "../../components/Back/Back";
 import Header from "../../components/Header/Header";
 import {useNavigate} from "react-router-dom";
 
-function Profile() {
+function Profile({openSearch, infoPage}) {
     const navigate = useNavigate()
     const [logged, setLogged] = useState(false)
     const [profile, setProfile] = useState({
@@ -50,7 +50,7 @@ function Profile() {
     return (
         <>
             <BackImage page={"profile"}/>
-            <Header/>
+            <Header openSearch={openSearch} infoPage={infoPage}/>
             {logged && <div className={"profile-container"}>
                 <ProfileInfo profile={profile} drop={drop}/>
                 <ProfileAvatar avatar={profile.avatar}/>

@@ -1,33 +1,23 @@
 @font-face {
-    font-family: Balsamiq_Sans_Regular;
-    src: url("../public/Balsamiq_Sans/BalsamiqSans-Regular.ttf") format("truetype");
-}
-@font-face {
-    font-family: Balsamiq_Sans_Bold;
-    src: url("../public/Balsamiq_Sans/BalsamiqSans-Bold.ttf") format("truetype");
-}
-@font-face {
-    font-family: Balsamiq_Sans_Italic;
-    src: url("../public/Balsamiq_Sans/BalsamiqSans-Italic.ttf") format("truetype");
-}
-@font-face {
-    font-family: Balsamiq_Sans_Bold_Italic;
-    src: url("../public/Balsamiq_Sans/BalsamiqSans-BoldItalic.ttf") format("truetype");
+    font-family: WDXLLubrifontTC-Regular;
+    src: url("../public/WDXLLubrifontTC-Regular.ttf") format("truetype");
 }
 p {
     margin: 0;
 }
 body {
     margin: 0;
-    font-family: Balsamiq_Sans_Regular, serif;
+    font-family: WDXLLubrifontTC-Regular, serif;
     overflow-x: hidden;
+    font-size: 1.2em;
 }
 button {
-    font-family: Balsamiq_Sans_Regular, serif;
+    font-family: WDXLLubrifontTC-Regular, serif;
     cursor: pointer;
     padding: 10px;
     border-radius: 5px;
+    font-size: 1em;
 }
 input{
-    font-family: Balsamiq_Sans_Regular, serif;
+    font-family: WDXLLubrifontTC-Regular, serif;
 }

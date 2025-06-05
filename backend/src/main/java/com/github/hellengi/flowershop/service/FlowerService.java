@@ -1,7 +1,9 @@
 package com.github.hellengi.flowershop.service;
 
+import com.github.hellengi.flowershop.entity.BouquetEntity;
 import com.github.hellengi.flowershop.entity.FlowerEntity;
 import com.github.hellengi.flowershop.repository.FlowerRepository;
+import com.github.hellengi.flowershop.repository.ItemRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +20,9 @@ public class FlowerService {
     @Autowired
     private FlowerRepository flowerRepository;
 
+    @Autowired
+    private ItemRepository itemRepository;
+
     private final UserService userService;
 
     public FlowerService(UserService userService) {
@@ -24,7 +30,7 @@ public class FlowerService {
     }
 
     public ResponseEntity<List<FlowerEntity>> getFlowers() {
-        List<FlowerEntity> flowerList = flowerRepository.findAll(Sort.by(Sort.Direction.ASC, "title"));
+        List<FlowerEntity> flowerList = flowerRepository.findFlowersOrderByTitle();
         return new ResponseEntity<>(flowerList, HttpStatus.OK);
     }
 
@@ -39,8 +45,8 @@ public class FlowerService {
         }
     }
 
-    public ResponseEntity<List<FlowerEntity>> searchFlowers(String searchText, Integer minPrice, Integer maxPrice) {
-        List<FlowerEntity> flowerList = flowerRepository.search(searchText, minPrice, maxPrice);
+    public ResponseEntity<List<FlowerEntity>> searchFlowers(String searchName, Integer minPrice, Integer maxPrice) {
+        List<FlowerEntity> flowerList = flowerRepository.searchFlower(searchName, minPrice, maxPrice);
         return new ResponseEntity<>(flowerList, HttpStatus.OK);
     }
 
@@ -50,20 +56,25 @@ public class FlowerService {
         flowerRepository.save(flowerEntity);
     }
 
-    public void updateFlower(Long id, FlowerEntity flowerEntity, HttpSession session) {
+    public void updateFlower(Long id, FlowerEntity flower, HttpSession session) {
         String role = userService.getAccountRole(session);
         if (!role.equals("admin")) return;
-        if (flowerEntity.getTitle().isEmpty()) {
-            flowerRepository.findById(id).ifPresent(existingFlower ->
-                    flowerEntity.setTitle(existingFlower.getTitle())
-            );
+        String title;
+        BigDecimal price;
+        Optional<FlowerEntity> optionalFlower = flowerRepository.findById(id);
+        if (optionalFlower.isPresent()) {
+            if (flower.getTitle().isEmpty()) {
+                title = optionalFlower.get().getTitle();
+            } else {
+                title = flower.getTitle();
+            }
+            if (flower.getPrice().compareTo(BigDecimal.valueOf(-1)) == 0) {
+                price = optionalFlower.get().getPrice();
+            } else {
+                price = flower.getPrice();
+            }
+            flowerRepository.updateFlower(id, title, price);
         }
-        if (flowerEntity.getPrice() == -1) {
-            flowerRepository.findById(id).ifPresent(existingFlower ->
-                    flowerEntity.setPrice(existingFlower.getPrice())
-            );
-        }
-        flowerRepository.update(flowerEntity, id);
     }
 
     public void deleteFlower(Long id, HttpSession session) {

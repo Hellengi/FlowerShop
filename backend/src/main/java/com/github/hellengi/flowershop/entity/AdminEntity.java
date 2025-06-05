@@ -6,7 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 
 @Entity
-@Table
+@Table(name = "admin")
 public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,11 +14,12 @@ public class AdminEntity {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "id_user", referencedColumnName = "id_user", nullable = false)
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
 
     public AdminEntity() {}
+
     public AdminEntity(UserEntity user) {
         this.user = user;
     }

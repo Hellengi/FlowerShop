@@ -5,79 +5,59 @@ import "./Flowers.css"
 import "../../components/Button/Button.css"
 import {useNavigate} from "react-router-dom";
 
-class Flowers extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            statusReady: false,
-            customMap: new Map()
-        }
-        void this.init()
-        this.changeStatusReady = this.changeStatusReady.bind(this)
-        this.setCustom = this.setCustom.bind(this)
-    }
-    async init() {
+function Flowers({openImage}) {
+    const [statusReady, setStatusReady] = useState(false);
+    const [flowersInCustom, setFlowersInCustom] = useState([]);
+    useEffect(() => {
+        void init();
+    }, [])
+    async function init() {
         const response = await fetch('/api/custom/current/flowers', {
             method: 'GET',
             credentials: 'include',
             headers: {'Content-Type': 'application/json'},
         })
         const data = await response.json()
-        const tempMap = new Map(Object.entries(data))
-        const customMap = new Map(Array.from(tempMap, ([id, amount]) => [parseInt(id), amount]))
-        this.setState({
-            customMap
-        })
+        setFlowersInCustom(data)
     }
-    changeStatusReady(status) {
-        this.setState({
-            statusReady: status
-        })
-        if (status === true) {
-            this.setState({
-                customMap: new Map()
-            })
-        }
+    function changeStatusReady(status) {
+        setStatusReady(status)
+        setFlowersInCustom([])
     }
-    setCustom(info, amount) {
-        void fetch(`/api/custom/current/flowers/${info.id}?amount=${amount}`, {
-            method: 'PATCH',
+    async function setCustom(info, amount) {
+        await fetch(`/api/custom/current/flowers/${info.id}?amount=${amount}`, {
+            method: 'PUT',
             credentials: 'include',
             headers: {'Content-Type': 'application/json'},
         })
-        this.setState(prevState => {
-            const newCustomMap = new Map(prevState.customMap)
-            if (amount > 0) {
-                newCustomMap.set(info.id, amount)
-            }
-            else {
-                newCustomMap.delete(info.id)
-            }
-            return {customMap: newCustomMap}
+        const response = await fetch(`/api/custom/current/flowers`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
         })
+        const json = await response.json()
+        setFlowersInCustom(json)
     }
-    render() {
-        return (
-            <div className={"flowers container gradient-container"}>
-                <div className={"list-of-flowers-container"}>
-                    <ListOfFlowers
-                        openImage={this.props.openImage}
-                        setCustom={this.setCustom}
-                        customMap={this.state.customMap}
-                    />
-                </div>
-                {!this.state.statusReady && <SelectedFlowers
-                    openImage={this.props.openImage}
-                    customMap={this.state.customMap}
-                    setCustom={this.setCustom}
-                    changeStatusReady={this.changeStatusReady}
-                />}
-                {this.state.statusReady && <BouquetCreated changeStatusReady={this.changeStatusReady}/>}
+    return (
+        <div className={"flowers container gradient-container"}>
+            <div className={"list-of-flowers-container"}>
+                <ListOfFlowers
+                    openImage={openImage}
+                    setCustom={setCustom}
+                    flowersInCustom={flowersInCustom}
+                />
             </div>
-        )
-    }
+            {!statusReady && <SelectedFlowers
+                openImage={openImage}
+                flowersInCustom={flowersInCustom}
+                setCustom={setCustom}
+                changeStatusReady={changeStatusReady}
+            />}
+            {statusReady && <BouquetCreated changeStatusReady={changeStatusReady}/>}
+        </div>
+    )
 }
-function ListOfFlowers({openImage, setCustom, customMap}) {
+function ListOfFlowers({openImage, setCustom, flowersInCustom}) {
     const [blocks, setBlocks] = useState([])
     const [infoMap, setInfoMap] = useState(new Map())
     const [role, setRole] = useState("")
@@ -137,14 +117,15 @@ function ListOfFlowers({openImage, setCustom, customMap}) {
                 mode={"flower"}
                 role={role}
                 setCustom={setCustom}
-                customMap={customMap}
+                flowersInCustom={flowersInCustom}
             />)
         }
         setBlocks(newBlocks)
         // eslint-disable-next-line
-    }, [infoMap, customMap])
-    async function handleSearchTextChange(event) {
-        await setSearchText(event.target.value)
+    }, [infoMap, flowersInCustom])
+    function handleSearchTextChange(event) {
+        const searchText = event.target.value.trim()
+        setSearchText(searchText)
     }
     async function handleMinPriceChange(event) {
         const price = parseInt(event.target.value)
@@ -186,59 +167,63 @@ function ListOfFlowers({openImage, setCustom, customMap}) {
         </div>
     )
 }
-function SelectedFlowers({openImage, customMap, setCustom, changeStatusReady}) {
+function SelectedFlowers({openImage, flowersInCustom, setCustom, changeStatusReady}) {
     const [flowerBlocks, setFlowerBlocks] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
+    const [defaultName, setDefaultName] = useState("")
+    const [customName, setCustomName] = useState("")
     useEffect(() => {
         void init()
         // eslint-disable-next-line
-    }, [customMap])
+    }, [flowersInCustom])
     useEffect(() => {
         void updatePrice()
         // eslint-disable-next-line
-    }, [customMap])
+    }, [flowersInCustom])
     async function init() {
-        const role_response = await fetch('/api/users/me/role', {
+        const response = await fetch('/api/users/me/role', {
             method: 'GET',
             credentials: 'include',
             headers: {'Content-Type': 'application/json'},
         })
-        const role = await role_response.text()
+        const role = await response.text()
 
         const flowerBlocks = []
-        for (const [id, amount] of customMap) {
-            const response = await fetch(`/api/flowers/${id}`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {'Content-Type': 'application/json'},
-            })
-            const data = await response.json()
+        for (const info of flowersInCustom) {
             flowerBlocks.push(<Card
-                key={data.id}
-                info={data}
+                key={info.id}
+                info={info}
                 openImage={openImage}
                 mode={"custom"}
                 role={role}
                 setCustom={setCustom}
-                customAmount={amount}
+                customAmount={info.quantity}
             />)
         }
         setFlowerBlocks(flowerBlocks)
+
+        const response_2 = await fetch('/api/custom/current', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
+        const name = await response_2.text()
+        setDefaultName(name)
     }
-    async function updatePrice() {
+    function updatePrice() {
         let newPrice = 0
-        for (const [id, count] of customMap) {
-            const response = await fetch(`/api/flowers/${id}`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {'Content-Type': 'application/json'},
-            })
-            const data = await response.json()
-            newPrice += data.price * count
+        for (const info of flowersInCustom) {
+            newPrice += info.price * info.quantity
         }
         setTotalPrice(newPrice)
     }
     async function sendCustom() {
+        if (customName === "") setCustomName(defaultName)
+        await fetch(`/api/custom/current?title=${customName}`, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json'},
+        })
         await fetch("/api/cart/custom/current", {
             method: 'POST',
             credentials: 'include',
@@ -252,11 +237,17 @@ function SelectedFlowers({openImage, customMap, setCustom, changeStatusReady}) {
         setFlowerBlocks([])
         changeStatusReady(true)
     }
+    const handleCustomNameChange = event => {
+        setCustomName(event.target.value)
+    }
     return (
         <div className={"selected-flowers-container selected-flowers"}>
             {flowerBlocks.length === 0 && <h1>Цветы не выбраны</h1>}
             {flowerBlocks.length !== 0 && <>
-                <h1>Выбранные цветы</h1>
+                <input className={"custom-name"}
+                       type={"text"}
+                       placeholder={defaultName}
+                       onInput={handleCustomNameChange}/>
                 {flowerBlocks}
                 <div className={"selected-flowers-price"}>{`Стоимость: ${totalPrice} руб`}</div>
                 <button

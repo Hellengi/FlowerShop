@@ -23,13 +23,13 @@
 }
 .card-name-bouquet {
     margin: 10px;
-    font-family: Balsamiq_Sans_Bold, serif;
+    font-weight: bolder;
     font-size: 1.1em;
     max-width: 160px;
 }
 .card-price-bouquet {
     margin: 5px;
-    font-family: Balsamiq_Sans_Italic, serif;
+    font-style: italic;
 }
 .card-bouquet > button {
     margin: 5px 5px 10px;
@@ -82,7 +82,7 @@
 }
 .card-name-flower {
     margin: 5px;
-    font-family: Balsamiq_Sans_Bold, serif;
+    font-weight: bolder;
     font-size: 1em;
     grid-row: 1;
     grid-column: 2;
@@ -90,14 +90,14 @@
 }
 .card-price-flower {
     margin: 5px;
-    font-family: Balsamiq_Sans_Italic, serif;
+    font-style: italic;
     grid-row: 2;
     grid-column: 2;
 }
 .card-flower > button {
     margin: 10px;
     padding: 0;
-    font-size: 2em;
+    font-size: 1.5em;
     height: 40px;
     width: 40px;
     color: white;
@@ -109,7 +109,6 @@
     display: grid;
     grid-template-columns: 120px 240px 120px;
     align-items: center;
-    height: 120px;
     background-color: #FFF7;
     border: black solid 1px;
     border-radius: 5px;
@@ -133,6 +132,7 @@
 }
 .card-info-selected {
     font-style: italic;
+    font-size: 0.8em;
 }
 .card-price-selected {
     padding: 10px;
@@ -189,7 +189,8 @@
 }
 .card-custom {
     display: grid;
-    grid-template-columns: 40px 360px 120px;
+    grid-template-columns: 40px auto 120px;
+    min-width: 100%;
     gap: 10px;
     align-items: center;
     justify-items: left;

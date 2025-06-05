@@ -4,14 +4,30 @@ import "../Button/Button.css"
 import "./Card.css"
 
 function Card({info, openImage, mode, role, updateMap,
-                  setCustom, customAmount, customMap, removeCustom}) {
+                  setCustom, customAmount, customMap, removeCustom,
+                  flowersInCustom}) {
     const navigate = useNavigate()
     useEffect(() => {
         if (mode === "selected-custom") {
             setAmountInCart(1)
         }
+        if (mode === "selected") {
+            setAmountInCart(info.quantity)
+        }
+        void init()
         // eslint-disable-next-line
     }, [])
+    async function init() {
+        if (mode === "bouquet") {
+            const response = await fetch(`/api/cart/${mode}s/${info.id}`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'},
+            })
+            const amountInCart = await response.json()
+            setAmountInCart(amountInCart)
+        }
+    }
     function deleteCustom(id) {
         removeCustom(id)
         setAmountInCart(0)
@@ -67,23 +83,24 @@ function Card({info, openImage, mode, role, updateMap,
         window.location.reload()
     }
     useEffect(() => {
-        if (mode === "flower" && customMap !== undefined) {
-            if (customMap.get(info.id) !== undefined) {
-                setAmountInCart(customMap.get(info.id))
+        if (mode === "flower" && flowersInCustom !== undefined) {
+            const index = flowersInCustom.findIndex(flower => flower.id === info.id)
+            if (index !== -1) {
+                setAmountInCart(flowersInCustom[index].quantity)
             }
             else {
                 setAmountInCart(0)
             }
         }
         // eslint-disable-next-line
-    }, [customMap])
-    const [amountInCart, setAmountInCart] = useState(info.amount)
+    }, [flowersInCustom])
+    const [amountInCart, setAmountInCart] = useState(0)
     useEffect(() => {
         if (mode === "custom") {
             setAmountInCart(customAmount)
         }
         // eslint-disable-next-line
-    }, [customAmount])
+    }, [info])
     function setAmount(amount) {
         if (amount < 0) {
             amount = 0
@@ -91,7 +108,7 @@ function Card({info, openImage, mode, role, updateMap,
         setAmountInCart(amount)
         if (mode === "bouquet" || mode === "selected") {
             void fetch(`/api/cart/bouquets/${info.id}?amount=${amount}`, {
-                method: 'PATCH',
+                method: 'PUT',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
             })
@@ -104,7 +121,7 @@ function Card({info, openImage, mode, role, updateMap,
         }
     }
     function openInfo() {
-        if (mode === "bouquet") {
+        if (mode === "bouquet" || mode === "selected") {
             navigate(`/bouquet/${info.id}`)
         }
         else if (mode === "flower") {
@@ -115,12 +132,10 @@ function Card({info, openImage, mode, role, updateMap,
         <>
             {(amountInCart > 0 || (mode !== "selected" && mode !== "selected-custom"))
                 && <div className={"card-" + mode}>
-                <Icon title={info.title} openImage={openImage} mode={mode}/>
-                <Info title={info.title}
-                      info={info.info}
-                      amount={amountInCart}
-                      price={info.price}
+                <Icon imageName={info.image} openImage={openImage} mode={mode}/>
+                <Info info={info}
                       mode={mode}
+                      amountInCart={amountInCart}
                       openInfo={openInfo}
                 />
                 {mode === "bouquet" &&
@@ -149,7 +164,7 @@ function Card({info, openImage, mode, role, updateMap,
         </>
     )
 }
-function Icon({title, openImage, mode}) {
+function Icon({imageName, openImage, mode}) {
     const image = useRef(null)
     const [src, setSrc] = useState(mode)
     useEffect(() => {
@@ -201,7 +216,7 @@ function Icon({title, openImage, mode}) {
         <>
             {mode !== "selected-custom" && <div className={"card-picture-container-" + mode}>
                 <img
-                    src={`/${src}s/${title}.jpg`}
+                    src={`/${src}s/${imageName}`}
                     onError={e => {
                         e.target.src = 'bouquet.png'
                     }}
@@ -221,51 +236,51 @@ function Icon({title, openImage, mode}) {
         </>
     )
 }
-function Info({title, amount, price, mode, info, openInfo}) {
+function Info({mode, info, amountInCart, openInfo}) {
     const flowerList = []
     if (mode === "selected-custom") {
         let i = 0
-        for (const line of info.split(";")) {
+        for (const line of info.flowers) {
             i += 1
             flowerList.push(<div
             key={i}>
-                {line.replace(":", ": ")} шт
+                {line.title}: {line.quantity} шт
             </div>)
         }
     }
     return (
         <div>
             {(mode === "bouquet" || mode === "flower" || mode === "selected") && <>
-                <p className={"link card-name-" + mode} onClick={() => openInfo()}>{title}</p>
+                <p className={"link card-name-" + mode} onClick={() => openInfo()}>{info.title}</p>
             </>}
             {(mode === "flower") && <>
-                <p className={"card-info-selected"}>{price} руб</p>
+                <p className={"card-info-selected"}>{info.price} руб</p>
             </>}
             {(mode === "selected") && <>
-                {amount === 1 && <p className={"card-info-" + mode}>
-                    {price} руб
+                {amountInCart === 1 && <p className={"card-price-" + mode}>
+                    {info.price} руб
                 </p>}
-                {amount > 1 && <p className={"card-info-" + mode}>
-                    {amount} шт по {price} руб
+                {amountInCart > 1 && <p className={"card-info-" + mode}>
+                    {amountInCart} шт по {info.price} руб
                 </p>}
-                {amount > 1 && <p className={"card-price-" + mode}>
-                    Суммарно {amount * price} руб
+                {amountInCart > 1 && <p className={"card-price-" + mode}>
+                    Суммарно {amountInCart * info.price} руб
                 </p>}
             </>}
             {(mode === "custom") && <>
-                {amount === 1 && <p className={"card-info-" + mode}>
-                    {title}: {price} руб
+                {amountInCart === 1 && <p className={"card-info-" + mode}>
+                    {info.title}: {info.price} руб
                 </p>}
-                {amount > 1 && <p className={"card-info-" + mode}>
-                    {title}: {amount} шт по {price} руб
+                {amountInCart > 1 && <p className={"card-info-" + mode}>
+                    {info.title}: {amountInCart} шт по {info.price} руб
                 </p>}
             </>}
             {(mode === "selected-custom") && <>
-                <p className={"card-name-selected"}>{title}</p>
+                <p className={"card-name-selected"}>{info.title}</p>
                 <div className={"card-flower-list"}>
                     {flowerList}
                 </div>
-                <p className={"card-info-selected"}>{price} руб</p>
+                <p className={"card-info-selected"}>{info.price} руб</p>
             </>}
         </div>
     )
@@ -316,7 +331,7 @@ function SelectFlowerButton({info, selectedAmount, setCustom}) {
     }
     async function init() {
         const response =
-            await fetch(`/api/custom/current/flowers/${info.id}`, {
+                await fetch(`/api/custom/current/flowers/${info.id}`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},

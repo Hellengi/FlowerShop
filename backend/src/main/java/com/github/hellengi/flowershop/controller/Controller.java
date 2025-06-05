@@ -1,10 +1,10 @@
 package com.github.hellengi.flowershop.controller;
 import java.util.*;
 
-import com.github.hellengi.flowershop.entity.BouquetEntity;
-import com.github.hellengi.flowershop.entity.CustomEntity;
-import com.github.hellengi.flowershop.entity.FlowerEntity;
-import com.github.hellengi.flowershop.entity.UserEntity;
+import com.github.hellengi.flowershop.dto.CartBouquetDTO;
+import com.github.hellengi.flowershop.dto.CartCustomDTO;
+import com.github.hellengi.flowershop.dto.CustomFlowerDTO;
+import com.github.hellengi.flowershop.entity.*;
 import com.github.hellengi.flowershop.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -87,6 +87,14 @@ public class Controller {
         return bouquetService.getBouquetById(id);
     }
 
+    @GetMapping("/bouquets/search")
+    public ResponseEntity<List<BouquetEntity>> searchBouquets(@RequestParam(value = "text") String searchName,
+                                                            @RequestParam(value = "minPrice", defaultValue = "0") Integer minPrice,
+                                                            @RequestParam(value = "maxPrice", required = false) Integer maxPrice) {
+        if (maxPrice == null) maxPrice = Integer.MAX_VALUE;
+        return bouquetService.searchBouquets(searchName, minPrice, maxPrice);
+    }
+
     @PostMapping("/bouquets")
     public void createBouquet(@RequestBody BouquetEntity bouquetEntity,
                               HttpSession session) {
@@ -117,10 +125,11 @@ public class Controller {
     }
 
     @GetMapping("/flowers/search")
-    public ResponseEntity<List<FlowerEntity>> searchFlowers(@RequestParam(value = "text") String searchText,
-                                                            @RequestParam(value = "minPrice") Integer minPrice,
-                                                            @RequestParam(value = "maxPrice") Integer maxPrice) {
-        return flowerService.searchFlowers(searchText, minPrice, maxPrice);
+    public ResponseEntity<List<FlowerEntity>> searchFlowers(@RequestParam(value = "text") String searchName,
+                                                            @RequestParam(value = "minPrice", defaultValue = "0") Integer minPrice,
+                                                            @RequestParam(value = "maxPrice", required = false) Integer maxPrice) {
+        if (maxPrice == null) maxPrice = Integer.MAX_VALUE;
+        return flowerService.searchFlowers(searchName, minPrice, maxPrice);
     }
 
     @PostMapping("/flowers")
@@ -143,14 +152,15 @@ public class Controller {
     }
 
     @GetMapping("/custom/current/flowers")
-    public HashMap<Long, Integer> getFlowersInCustom(HttpSession session) {
+    public ResponseEntity<List<CustomFlowerDTO>> getFlowersInCustom(HttpSession session) {
         return customService.getFlowersInCustom(session);
     }
 
-    @PostMapping("/custom/current/flowers/{id}")
+    @PutMapping("/custom/current/flowers/{id}")
     public void addFlowerToCustom(@PathVariable("id") Long id,
+                                  @RequestParam(value = "amount", defaultValue = "1") Integer amount,
                                   HttpSession session) {
-        customService.addFlowerToCustom(id, session);
+        customService.addFlowerToCustom(id, amount, session);
     }
 
     @GetMapping("/custom/current/flowers/{id}")
@@ -166,20 +176,41 @@ public class Controller {
         customService.setAmountForFlowerInCustom(id, amount, session);
     }
 
+    @GetMapping("/custom/current")
+    public String getCustomTitle(HttpSession session) {
+        return customService.getCustomTitle(session);
+    }
+
+    @PatchMapping("/custom/current")
+    public void setCustomTitle(@RequestParam(value = "title") String title,
+                              HttpSession session) {
+        System.out.println(title);
+        System.out.println("334334");
+        customService.setCustomTitle(title, session);
+    }
+
     @DeleteMapping("/custom/current")
     public void deleteCurrentCustom(HttpSession session) {
+        System.out.println("111111111");
         customService.deleteCurrentCustom(session);
     }
 
     @GetMapping("/cart/bouquets")
-    public ResponseEntity<List<BouquetEntity>> getBouquetsInCart(HttpSession session) {
+    public ResponseEntity<List<CartBouquetDTO>> getBouquetsInCart(HttpSession session) {
         return cartService.getBouquetsInCart(session);
     }
 
-    @PostMapping("/cart/bouquets/{id}")
+    @PutMapping("/cart/bouquets/{id}")
     public void addBouquetToCart(@PathVariable("id") Long id,
+                                 @RequestParam(value = "amount", defaultValue = "1") Integer amount,
                                  HttpSession session) {
-        cartService.addBouquetToCart(id, session);
+        cartService.addBouquetToCart(id, amount, session);
+    }
+
+    @GetMapping("/cart/bouquets/{id}")
+    public Integer getAmountOfBouquetInCart(@PathVariable("id") Long id,
+                                            HttpSession session) {
+        return cartService.getAmountOfBouquetInCart(id, session);
     }
 
     @PatchMapping("/cart/bouquets/{id}")
@@ -201,7 +232,7 @@ public class Controller {
     }
 
     @GetMapping("/cart/custom/bouquets")
-    public ResponseEntity<List<CustomEntity>> getCustomBouquetsInCart(HttpSession session) {
+    public ResponseEntity<List<CartCustomDTO>> getCustomBouquetsInCart(HttpSession session) {
         return cartService.getCustomBouquetsInCart(session);
     }
 

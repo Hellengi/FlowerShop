@@ -6,7 +6,7 @@ import Flowers from "../../features/Flowers/Flowers";
 import Header from "../../components/Header/Header";
 import BackImage from "../../components/Back/Back";
 
-function Main({openImage}) {
+function Main({openImage, openSearch, infoPage}) {
     const [mainStatus, setMainStatus] = useState(true)
     const [bouquetsDisplayed, setBouquetsDisplayed] = useState(true)
     const [flowersDisplayed, setFlowersDisplayed] = useState(false)
@@ -39,7 +39,7 @@ function Main({openImage}) {
     return (
         <>
             <BackImage page={"main"}/>
-            <Header/>
+            <Header openSearch={openSearch} infoPage={infoPage}/>
             <SubHeader
                 mainSwitch={mainSwitch}
                 mainStatus={mainStatus}
@@ -67,7 +67,7 @@ function Main({openImage}) {
 }
 
 function SubHeader({mainSwitch, mainStatus, bouquetsDisplayed, flowersDisplayed}) {
-    const [role, setRole] = useState("unauthorized")
+    const [role, setRole] = useState("guest")
     useEffect(() => {
         void getRole()
     }, [])

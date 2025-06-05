@@ -69,6 +69,7 @@
 }
 .bouquet-created .azure-button {
     max-width: 100px;
+    font-size: .8em;
 }
 .search-block {
     display: grid;
@@ -85,4 +86,21 @@
 }
 .search-price {
     margin: 0;
+}
+.custom-name {
+    margin: 10px 20px;
+    padding: 5px;
+    font-size: 1.4em;
+    background-color: #D9F9;
+    color: #314;
+    border: solid #73C 1px;
+    outline: none;
+    text-align: center;
+}
+.custom-name:hover {
+    background-color: #EAF9;
+}
+.custom-name:focus {
+    background-color: #FCFB;
+    outline: #64AF solid 1px;
 }

@@ -17,8 +17,9 @@
 }
 .cart-container > h1 {
     margin: 0;
-    color: #404;
+    color: #EECCFF;
     text-shadow: #FBFA 0 0 10px, #FBFA 0 0 5px;
+    user-select: none;
 }
 .cart-container > button {
     font-size: 1.2em;

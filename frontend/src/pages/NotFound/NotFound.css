@@ -8,7 +8,7 @@
 }
 .notfound-sign {
     position: absolute;
-    font-size: 3em;
+    font-size: 2em;
     background: linear-gradient(120deg, #222B, #000);
     backdrop-filter: blur(4px);
     color: #EEF;
@@ -22,7 +22,8 @@
     margin: 0;
 }
 .notfound-button {
-    font-size: 0.35em;
+    margin-top: 20px;
+    font-size: 0.6em;
     padding: 10px;
 }
 .circle {

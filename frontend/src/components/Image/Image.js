@@ -1,37 +1,31 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Image.css"
 
-class Image extends React.Component {
-    constructor(props) {
-        super(props);
-        this.escPressed = this.escPressed.bind(this)
-    }
-    componentDidMount() {
-        document.addEventListener("keydown", this.escPressed)
-    }
-    componentWillUnmount() {
-        document.removeEventListener("keydown", this.escPressed)
-    }
-    escPressed(event) {
+function Image({image, closeImage}) {
+    useEffect(() => {
+        document.addEventListener("keydown", escPressed)
+        return () => {
+            document.removeEventListener("keydown", escPressed)
+        }
+    }, [])
+    function escPressed(event) {
         if (event.key === "Escape") {
-            this.props.closeImage()
+            closeImage()
         }
     }
-    render() {
-        return (
-            <>
-                <div
-                    className={"image-full-back"}
-                    onClick={this.props.closeImage}
-                ></div>
-                <img
-                    src={this.props.image.src}
-                    alt={""}
-                    className={"image-full"}
-                ></img>
-            </>
-        )
-    }
+    return (
+        <>
+            <div
+                className={"image-full-back"}
+                onClick={closeImage}
+            ></div>
+            <img
+                src={image.src}
+                alt={""}
+                className={"image-full"}
+            ></img>
+        </>
+    )
 }
 
 export default Image

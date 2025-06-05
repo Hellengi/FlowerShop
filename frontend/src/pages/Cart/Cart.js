@@ -4,11 +4,11 @@ import BackImage from "../../components/Back/Back";
 import Header from "../../components/Header/Header";
 import Card from "../../components/Card/Card";
 
-function Cart({openImage}) {
+function Cart({openImage, openSearch, infoPage}) {
     return (
         <>
             <BackImage page={"cart"}/>
-            <Header/>
+            <Header openSearch={openSearch} infoPage={infoPage}/>
             <div className={"cart-background"}>
                 <FlowerList openImage={openImage}/>
             </div>
@@ -88,7 +88,7 @@ function FlowerList({openImage}) {
                 role={role}
                 updateMap={updateMap}
             />)
-            updateMap(info.title, [info.price, info.amount])
+            updateMap(info.title, [info.price, info.quantity])
         }
         setBouquetBlocks(bouquetBlocks)
     }

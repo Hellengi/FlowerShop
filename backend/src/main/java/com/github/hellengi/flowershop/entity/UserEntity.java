@@ -5,14 +5,14 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "user_entity")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private Long id;
 
-    @Column(name = "name_user", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(nullable = false, unique = true)
@@ -21,10 +21,10 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "date_registration", nullable = false)
-    private LocalDateTime dateRegistration;
+    @Column(name = "registered_at", nullable = false)
+    private LocalDateTime registeredAt;
 
-    @Column(name = "url_avatar")
+    @Column(name = "avatar_url")
     private String avatarUrl;
 
     public UserEntity() {}
@@ -33,7 +33,7 @@ public class UserEntity {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.dateRegistration = LocalDateTime.now();
+        this.registeredAt = LocalDateTime.now();
         this.avatarUrl = null;
     }
 
@@ -70,11 +70,11 @@ public class UserEntity {
     }
 
     public LocalDateTime getDateRegistration() {
-        return dateRegistration;
+        return registeredAt;
     }
 
-    public void setDateRegistration(LocalDateTime dateRegistration) {
-        this.dateRegistration = dateRegistration;
+    public void setDateRegistration(LocalDateTime registeredAt) {
+        this.registeredAt = registeredAt;
     }
 
     public String getAvatarUrl() {
