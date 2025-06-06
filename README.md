@@ -32,3 +32,6 @@
 ![image](image_4.png?raw=true)
 
 ![image](image_5.png?raw=true)
+
+## License
+This project is licensed under the [MIT License](LICENSE).
