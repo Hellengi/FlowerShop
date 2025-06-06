@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./Search.css"
+import {useNavigate} from "react-router-dom";
 
 function Search({search, closeSearch, openInfo}) {
     const [headerHeight, setHeaderHeight] = useState(90);
@@ -43,7 +44,6 @@ function Search({search, closeSearch, openInfo}) {
             newBlocks.push(<Result
                 key={info.id}
                 info={info}
-                openInfo={openInfo}
                 closeSearch={closeSearch}
             />)
         }
@@ -72,8 +72,9 @@ function Search({search, closeSearch, openInfo}) {
     )
 }
 
-function Result({info, openInfo, closeSearch}) {
+function Result({info, closeSearch}) {
     const image = useRef(null)
+    const navigate = useNavigate();
     const src = "bouquet"
     useEffect(() => {
         if (image.current) {
@@ -104,7 +105,7 @@ function Result({info, openInfo, closeSearch}) {
                 </div>
                 <div className={"result-title link"} onClick={() => {
                     closeSearch()
-                    openInfo(info.id)
+                    navigate(`/bouquet/${info.id}`);
                 }}>
                     {info.title}
                 </div>

@@ -42,44 +42,46 @@ function Body() {
     }
     return (
         <>
-            {imageOpened && <Image image={image} closeImage={closeImage}/>}
-            {searchOpened && <Search search={search} closeSearch={closeSearch} openInfo={openInfo}/>}
-            <BrowserRouter>
-                <Routes>
-                    <Route path={"/"} element={
-                        <Main openImage={openImage} openSearch={openSearch} infoPage={infoPage}/>
-                    }/>
-                    <Route path={"/info"} element={
-                        <Info openSearch={openSearch} infoPage={infoPage}/>
-                    }/>
-                    <Route path={"/bouquet/:id"} element={
-                        <Info mode={"bouquet"} openSearch={openSearch} infoPage={infoPage}/>
-                    }/>
-                    <Route path={"/flower/:id"} element={
-                        <Info mode={"flower"} openSearch={openSearch} infoPage={infoPage}/>
-                    }/>
-                    <Route path={"/chat"} element={
-                        <Chat openSearch={openSearch} infoPage={infoPage}/>
-                    }/>
-                    <Route path={"/chat/:id"} element={
-                        <Chat openSearch={openSearch} infoPage={infoPage}/>
-                    }/>
-                    <Route path={"/login"} element={
-                        <Login/>
-                    }/>
-                    <Route path={"/cart"} element={
-                        <Cart openImage={openImage} openSearch={openSearch} infoPage={infoPage}/>
-                    }/>
-                    <Route path={"/profile"} element={
-                        <Profile openSearch={openSearch} infoPage={infoPage}/>
-                    }/>
-                    <Route path={"*"} element={
-                        <NotFound/>
-                    }/>
-                </Routes>
-            </BrowserRouter>
+        {imageOpened && <Image image={image} closeImage={closeImage}/>}
+        {searchOpened && <Search search={search} closeSearch={closeSearch} openInfo={openInfo}/>}
+            <Routes>
+                <Route path={"/"} element={
+                    <Main openImage={openImage} openSearch={openSearch} infoPage={infoPage}/>
+                }/>
+                <Route path={"/info"} element={
+                    <Info openSearch={openSearch} infoPage={infoPage}/>
+                }/>
+                <Route path={"/bouquet/:id"} element={
+                    <Info mode={"bouquet"} openSearch={openSearch} infoPage={infoPage}/>
+                }/>
+                <Route path={"/flower/:id"} element={
+                    <Info mode={"flower"} openSearch={openSearch} infoPage={infoPage}/>
+                }/>
+                <Route path={"/chat"} element={
+                    <Chat openSearch={openSearch} infoPage={infoPage}/>
+                }/>
+                <Route path={"/chat/:id"} element={
+                    <Chat openSearch={openSearch} infoPage={infoPage}/>
+                }/>
+                <Route path={"/login"} element={
+                    <Login/>
+                }/>
+                <Route path={"/cart"} element={
+                    <Cart openImage={openImage} openSearch={openSearch} infoPage={infoPage}/>
+                }/>
+                <Route path={"/profile"} element={
+                    <Profile openSearch={openSearch} infoPage={infoPage}/>
+                }/>
+                <Route path={"*"} element={
+                    <NotFound/>
+                }/>
+            </Routes>
         </>
     )
 }
 
-Root.render(<Body/>)
+Root.render(
+    <BrowserRouter>
+        <Body/>
+    </BrowserRouter>
+)
