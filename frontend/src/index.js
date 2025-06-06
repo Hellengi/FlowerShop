@@ -61,6 +61,9 @@ function Body() {
                     <Route path={"/chat"} element={
                         <Chat openSearch={openSearch} infoPage={infoPage}/>
                     }/>
+                    <Route path={"/chat/:id"} element={
+                        <Chat openSearch={openSearch} infoPage={infoPage}/>
+                    }/>
                     <Route path={"/login"} element={
                         <Login/>
                     }/>

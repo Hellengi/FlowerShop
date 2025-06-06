@@ -15,12 +15,12 @@ public class MessageEntity {
     @Column(name = "id_message")
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_to", referencedColumnName = "id_user", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity toUser;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_from", referencedColumnName = "id_user", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity fromUser;

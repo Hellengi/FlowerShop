@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
     @Query("SELECT COUNT(a) > 0 FROM AdminEntity a WHERE a.user = :user")
@@ -21,4 +23,5 @@ public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
     void deleteByEmail(String email);
 
     AdminEntity findByUser(UserEntity user);
+    Optional<AdminEntity> findByUserId(Long id);
 }

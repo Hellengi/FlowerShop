@@ -12,6 +12,7 @@ function Info({mode, openSearch, infoPage}) {
     const [title, setTitle] = useState('')
     const [amountInCart, setAmountInCart] = useState(0)
     const [seller, setSeller] = useState('Flower Shop')
+    const [sellerId, setSellerId] = useState(0)
     const navigate = useNavigate()
     useEffect(() => {
         void init()
@@ -27,6 +28,7 @@ function Info({mode, openSearch, infoPage}) {
         setInfo(data)
         setTitle(data.item.title)
         setSeller(data.item.seller.name)
+        setSellerId(data.item.seller.user.id)
         if (mode === "bouquet") {
             const response_2 = await fetch(`/api/cart/${mode}s/${id}`, {
                 method: 'GET',
@@ -91,7 +93,7 @@ function Info({mode, openSearch, infoPage}) {
                         ><span>Перейти в корзину</span></button>}
                         <button
                             className={"blue-button-3"}
-                            onClick={() => {navigate("/chat")}}
+                            onClick={() => {navigate(`/chat/${sellerId}`)}}
                         ><span>Написать продавцу</span></button>
                     </div>
                 </div>

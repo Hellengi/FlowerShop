@@ -1,9 +1,7 @@
 package com.github.hellengi.flowershop.controller;
 import java.util.*;
 
-import com.github.hellengi.flowershop.dto.CartBouquetDTO;
-import com.github.hellengi.flowershop.dto.CartCustomDTO;
-import com.github.hellengi.flowershop.dto.CustomFlowerDTO;
+import com.github.hellengi.flowershop.dto.*;
 import com.github.hellengi.flowershop.entity.*;
 import com.github.hellengi.flowershop.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -21,19 +19,22 @@ public class Controller {
     private final FlowerService flowerService;
     private final CustomService customService;
     private final CartService cartService;
+    private final MessageService messageService;
 
     public Controller(AuthService authService,
                       UserService userService,
                       BouquetService bouquetService,
                       FlowerService flowerService,
                       CustomService customService,
-                      CartService cartService) {
+                      CartService cartService,
+                      MessageService messageService) {
         this.authService = authService;
         this.userService = userService;
         this.bouquetService = bouquetService;
         this.flowerService = flowerService;
         this.customService = customService;
         this.cartService = cartService;
+        this.messageService = messageService;
     }
 
     @PostMapping("/auth/signup")
@@ -58,6 +59,11 @@ public class Controller {
     @GetMapping("/auth/status")
     public Boolean isLogged(HttpSession session) {
         return authService.isLogged(session);
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long id) {
+        return userService.getUser(id);
     }
 
     @GetMapping("/users/me")
@@ -184,14 +190,11 @@ public class Controller {
     @PatchMapping("/custom/current")
     public void setCustomTitle(@RequestParam(value = "title") String title,
                               HttpSession session) {
-        System.out.println(title);
-        System.out.println("334334");
         customService.setCustomTitle(title, session);
     }
 
     @DeleteMapping("/custom/current")
     public void deleteCurrentCustom(HttpSession session) {
-        System.out.println("111111111");
         customService.deleteCurrentCustom(session);
     }
 
@@ -247,6 +250,24 @@ public class Controller {
     public void removeCustomBouquetFromCart(@PathVariable("id") Long id,
                                             HttpSession session) {
         cartService.removeCustomBouquetFromCart(id, session);
+    }
+
+    @GetMapping("/messages")
+    public ResponseEntity<List<UserDTO>> getChats(HttpSession session) {
+        return messageService.getChats(session);
+    }
+
+    @GetMapping("/messages/{id}")
+    public ResponseEntity<List<MessageDTO>> getMessageHistory(@PathVariable("id") Long id,
+                                                           HttpSession session) {
+        return messageService.getMessageHistory(id, session);
+    }
+
+    @PostMapping("/messages/{id}")
+    public void sendMessage(@PathVariable("id") Long id,
+                            @RequestParam(value = "message") String message,
+                            HttpSession session) {
+        messageService.sendMessage(id, message, session);
     }
 
     @GetMapping("/")

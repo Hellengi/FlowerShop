@@ -1,6 +1,5 @@
 package com.github.hellengi.flowershop.repository;
 
-import com.github.hellengi.flowershop.entity.CartEntity;
 import com.github.hellengi.flowershop.entity.CustomEntity;
 import com.github.hellengi.flowershop.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

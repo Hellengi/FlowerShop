@@ -1,5 +1,6 @@
 package com.github.hellengi.flowershop.repository;
 
+import com.github.hellengi.flowershop.entity.AdminEntity;
 import com.github.hellengi.flowershop.entity.UserEntity;
 import com.github.hellengi.flowershop.entity.SellerEntity;
 import jakarta.transaction.Transactional;
@@ -8,6 +9,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface SellerRepository extends JpaRepository<SellerEntity, Long> {
@@ -23,4 +26,5 @@ public interface SellerRepository extends JpaRepository<SellerEntity, Long> {
     void deleteByEmail(String email);
 
     SellerEntity findByUser(UserEntity user);
+    Optional<SellerEntity> findByUserId(Long id);
 }

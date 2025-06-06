@@ -89,6 +89,7 @@ function User({style}) {
     return (
         <div className={`user ${logged ? 'user-logged' : 'user-not-logged'}`}>
             <ToCart style={style}/>
+            {logged && <ToChat style={style}/>}
             {logged && <ToProfile style={style}/>}
             {logged ? <LogOut style={style} exit={exit}/> : <LogIn style={style}/>}
         </div>
@@ -97,6 +98,10 @@ function User({style}) {
 function ToCart({style}) {
     const navigate = useNavigate()
     return <button className={`user volume-button ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/cart")}}><span>Корзина</span></button>
+}
+function ToChat({style}) {
+    const navigate = useNavigate()
+    return <button className={`user volume-button ${style === 'system' ? 'cyan-button' : 'default-button'}`} onClick={()=>{navigate("/chat")}}><span>Чат</span></button>
 }
 function LogIn({style}) {
     const navigate = useNavigate()
